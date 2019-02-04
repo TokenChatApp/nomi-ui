@@ -1,0 +1,21 @@
+{
+  "name": "nomi",
+  "authors": [
+    "Tedy Lim <tedyjd@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {
+    "bootstrap-less": "^3.3.4",
+    "bootstrap": "^4.2.1"
+  }
+}

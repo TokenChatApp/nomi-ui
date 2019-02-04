@@ -1,0 +1,35 @@
+@import "../bower_components/bootstrap/scss/functions";
+@import "../bower_components/bootstrap/scss/variables";
+@import "../bower_components/bootstrap/scss/mixins";
+
+
+// Bootstrap variable overrides
+// Read more: https://getbootstrap.com/docs/4.0/getting-started/theming/
+$body-bg: #ff472c;
+$body-color: #111;
+
+// Bootstrap breakpoint
+$grid-breakpoints: (
+        xs: 0,
+        sm: 576px,
+        md: 768px,
+        lg: 992px,
+        xl: 1200px
+);
+
+@import "../bower_components/bootstrap/scss/bootstrap";
+
+
+body{
+  .page{
+    &__main_page{
+      color: white;
+      // mixin. please read here for more breakpoint. ../bower_components/bootstrap/scss/mixins/_breakpoints.scss
+      @include media-breakpoint-between(sm, md) {
+        color: black;
+      }
+    }
+
+  }
+}
+
