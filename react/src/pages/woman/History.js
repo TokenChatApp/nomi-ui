@@ -16,13 +16,6 @@ const styles = theme => ({
     minHeight : '100vh',
     position : 'relative',
   },
-  title : {
-    textAlign : 'left',
-    marginTop : 10,
-    marginBottom : 0,
-    fontSize : '1rem',
-    fontWeight : 700
-  },
   container : {
     padding : '0 20px',
   },

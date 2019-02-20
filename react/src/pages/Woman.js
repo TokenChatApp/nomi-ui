@@ -11,6 +11,7 @@ import BookingComplete from './woman/BookingComplete';
 import BookingExtension from './woman/BookingExtension';
 import MyRequest from './woman/MyRequest';
 import History from './woman/History';
+import LiveHelp from './woman/LiveHelp';
 
 const ErrorPage = () => (<div>Error 404</div>);
 
@@ -29,6 +30,7 @@ class Woman extends Component {
             <Route exact path="/w/bookingExtension" component={BookingExtension}/>
             <Route exact path="/w/myRequest" component={MyRequest}/>
             <Route exact path="/w/history" component={History}/>
+            <Route exact path="/w/liveHelp" component={LiveHelp}/>
             <Route component={ErrorPage}/>
           </Switch>
         </Router>

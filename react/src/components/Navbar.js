@@ -122,7 +122,7 @@ const WomanButtons = props => {
       <MainButton {...props} onClick={handleRedirect('/w/myRequest')} >
         My Request
       </MainButton>
-      <MainButton {...props} onClick={handleRedirect('/w')} >
+      <MainButton {...props} onClick={handleRedirect('/w/history')} >
         History
       </MainButton>
       <MainButton {...props} onClick={handleRedirect('/w')} >
@@ -134,7 +134,7 @@ const WomanButtons = props => {
       <MainButton {...props} onClick={handleRedirect('/w')} >
         Privacy
       </MainButton>
-      <button {...props} style={helpStyle} onClick={handleRedirect('/w')}>!</button>
+      <button {...props} style={helpStyle} onClick={handleRedirect('/w/liveHelp')}>!</button>
       <h1 style={helpText}>Live Help</h1>
     </React.Fragment>
   );
@@ -191,7 +191,7 @@ class Navbar extends React.Component {
               : <a href="/" className={classes.title}>NOMI</a>
             }
             {title &&
-              <Typography component="h1" variant="h6" className={classNames(classes.title,classes.subTitle)}>
+              <Typography component="h1" variant="h6" className={classNames(classes.title,classes.subTitle)} noWrap>
                 {title}
               </Typography>
             }
