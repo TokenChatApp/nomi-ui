@@ -214,7 +214,7 @@ class SignupComplete extends React.Component {
           </MainButton>
         </div>
         <div className={classes.jobContainer}>
-        <Typography className={classNames(classes.title, classes.alignLeft)} variant="h6">
+        <Typography className={classNames(classes.title, classes.alignLeft)} variant="h6" onClick={() => this.setState({ redirect : '/w/pendingJob' })}>
           Pending Job 
         </Typography>
         

@@ -125,7 +125,7 @@ const WomanButtons = props => {
       <MainButton {...props} onClick={handleRedirect('/w/history')} >
         History
       </MainButton>
-      <MainButton {...props} onClick={handleRedirect('/w')} >
+      <MainButton {...props} onClick={handleRedirect('/w/helpCenter')} >
         Help Center
       </MainButton>
       <MainButton {...props} onClick={handleRedirect('/w')} >

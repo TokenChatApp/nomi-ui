@@ -18,6 +18,8 @@ import dummyMan from '../../images/dummyMan.png';
 
 import { womanColor } from '../../Constants';
 
+import NomiButton from '../NomiButton';
+
 const styles = theme => ({
   title : {
     marginTop : 30,
@@ -48,6 +50,16 @@ const styles = theme => ({
   },
   womanColor : {
     color : womanColor[1],
+  },
+  chatbox : {
+    height: 30,
+    margin: 'auto',
+    padding: 0,
+    display: 'block',
+    maxWidth: 100,
+    fontSize: '1rem',
+    fontWeight: 700,
+    marginRight: 0,
   }
 });
 
@@ -78,6 +90,11 @@ class ManListItem extends React.Component {
           <Typography component="span" >
             Timing : {timing}
           </Typography>
+          {chatbox &&
+          <NomiButton className={classes.chatbox}>
+            Chat
+          </NomiButton>
+          }
         </Grid>
       </Grid>
     );

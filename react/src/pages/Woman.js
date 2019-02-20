@@ -12,6 +12,8 @@ import BookingExtension from './woman/BookingExtension';
 import MyRequest from './woman/MyRequest';
 import History from './woman/History';
 import LiveHelp from './woman/LiveHelp';
+import HelpCenter from './woman/HelpCenter';
+import PendingJob from './woman/PendingJob';
 
 const ErrorPage = () => (<div>Error 404</div>);
 
@@ -31,6 +33,8 @@ class Woman extends Component {
             <Route exact path="/w/myRequest" component={MyRequest}/>
             <Route exact path="/w/history" component={History}/>
             <Route exact path="/w/liveHelp" component={LiveHelp}/>
+            <Route exact path="/w/helpCenter" component={HelpCenter}/>
+            <Route exact path="/w/pendingJob" component={PendingJob}/>
             <Route component={ErrorPage}/>
           </Switch>
         </Router>
