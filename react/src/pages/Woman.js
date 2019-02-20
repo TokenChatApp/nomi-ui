@@ -6,6 +6,10 @@ import Main from './woman/index.js';
 import Signup from './woman/Signup';
 import ProfilePicUploader from './woman/ProfilePicUploader';
 import SignupComplete from './woman/SignupComplete';
+import NewBooking from './woman/NewBooking';
+import BookingComplete from './woman/BookingComplete';
+import BookingExtension from './woman/BookingExtension';
+import MyRequest from './woman/MyRequest';
 
 const ErrorPage = () => (<div>Error 404</div>);
 
@@ -19,6 +23,10 @@ class Woman extends Component {
             <Route exact path="/w/signup" component={Signup}/>
             <Route exact path="/w/signup/profilePicUploader" component={ProfilePicUploader}/>
             <Route exact path="/w/signup/complete" component={SignupComplete}/>
+            <Route exact path="/w/newBooking" component={NewBooking}/>
+            <Route exact path="/w/bookingComplete" component={BookingComplete}/>
+            <Route exact path="/w/bookingExtension" component={BookingExtension}/>
+            <Route exact path="/w/myRequest" component={MyRequest}/>
             <Route component={ErrorPage}/>
           </Switch>
         </Router>

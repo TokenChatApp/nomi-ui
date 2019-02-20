@@ -7,7 +7,6 @@ import Navbar from '../../components/Navbar';
 import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
-import Badge from '@material-ui/core/Badge';
 
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -176,7 +175,7 @@ class SignupComplete extends React.Component {
           $100,000
         </Typography>
         <div style={{marginTop :20, position:'relative'}}>
-          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/signup'})}>
+          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/w/newBooking'})}>
           <div className={classes.customBadge}>10</div>
             New Booking
           </MainButton>
