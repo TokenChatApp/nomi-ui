@@ -8,6 +8,11 @@ import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
 import Select from '@material-ui/core/Select';
 
+import IconButton from '@material-ui/core/IconButton';
+import CloseIcon from '@material-ui/icons/Close';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import Checkbox from '@material-ui/core/Checkbox';
+
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
@@ -21,6 +26,7 @@ import penImg from '../../images/pen.png';
 import { womanColor } from '../../Constants';
 
 import MainButton from '../../components/MainButton';
+import NomiButton from '../../components/NomiButton';
 
 const styles = theme => ({
   root: {
@@ -62,6 +68,9 @@ const styles = theme => ({
   alignLeft : {
     textAlign : 'left',
     paddingLeft : 20
+  },
+  alignCenter : {
+    textAlign : 'center'
   },
   whiteColor : {
     color : 'white',
@@ -122,18 +131,42 @@ const styles = theme => ({
     margin : 'auto',
     fontSize : '1rem',
     fontWeight : 700
+  },
+  notification : {
+    backgroundColor : 'white',
+    position : 'fixed',
+    bottom : 0,
+    width : 450,
+  },
+  notiWrapper : {
+    borderTop: '1px solid #d6d6d6',
+    position : 'relative',
+    textAlign : 'left',
+    padding : 20,
+    paddingTop : 20,
+  },
+  close : {
+    position : 'absolute',
+    right : 0,
+    top : 0,
+    color : womanColor[1],
   }
 });
 
 class SignupComplete extends React.Component {
 
   state = {
-    redirect : null
+    redirect : null,
+    notification : true
+  }
+
+  handleCloseNotification = () => {
+    this.setState({ notification : false });
   }
 
   render() {
     const { classes } = this.props;
-    const { redirect } = this.state;
+    const { redirect, notification } = this.state;
 
     return (
       <div className={classes.root}>
@@ -253,6 +286,36 @@ class SignupComplete extends React.Component {
           </List>
 
         </div>
+
+        {/*Notification*/}
+        {notification &&
+          <div className={classes.notification} >
+            <div className={classes.notiWrapper}>
+              <IconButton onClick={this.handleCloseNotification} aria-label="Close" className={classes.close}>
+                <CloseIcon/>
+              </IconButton>
+              <h4>You have 3 new requests!</h4>
+              <h4>Enable auto accept?</h4>
+              <Grid container className={classes.alignCenter}>
+                <Grid item xs={6}>
+                  <NomiButton>
+                    Yes
+                  </NomiButton>
+                </Grid>
+                <Grid item xs={6}>
+                  <NomiButton>
+                    No
+                  </NomiButton>
+                </Grid>
+              </Grid>
+              <FormControlLabel
+                control={ <Checkbox /> }
+                label="Don't show this message again."
+              />
+            </div>
+          </div>
+        }
+
       </div>
     );
   }

@@ -186,7 +186,7 @@ class MyRequest extends React.Component {
               <NomiButton 
                 className={classes.button} 
                 gender="woman" 
-                onClick={() => this.setState({ redirect : '/w/bookingComplete' })}
+                onClick={() => this.setState({ redirect : '/w' })}
               >
                 Accept
               </NomiButton>
