@@ -172,7 +172,7 @@ class SignupComplete extends React.Component {
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
         <div className={classes.fixedNav}>
-          <Navbar title=""/>
+          <Navbar title="" />
         </div>
         <Grid container alignItems="center">
           <Grid item xs={6}>

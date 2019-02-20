@@ -28,7 +28,6 @@ const styles = theme => ({
   container : {
     padding : 20,
     textLeft : 'left',
-    cursor : 'pointer'
   },
   alignLeft : {
     textAlign : 'left'

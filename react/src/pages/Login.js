@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../components/Navbar';
 import TextField from '@material-ui/core/TextField';
@@ -60,11 +60,17 @@ const styles = theme => ({
 
 class Login extends React.Component {
 
+  state = {
+    redirect : null
+  }
+
   render() {
     const { classes } = this.props;
+    const { redirect } = this.state;
 
     return (
       <div className={classes.root}>
+        {redirect && <Redirect to={redirect}/>}
         <Navbar/>
         <Grid container>
           <Grid item xs={12}>
@@ -99,7 +105,7 @@ class Login extends React.Component {
             </Grid>
           </Grid>
           <Grid item xs={12}>
-            <MainButton className={classes.button}>
+            <MainButton className={classes.button} onClick={() => this.setState({ redirect : '/w'})}>
               <img className={classes.buttonImg} src={loginImg} alt="login"/>
               Login
             </MainButton>

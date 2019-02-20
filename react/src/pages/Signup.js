@@ -92,7 +92,8 @@ const GenderButton = props => {
         width  : imgSize,
         display : 'flex',
         margin : 'auto',
-        borderRadius : '50%'
+        borderRadius : '50%',
+        cursor : 'pointer'
       }}>
       <img 
         style={{
