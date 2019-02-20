@@ -81,7 +81,7 @@ class BookingComplete extends React.Component {
           Get ready for your date! 
         </Typography>
         <div>
-          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/w'})}>
+          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/w/bookingExtension'})}>
             Start Chatting
           </MainButton>
           <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/w'})}>
