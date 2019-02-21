@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { withStyles, Redirect } from '@material-ui/core/styles';
-import { NavLink } from 'react-router-dom';
+import { withStyles } from '@material-ui/core/styles';
+import { NavLink, Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
 import TextField from '@material-ui/core/TextField';
@@ -79,7 +79,7 @@ class SignupComplete extends React.Component {
           Get ready for your date! 
         </Typography>
         <div>
-          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/signup'})}>
+          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/m'})}>
             START
           </MainButton>
         </div>

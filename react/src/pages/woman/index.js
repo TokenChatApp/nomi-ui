@@ -153,7 +153,7 @@ const styles = theme => ({
   }
 });
 
-class SignupComplete extends React.Component {
+class WomanLanding extends React.Component {
 
   state = {
     redirect : null,
@@ -321,9 +321,9 @@ class SignupComplete extends React.Component {
   }
 }
 
-SignupComplete.propTypes = {
+WomanLanding.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(SignupComplete);
+export default withStyles(styles)(WomanLanding);
 
