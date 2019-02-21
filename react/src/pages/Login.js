@@ -33,7 +33,7 @@ const styles = theme => ({
     color : 'white!important'
   },
   form : {
-    minHeight : 500
+    minHeight : 300
   },
   button : {
     fontWeight : 700,
@@ -48,6 +48,8 @@ const styles = theme => ({
     color : '#ff268a',
     position : 'absolute',
     bottom : 0, 
+    left : 0,
+    right : 0,
     width : '100%',
     backgroundColor : 'white',
     padding : 15,

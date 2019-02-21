@@ -14,9 +14,11 @@ import Avatar from '@material-ui/core/Avatar';
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import CheckCircleUnchecked from '@material-ui/icons/RadioButtonUnchecked';
 
-import dummyMan from '../../images/dummyMan.png';
+import dummyGirl from '../../images/dummyGirl.png';
 
-import { womanColor } from '../../Constants';
+import { manColor } from '../../Constants';
+
+import NomiButton from '../NomiButton';
 
 const styles = theme => ({
   title : {
@@ -25,10 +27,7 @@ const styles = theme => ({
   },
   container : {
     padding : 20,
-    paddingLeft : 0,
-    paddingRight : 0,
     textLeft : 'left',
-    cursor : 'pointer'
   },
   alignLeft : {
     textAlign : 'left'
@@ -37,7 +36,6 @@ const styles = theme => ({
     textAlign : 'center'
   },
   jobAvatar : {
-    maxWidth : '100%',
     width   : 100,
     height  : 100,
   },
@@ -45,23 +43,34 @@ const styles = theme => ({
     color : 'white',
     fontWeight : 700
   },
-  manName : {
+  womanName : {
     fontSize : '1.5rem',
     fontWeight : 700,
   },
-  womanColor : {
-    color : womanColor[1],
+  manColor : {
+    color : manColor[1],
+  },
+  more : {
+    backgroundColor : manColor[1],
+    borderRadius : 33,
+    color : 'white',
+    padding : 7,
+    paddingBottom : 11,
+    paddingTop : 0,
+    fontSize : 18,
+    fontWeight : 900,
+    cursor : 'pointer'
   }
 });
 
-class ManListItemWithCheckBox extends React.Component {
+class WomanListItem extends React.Component {
 
   render() {
 
-    let { classes, img, name, location, date, timing, checked } = this.props;
+    let { classes, img, name, age, rate, timing } = this.props;
 
     // for demo purpose
-    img = dummyMan;
+    img = dummyGirl;
 
     return (
       <Grid container alignItems="center" className={classes.container} {...this.props}>
@@ -69,33 +78,30 @@ class ManListItemWithCheckBox extends React.Component {
           <Avatar alt="job avatar" src={img} className={classes.jobAvatar}/>
         </Grid>
         <Grid item xs={6} className={classes.alignLeft}>
-          <Typography component="span" className={classes.manName}>
+          <Typography component="span" className={classes.womanName}>
             {name}
           </Typography>
           <Typography component="span">
-            Location : {location}
+            Age : {age}
           </Typography>
           <Typography component="span" >
-            Date : {date}
+            Rate : {rate}
           </Typography>
           <Typography component="span" >
             Timing : {timing}
           </Typography>
         </Grid>
-        <Grid item xs={2} className={classes.alignCenter}>
-          {checked 
-          ? <CheckCircle className={classes.womanColor}/>
-          : <CheckCircleUnchecked className={classes.womanColor}/>
-          }
+        <Grid item xs={2}>
+          <span className={classes.more}>...</span>
         </Grid>
       </Grid>
     );
   }
 }
 
-ManListItemWithCheckBox.propTypes = {
+WomanListItem.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(ManListItemWithCheckBox);
+export default withStyles(styles)(WomanListItem);
 

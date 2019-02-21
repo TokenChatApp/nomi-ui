@@ -4,6 +4,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 
 import Landing from './man/index';
 import Signup from './man/Signup';
+import MyBookings from './man/MyBookings';
 import DiscoverSelection from './man/DiscoverSelection';
 import ProfilePicUploader from './man/ProfilePicUploader';
 import SignupComplete from './man/SignupComplete';
@@ -17,6 +18,7 @@ class Man extends Component {
         <Router>
           <Switch>
             <Route exact path="/m" component={Landing}/>
+            <Route exact path="/m/myBookings" component={MyBookings}/>
             <Route exact path="/m/discoverSelection" component={DiscoverSelection}/>
             <Route exact path="/m/signup" component={Signup}/>
             <Route exact path="/m/signup/profilePicUploader" component={ProfilePicUploader}/>

@@ -137,6 +137,7 @@ const styles = theme => ({
     position : 'fixed',
     bottom : 0,
     width : 450,
+    maxWidth : '100vw',
   },
   notiWrapper : {
     borderTop: '1px solid #d6d6d6',

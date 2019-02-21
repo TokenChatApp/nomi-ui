@@ -52,9 +52,8 @@ const styles = theme => ({
     alignSelf: 'flex-end'
   },
   redirectButton : {
-    margin : 'auto',
-    marginTop     : 20,
-    marginBottom  : 20,
+    marginLeft : 'auto',
+    marginRight : 'auto',
     display : 'block',
     fontWeight: 600
   },
@@ -92,7 +91,7 @@ const ManButtons = props => {
 
   return (
     <React.Fragment>
-      <MainButton {...props} onClick={handleRedirect('/w')} >
+      <MainButton {...props} onClick={handleRedirect('/m/myBookings')} >
         My Bookings
       </MainButton>
       <MainButton {...props} onClick={handleRedirect('/w')} >
