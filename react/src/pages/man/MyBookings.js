@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { NavLink, Redirect } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
 import Grid from '@material-ui/core/Grid';
 
@@ -43,10 +42,10 @@ const Divider = props => {
     fontWeight : 700,
   };
   return (
-    <Grid item xs={12}>
-      <span style={style}>{date}</span>
-      <hr style={{marginTop : 18}} />
-    </Grid>
+      <Grid item xs={12}>
+        <span style={style}>{date}</span>
+        <hr style={{marginTop : 18}} />
+      </Grid>
   );
 }
 
@@ -61,42 +60,42 @@ class MyBookings extends React.Component {
     const { redirect } = this.state;
 
     return (
-      <div className={classes.root}>
-        {redirect && <Redirect to={redirect}/>}
-        <Navbar title="My Bookings" gender="man" backTo="/m"/>
+        <div className={classes.root}>
+          {redirect && <Redirect to={redirect}/>}
+          <Navbar title="My Bookings" gender="man" backTo="/m"/>
 
-        <button>Confirmed</button>
-        <button>Pending</button>
+          <button>Confirmed</button>
+          <button>Pending</button>
 
-        <Grid container className={classes.container}>
+          <Grid container className={classes.container}>
             <Divider date="03 Jan 2019"/>
             {
               bookingList.map((bookingItem, index) => (
-                <Grid item xs={12}>
-                  <WomanListItem
-                    name={bookingItem.name}
-                    age={bookingItem.age}
-                    rate={bookingItem.rate}
-                    timing={bookingItem.timing}
-                  />
-                </Grid>
+                  <Grid item xs={12}>
+                    <WomanListItem
+                        name={bookingItem.name}
+                        age={bookingItem.age}
+                        rate={bookingItem.rate}
+                        timing={bookingItem.timing}
+                    />
+                  </Grid>
               ))
             }
             <Divider date="04 Jan 2019"/>
             {
               bookingList.map((bookingItem, index) => (
-                <Grid item xs={12}>
-                  <WomanListItem
-                    name={bookingItem.name}
-                    age={bookingItem.age}
-                    rate={bookingItem.rate}
-                    timing={bookingItem.timing}
-                  />
-                </Grid>
+                  <Grid item xs={12}>
+                    <WomanListItem
+                        name={bookingItem.name}
+                        age={bookingItem.age}
+                        rate={bookingItem.rate}
+                        timing={bookingItem.timing}
+                    />
+                  </Grid>
               ))
             }
-        </Grid>
-      </div>
+          </Grid>
+        </div>
     );
   }
 }

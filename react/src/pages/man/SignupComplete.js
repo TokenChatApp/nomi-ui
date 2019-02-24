@@ -4,13 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { NavLink, Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-
 import heartImgSrc from '../../images/heart.png';
-
 import { manColor } from '../../Constants';
-
 import MainButton from '../../components/MainButton';
 
 const grey = '#585858';
@@ -60,30 +55,30 @@ class SignupComplete extends React.Component {
     const { redirect } = this.state;
 
     return (
-      <div className={classes.root}>
-        {redirect && <Redirect to={redirect}/>}
-        <div className={classes.fixedNav}>
-          <Navbar title=""/>
+        <div className={classes.root}>
+          {redirect && <Redirect to={redirect}/>}
+          <div className={classes.fixedNav}>
+            <Navbar title=""/>
+          </div>
+          <img className={classes.img} src={heartImgSrc}/>
+          <Typography className={classes.title} variant="h6">
+            Get ready for your date!
+          </Typography>
+          <Typography className={classes.title}>
+            Get ready for your date!
+            Get ready for your date!
+            Get ready for your date!
+            Get ready for your date!
+            Get ready for your date!
+            Get ready for your date!
+            Get ready for your date!
+          </Typography>
+          <div>
+            <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/m'})}>
+              START
+            </MainButton>
+          </div>
         </div>
-        <img className={classes.img} src={heartImgSrc}/>
-        <Typography className={classes.title} variant="h6">
-          Get ready for your date!
-        </Typography>
-        <Typography className={classes.title}>
-          Get ready for your date! 
-          Get ready for your date! 
-          Get ready for your date! 
-          Get ready for your date! 
-          Get ready for your date! 
-          Get ready for your date! 
-          Get ready for your date! 
-        </Typography>
-        <div>
-          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/m'})}>
-            START
-          </MainButton>
-        </div>
-      </div>
     );
   }
 }

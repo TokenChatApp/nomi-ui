@@ -7,27 +7,19 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Chip from '@material-ui/core/Chip';
 import Avatar from '@material-ui/core/Avatar';
-
 import maleIcon from '../images/male.png';
 import femaleIcon from '../images/female.png';
-
 import maleLogin from '../images/male/loginMan.png';
 import femaleLogin from '../images/female/loginGirl.png';
-
 import maleSignup from '../images/male/signupMan.png';
 import femaleSignup from '../images/female/signupGirl.png';
-
 import dummyGirl from '../images/girl.jpg';
 import dummyMan from '../images/man.png';
-
 import stepsIcon from '../images/male/3stepsMan.png';
 import matchesIcon from '../images/male/200matchMan.png';
 import usersIcon from '../images/male/800usersMan.png';
-
 import MainButton from '../components/MainButton';
-
 import { manColor, womanColor } from '../Constants';
-
 const menIconColor = manColor[1];
 const womenIconColor = womanColor[1];
 
@@ -212,3 +204,4 @@ Landing.propTypes = {
 
 export default withStyles(styles)(Landing);
 
+kL-B9}j^Wf-}

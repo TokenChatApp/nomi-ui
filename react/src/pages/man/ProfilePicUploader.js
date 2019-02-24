@@ -1,21 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-
 import captureSrc from '../../images/camera.png';
 import chooseSrc from '../../images/upload.png';
-
-import imgSignup from '../../images/signupWhite.png';
-
 import { manColor } from '../../Constants';
-
-import NomiButton from '../../components/NomiButton';
 import MainButton from '../../components/MainButton';
 
 const grey = '#585858';
@@ -46,7 +35,7 @@ const styles = theme => ({
 });
 
 const Divider = () => {
- 
+
   const inlineStyle = {
     display : 'inline-block',
     width : '30%',
@@ -56,18 +45,18 @@ const Divider = () => {
   };
 
   return (
-    <div style={{
-      marginTop     : 30,
-      marginBottom  : 30,
-    }}>     
-      <hr style={inlineStyle}/>
-      <span style={{
-        padding : 10,
-        fontSize: 20,
-        color : 'white'
-      }}>or</span>
-      <hr style={inlineStyle}/>
-    </div>
+      <div style={{
+        marginTop     : 30,
+        marginBottom  : 30,
+      }}>
+        <hr style={inlineStyle}/>
+        <span style={{
+          padding : 10,
+          fontSize: 20,
+          color : 'white'
+        }}>or</span>
+        <hr style={inlineStyle}/>
+      </div>
   );
 };
 
@@ -83,20 +72,20 @@ const textStyle = {
 const CapturePhoto = props => {
 
   return (
-    <div {...props}>
-      <img style={imgStyle} src={captureSrc}/>
-      <h6 style={textStyle}>Capture a photo</h6>
-    </div>    
+      <div {...props}>
+        <img style={imgStyle} src={captureSrc}/>
+        <h6 style={textStyle}>Capture a photo</h6>
+      </div>
   );
 }
 
 const ChoosePhoto = props => {
 
   return (
-    <div {...props}>
-      <img style={imgStyle} src={chooseSrc}/>
-      <h6 style={textStyle}>Choose file to upload</h6>
-    </div>    
+      <div {...props}>
+        <img style={imgStyle} src={chooseSrc}/>
+        <h6 style={textStyle}>Choose file to upload</h6>
+      </div>
   );
 }
 
@@ -106,26 +95,26 @@ class ProfilePicUploader extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
-        <div className={classes.fixedNav}>
-          <Navbar title="SIGN UP"/>
+        <div className={classes.root}>
+          <div className={classes.fixedNav}>
+            <Navbar title="SIGN UP"/>
+          </div>
+          <CapturePhoto/>
+          <Divider/>
+          <ChoosePhoto/>
+          <Divider/>
+          <div>
+            <MainButton className={classes.button}>
+              URL
+            </MainButton>
+            <MainButton className={classes.button}>
+              Google Drive
+            </MainButton>
+            <MainButton className={classes.button}>
+              Dropbox
+            </MainButton>
+          </div>
         </div>
-        <CapturePhoto/>
-        <Divider/>
-        <ChoosePhoto/>
-        <Divider/>
-        <div>
-          <MainButton className={classes.button}>
-            URL
-          </MainButton>
-          <MainButton className={classes.button}>
-            Google Drive
-          </MainButton>
-          <MainButton className={classes.button}>
-            Dropbox
-          </MainButton>
-        </div>
-      </div>
     );
   }
 }

@@ -9,6 +9,7 @@ import MenuIcon from '@material-ui/icons/Menu';
 import Dialog from '@material-ui/core/Dialog';
 import CloseIcon from '@material-ui/icons/Close';
 import Slide from '@material-ui/core/Slide';
+import AuthenticationService from '../services/AuthenticationService';
 
 import classNames from 'classnames';
 
@@ -88,7 +89,7 @@ const helpText = {
 const ManButtons = props => {
 
   const { handleRedirect } = props;
-
+  const { handleLogout } = props
   return (
     <React.Fragment>
       <MainButton {...props} onClick={handleRedirect('/m/myBookings')} >
@@ -106,6 +107,9 @@ const ManButtons = props => {
       <MainButton {...props} onClick={handleRedirect('/w')} >
         Privacy
       </MainButton>
+      <MainButton {...props} onClick={handleLogout}>
+        Logout
+      </MainButton>
       <button {...props} style={helpStyle} onClick={handleRedirect('/w')}>!</button>
       <h1 style={helpText}>Live Help</h1>
     </React.Fragment>
@@ -115,6 +119,7 @@ const ManButtons = props => {
 const WomanButtons = props => {
 
   const { handleRedirect } = props;
+  const { handleLogout } = props;
 
   return (
     <React.Fragment>
@@ -132,6 +137,9 @@ const WomanButtons = props => {
       </MainButton>
       <MainButton {...props} onClick={handleRedirect('/w')} >
         Privacy
+      </MainButton>
+      <MainButton {...props} onClick={handleLogout}>
+        Logout
       </MainButton>
       <button {...props} style={helpStyle} onClick={handleRedirect('/w/liveHelp')}>!</button>
       <h1 style={helpText}>Live Help</h1>
@@ -156,6 +164,13 @@ class Navbar extends React.Component {
 
   handleRedirect = url => () => {
     this.setState({ redirect : url })
+  }
+
+  handleLogout = () =>{
+    let that = this;
+    AuthenticationService.logout().then(function(){
+      that.setState({ redirect : '/login'});
+    });
   }
 
   // this.props :
@@ -215,8 +230,8 @@ class Navbar extends React.Component {
             <CloseIcon/>
           </IconButton>
           {gender === 'man'
-            ? <ManButtons className={classNames(classes.redirectButton, classes.manColor)} handleRedirect={this.handleRedirect} />
-            : <WomanButtons className={classNames(classes.redirectButton, classes.womanColor)} handleRedirect={this.handleRedirect} />
+            ? <ManButtons className={classNames(classes.redirectButton, classes.manColor)} handleRedirect={this.handleRedirect} handleLogout={this.handleLogout} />
+            : <WomanButtons className={classNames(classes.redirectButton, classes.womanColor)} handleRedirect={this.handleRedirect} handleLogout={this.handleLogout} />
           }
         </Dialog>
       </div>

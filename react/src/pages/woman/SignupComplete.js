@@ -4,13 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { NavLink, Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-
 import heartImgSrc from '../../images/heart.png';
-
 import { womanColor } from '../../Constants';
-
 import MainButton from '../../components/MainButton';
 
 const grey = '#585858';

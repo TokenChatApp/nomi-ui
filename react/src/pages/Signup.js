@@ -4,11 +4,8 @@ import { withStyles } from '@material-ui/core/styles';
 import { NavLink, Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../components/Navbar';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
-
 import { manColor, womanColor } from '../Constants';
-
 import maleIcon from '../images/male.png';
 import femaleIcon from '../images/female.png';
 
@@ -130,11 +127,9 @@ class Signup extends React.Component {
         </Typography>
         <Grid container className={classes.container}>
           <Grid item xs={12}>
-
             <ManButton onClick={ () => this.setState({ redirect : '/m/signup' })}/>
             <Divider/>
             <GirlButton onClick={ () => this.setState({ redirect : '/w/signup' })}/>
-
           </Grid>
         </Grid>
       </div>

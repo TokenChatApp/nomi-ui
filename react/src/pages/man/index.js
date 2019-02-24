@@ -11,6 +11,7 @@ import { manColor } from '../../Constants';
 import dummyGirl from '../../images/dummyGirl.png';
 
 import NomiButton from '../../components/NomiButton';
+import {Backend} from "../../services/Backend";
 
 const styles = theme => ({
   root: {
@@ -73,9 +74,13 @@ const womanList = [
 
 class ManLanding extends React.Component {
 
-  state = {
-    redirect : '',
-    womanList : womanList,
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect : '',
+      womanList : womanList,
+      user: Backend.user,
+    };
   }
 
   render() {

@@ -1,4 +1,5 @@
 import React from 'react';
+import { Backend } from '../../services/Backend';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { NavLink, Redirect } from 'react-router-dom';
@@ -156,9 +157,13 @@ const styles = theme => ({
 
 class WomanLanding extends React.Component {
 
-  state = {
-    redirect : null,
-    notification : true
+  constructor(props) {
+    super(props);
+    this.state = {
+      redirect : null,
+      notification : true,
+      user: Backend.user,
+    };
   }
 
   handleCloseNotification = () => {
@@ -167,7 +172,7 @@ class WomanLanding extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { redirect, notification } = this.state;
+    const { redirect, notification, user } = this.state;
 
     return (
       <div className={classes.root}>

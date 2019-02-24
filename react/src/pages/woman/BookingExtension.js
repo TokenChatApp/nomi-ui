@@ -4,11 +4,7 @@ import { withStyles } from '@material-ui/core/styles';
 import { NavLink, Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-
 import { womanColor } from '../../Constants';
-
 import MainButton from '../../components/MainButton';
 
 const grey = '#585858';
@@ -56,23 +52,23 @@ class BookingExtension extends React.Component {
     const { redirect } = this.state;
 
     return (
-      <div className={classes.root}>
-        {redirect && <Redirect to={redirect}/>}
-        <div className={classes.fixedNav}>
-          <Navbar title=""/>
+        <div className={classes.root}>
+          {redirect && <Redirect to={redirect}/>}
+          <div className={classes.fixedNav}>
+            <Navbar title=""/>
+          </div>
+          <Typography className={classes.title} variant="h5">
+            Haruto want to make an extension, do you want to accept it?
+          </Typography>
+          <div>
+            <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/w'})}>
+              Accept
+            </MainButton>
+            <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/w'})}>
+              Reject
+            </MainButton>
+          </div>
         </div>
-        <Typography className={classes.title} variant="h5">
-          Haruto want to make an extension, do you want to accept it?
-        </Typography>
-        <div>
-          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/w'})}>
-            Accept
-          </MainButton>
-          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/w'})}>
-            Reject
-          </MainButton>
-        </div>
-      </div>
     );
   }
 }

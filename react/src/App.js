@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import { Switch, Route } from 'react-router';
-import { BrowserRouter as Router } from "react-router-dom";
-
+import { AuthRoute } from './services/routes/AuthRoute';
+import { RedirectRoute } from './services/routes/RedirectRoute';
+//import { Switch, Route } from 'react-router';
+import { Route, Switch } from "react-router-dom";
 import './App.css';
 
 import Login from './pages/Login';
@@ -24,20 +25,24 @@ const styles = {
 };
 
 class App extends Component {
+
+  constructor(pros){
+    super(pros);
+
+  }
+
   render() {
     return (
       <div className="App" style={{ minHeight: '100vh'}}>
         <div style={styles}>
-          <Router>
             <Switch>
-              <Route exact path="/" component={Landing}/>
-              <Route exact path="/login" component={Login}/>
-              <Route exact path="/signup" component={Signup}/>
+              <RedirectRoute exact path="/" component={Landing}/>
+              <AuthRoute exact path="/login" component={Login}/>
+              <AuthRoute exact path="/signup" component={Signup}/>
               <Route path="/m" component={Man}/>
               <Route path="/w" component={Woman}/>
               <Route component={ErrorPage}/>
             </Switch>
-          </Router>
         </div>
       </div>
     );

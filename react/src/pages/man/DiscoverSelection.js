@@ -4,12 +4,9 @@ import { withStyles } from '@material-ui/core/styles';
 import { NavLink, Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
-import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import classNames from 'classnames';
-
 import { manColor } from '../../Constants';
-
 import requestIcon from '../../images/male/request.png';
 import discoverIcon from '../../images/male/radar.png';
 
@@ -57,7 +54,7 @@ const styles = theme => ({
 });
 
 const Divider = () => {
- 
+
   const inlineStyle = {
     display : 'inline-block',
     width : '30%',
@@ -67,17 +64,17 @@ const Divider = () => {
   };
 
   return (
-    <div style={{
-      marginTop     : 30,
-      marginBottom  : 30,
-    }}>     
-      <hr style={inlineStyle}/>
-      <span style={{
-        padding : 10,
-        fontSize: 20,
-      }}>or</span>
-      <hr style={inlineStyle}/>
-    </div>
+      <div style={{
+        marginTop     : 30,
+        marginBottom  : 30,
+      }}>
+        <hr style={inlineStyle}/>
+        <span style={{
+          padding : 10,
+          fontSize: 20,
+        }}>or</span>
+        <hr style={inlineStyle}/>
+      </div>
   );
 };
 
@@ -93,34 +90,34 @@ class DiscoverSelection extends React.Component {
     const { redirect } = this.state;
 
     return (
-      <div className={classes.root}>
-        {redirect && <Redirect to={redirect}/>}
-        <Navbar backTo="/m"/>
-        <Typography className={classes.label}>
-          How would you find your partner ?
-        </Typography>
-        <Grid container className={classes.container}>
-          <Grid item xs={12}>
+        <div className={classes.root}>
+          {redirect && <Redirect to={redirect}/>}
+          <Navbar backTo="/m"/>
+          <Typography className={classes.label}>
+            How would you find your partner ?
+          </Typography>
+          <Grid container className={classes.container}>
+            <Grid item xs={12}>
 
-            <div onClick={ () => this.setState({ redirect : '/m/signup' })}>
-               <div className={classNames(classes.request, classes.imgContainer)}>
+              <div onClick={ () => this.setState({ redirect : '/m/signup' })}>
+                <div className={classNames(classes.request, classes.imgContainer)}>
                   <img className={classes.img} src={requestIcon} />
                 </div>
-              <h3>Make a request</h3>
-            </div>
+                <h3>Make a request</h3>
+              </div>
 
-            <Divider/>
+              <Divider/>
 
-            <div onClick={ () => this.setState({ redirect : '/m/signup' })}>
-               <div className={classNames(classes.discover, classes.imgContainer)}>
+              <div onClick={ () => this.setState({ redirect : '/m/signup' })}>
+                <div className={classNames(classes.discover, classes.imgContainer)}>
                   <img className={classes.img} src={discoverIcon} />
                 </div>
-              <h3>Discover nearby</h3>
-            </div>
+                <h3>Discover nearby</h3>
+              </div>
 
+            </Grid>
           </Grid>
-        </Grid>
-      </div>
+        </div>
     );
   }
 }

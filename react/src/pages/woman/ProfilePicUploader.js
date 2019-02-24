@@ -1,21 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
-import TextField from '@material-ui/core/TextField';
-import Grid from '@material-ui/core/Grid';
-import Button from '@material-ui/core/Button';
-
 import captureSrc from '../../images/camera.png';
 import chooseSrc from '../../images/upload.png';
-
-import imgSignup from '../../images/signupWhite.png';
-
 import { womanColor } from '../../Constants';
-
-import NomiButton from '../../components/NomiButton';
 import MainButton from '../../components/MainButton';
 
 const grey = '#585858';
