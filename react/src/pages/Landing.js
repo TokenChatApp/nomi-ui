@@ -203,5 +203,3 @@ Landing.propTypes = {
 };
 
 export default withStyles(styles)(Landing);
-
-kL-B9}j^Wf-}

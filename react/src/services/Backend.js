@@ -3,7 +3,8 @@ import Cookies from 'js-cookie';
 import AuthenticationService from './AuthenticationService';
 
 export const Backend = {
-    apiUrl: "http://playground.nomi.com/api/v0/",
+    apiUrl: "http://api.nomi.gm.design/api/v0/",
+    //apiUrl: "http://playground.nomi.com/api/v0/",
     authUrl: "auth/",
     profileUrl: "profile/",
     user: {},
