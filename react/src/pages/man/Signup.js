@@ -21,9 +21,10 @@ const styles = theme => ({
     position : 'relative',
   },
   label : {
-    marginTop : 40,
-    fontSize : '2rem',
-    fontWeight : 700
+    //marginTop : 40,
+    //fontSize : '14px',
+    fontWeight : 700,
+    color : grey,
   },
   description : {
     fontSize : '1rem',
@@ -40,10 +41,6 @@ const styles = theme => ({
   input : {
     color : grey
   },
-  label : {
-    color : grey,
-    fontWeight : 700
-  },
 });
 
 class Signup extends React.Component {
@@ -54,7 +51,7 @@ class Signup extends React.Component {
     Age: null,
     MobileNumber: null,
     Username: null,
-    EmailAddress: null,
+    Email: null,
     Password: null,
     errors: {},
   };
