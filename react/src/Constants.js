@@ -15,7 +15,7 @@ export const ethnicityPickList = {
     "Peruvians" : "Peruvians",
     "Others" : "Others",
 };
-export const prefecturePickList = {
+export const statePickList = {
     "Hokkaido" : "Hokkaido",
     "Aomori" : "Aomori",
     "Iwate" : "Iwate",

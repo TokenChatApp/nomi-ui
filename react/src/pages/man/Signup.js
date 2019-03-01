@@ -48,25 +48,18 @@ const styles = theme => ({
 
 class Signup extends React.Component {
 
-  constructor(props) {
-    super(props);
+  state = {
+    redirect: '',
+    Gender: 'Men',
+    Age: null,
+    MobileNumber: null,
+    Username: null,
+    EmailAddress: null,
+    Password: null,
+    errors: {},
+  };
 
-    this.state = {
-      redirect: '',
-      Gender: 'Men',
-      Age: '',
-      MobileNumber: '',
-      Username: null,
-      EmailAddress: '',
-      Password: '',
-    };
-
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-
-  }
-
-  handleInputChange(event) {
+  handleInputChange = (event => {
     const target = event.target;
     let value = "";
     if (target.type === 'checkbox') {
@@ -83,30 +76,25 @@ class Signup extends React.Component {
     this.setState({
       [name]: value
     });
-  }
+  });
 
-  handleFormSubmit(event) {
-    let that = this;
+  handleFormSubmit = (event => {
     let response = AuthenticationService.signUp(this.state);
-    response.then(res => {
-      if (res.status) {
-        AuthenticationService.profile().then(function(r){
-          Backend.setProfile(r);
-          if (r.Gender === "Men"){
-            that.setState({ redirect : '/m/signup/complete'});
-          }
-          if (r.Gender === "Women"){
-            that.setState({ redirect : '/w/signup/complete'});
-          }
+    response.then(r => {
+      this.setState({ errors: r.errors });
+      if (r.status) {
+        AuthenticationService.profile().then(sub_r => {
+          Backend.setProfile(sub_r);
+          this.setState({ redirect: sub_r.Gender === "Men" ? '/m/signup/complete' : '/w/signup/complete' });
         });
       }
     });
     event.preventDefault();
-  }
+  });
 
   render() {
     const { classes } = this.props;
-    const { redirect } = this.state;
+    const { redirect, errors } = this.state;
 
     return (
         <div className={classes.root}>
@@ -129,6 +117,8 @@ class Signup extends React.Component {
                     name="Username"
                     onChange={this.handleInputChange}
                     InputLabelProps={{ shrink: true, className : classes.label }}
+                    error={errors.hasOwnProperty("Username")}
+                    helperText={errors.hasOwnProperty("Username") && errors["Username"]}
                 />
               </Grid>
               <Grid item xs={4}>
@@ -143,6 +133,8 @@ class Signup extends React.Component {
                     name="Age"
                     onChange={this.handleInputChange}
                     InputLabelProps={{ shrink: true, className : classes.label }}
+                    error={errors.hasOwnProperty("Age")}
+                    helperText={errors.hasOwnProperty("Age") && errors["Age"]}
                 />
               </Grid>
               <Grid item xs={8}>
@@ -157,6 +149,8 @@ class Signup extends React.Component {
                     name="MobileNumber"
                     onChange={this.handleInputChange}
                     InputLabelProps={{ shrink: true, className : classes.label }}
+                    error={errors.hasOwnProperty("MobileNumber")}
+                    helperText={errors.hasOwnProperty("MobileNumber") && errors["MobileNumber"]}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -171,6 +165,8 @@ class Signup extends React.Component {
                     name="Email"
                     onChange={this.handleInputChange}
                     InputLabelProps={{ shrink: true, className : classes.label }}
+                    error={errors.hasOwnProperty("Email")}
+                    helperText={errors.hasOwnProperty("Email") && errors["Email"]}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -186,6 +182,8 @@ class Signup extends React.Component {
                     name="Password"
                     onChange={this.handleInputChange}
                     InputLabelProps={{ shrink: true, className : classes.label }}
+                    error={errors.hasOwnProperty("Password")}
+                    helperText={errors.hasOwnProperty("Password") && errors["Password"]}
                 />
               </Grid>
               <Grid item xs={12}>

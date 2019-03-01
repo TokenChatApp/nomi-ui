@@ -12,7 +12,7 @@ import FormControl from '@material-ui/core/FormControl';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
 import imgSignup from '../../images/signupWhite.png';
-import women, {ethnicityPickList, prefecturePickList} from '../../Constants';
+import women, {ethnicityPickList, statePickList} from '../../Constants';
 import ProfilePicHolder from '../../components/ProfilePicHolder';
 import NomiButton from '../../components/NomiButton';
 import MenuItem from '@material-ui/core/MenuItem';
@@ -95,40 +95,32 @@ const Dot = props => {
 
 class Signup extends React.Component {
 
-  constructor(props) {
-    super(props);
-
-    this.state = {
-      redirect : '',
-      step : '1',
-      Gender: 'Women',
-      Age: '',
-      MobileNumber: '',
-      Username: null,
-      EmailAddress: '',
-      Password: '',
-      Prefecture: '',
-      RatePerHour: '',
-      PostalCode: '',
-      City: '',
-      Height: '',
-      Weight: '',
-      SpokenLanguage: [],
-      OtherSpokenLanguage: '',
-      Ethnicity: '',
-    };
-
-    //this.handleChange = this.handleChange.bind(this);
-    this.handleFormSubmit = this.handleFormSubmit.bind(this);
-    this.handleInputChange = this.handleInputChange.bind(this);
-
-  }
+  state = {
+    redirect : '',
+    step : '1',
+    Gender: 'Women',
+    Age: null,
+    MobileNumber: null,
+    Username: null,
+    EmailAddress: null,
+    Password: null,
+    State: null,
+    RatePerHour: null,
+    PostalCode: null,
+    City: null,
+    Height: null,
+    Weight: null,
+    SpokenLanguage: [],
+    OtherSpokenLanguage: null,
+    Ethnicity: null,
+    errors: {},
+  };
 
   // handleChange = type => event => {
   //   this.setState({ [type] : event.target.value });
   // }
 
-  handleInputChange(event) {
+  handleInputChange = (event => {
     const target = event.target;
     let value = "";
     if (target.type === 'checkbox') {
@@ -145,31 +137,26 @@ class Signup extends React.Component {
     this.setState({
       [name]: value
     });
-  }
+  });
 
-  handleFormSubmit(event) {
-    let that = this;
+  handleFormSubmit = (event => {
     let response = AuthenticationService.signUp(this.state);
-    response.then(res => {
-      if (res.status) {
-        AuthenticationService.profile().then(function(r){
-          Backend.setProfile(r);
-          if (r.Gender === "Men"){
-            that.setState({ redirect : '/m/signup/complete'});
-          }
-          if (r.Gender === "Women"){
-            that.setState({ redirect : '/w/signup/complete'});
-          }
+    response.then(r => {
+      this.setState({errors: r.errors});
+      if (r.status){
+        AuthenticationService.profile().then(sub_r => {
+          Backend.setProfile(sub_r);
+          this.setState({ redirect: sub_r.Gender === "Men" ? '/m/signup/complete' : '/w/signup/complete' });
         });
       }
     });
     event.preventDefault();
-  }
+  });
 
   render() {
 
     const { classes } = this.props;
-    const { redirect, step } = this.state;
+    const { redirect, step, errors } = this.state;
 
     return (
         <div className={classes.root}>
@@ -201,6 +188,8 @@ class Signup extends React.Component {
                         value={this.state.Username}
                         onChange={this.handleInputChange}
                         name="Username"
+                        error={errors.hasOwnProperty("Username")}
+                        helperText={errors.hasOwnProperty("Username") && errors["Username"]}
                         InputLabelProps={{ shrink: true, className : classes.label }}
                     />
                   </Grid>
@@ -215,26 +204,28 @@ class Signup extends React.Component {
                         value={this.state.Email}
                         name="Email"
                         onChange={this.handleInputChange}
+                        error={errors.hasOwnProperty("Email")}
+                        helperText={errors.hasOwnProperty("Email") && errors["Email"]}
                         InputLabelProps={{ shrink: true, className : classes.label }}
                     />
                   </Grid>
-                  <Grid item xs={4}>
-                    <TextField
-                        className={classes.textField}
-                        label="Rate"
-                        style={{ margin: 8 }}
-                        placeholder="Rate"
-                        margin="normal"
-                        value={this.state.RatePerHour}
-                        onChange={this.handleInputChange}
-                        name="RatePerHour"
-                        InputLabelProps={{ shrink: true, className : classes.label }}
-                        InputProps={{
-                          endAdornment: <InputAdornment position="end">/Hour</InputAdornment>,
-                        }}
-                    />
-                  </Grid>
-                  <Grid item xs={8}>
+                  {/*<Grid item xs={4}>*/}
+                    {/*<TextField*/}
+                        {/*className={classes.textField}*/}
+                        {/*label="Rate"*/}
+                        {/*style={{ margin: 8 }}*/}
+                        {/*placeholder="Rate"*/}
+                        {/*margin="normal"*/}
+                        {/*value={this.state.RatePerHour}*/}
+                        {/*onChange={this.handleInputChange}*/}
+                        {/*name="RatePerHour"*/}
+                        {/*InputLabelProps={{ shrink: true, className : classes.label }}*/}
+                        {/*InputProps={{*/}
+                          {/*endAdornment: <InputAdornment position="end">/Hour</InputAdornment>,*/}
+                        {/*}}*/}
+                    {/*/>*/}
+                  {/*</Grid>*/}
+                  <Grid item xs={12}>
                     <TextField
                         className={classes.textField}
                         fullWidth
@@ -245,6 +236,8 @@ class Signup extends React.Component {
                         value={this.state.MobileNumber}
                         onChange={this.handleInputChange}
                         name="MobileNumber"
+                        error={errors.hasOwnProperty("MobileNumber")}
+                        helperText={errors.hasOwnProperty("MobileNumber") && errors["MobileNumber"]}
                         InputLabelProps={{ shrink: true, className : classes.label }}
                     />
                   </Grid>
@@ -260,6 +253,8 @@ class Signup extends React.Component {
                         value={this.state.Password}
                         onChange={this.handleInputChange}
                         name="Password"
+                        error={errors.hasOwnProperty("Password")}
+                        helperText={errors.hasOwnProperty("Password") && errors["Password"]}
                         InputLabelProps={{ shrink: true, className : classes.label }}
                     />
                   </Grid>
@@ -268,26 +263,24 @@ class Signup extends React.Component {
                 <React.Fragment>
                   {/* Render second page */}
                   <Grid item xs={12}>
+                    <TextField
+                        className={classes.textField}
+                        fullWidth
+                        label="Ethnicity"
+                        style={{ margin: 8 }}
+                        placeholder="Ethnicity"
+                        type="text"
+                        margin="normal"
+                        value={this.state.Ethnicity}
+                        onChange={this.handleInputChange}
+                        name="Ethnicity"
+                        error={errors.hasOwnProperty("Ethnicity")}
+                        helperText={errors.hasOwnProperty("Ethnicity") && errors["Ethnicity"]}
+                        InputLabelProps={{ shrink: true, className : classes.label }}
+                    />
+                  </Grid>
 
-                    <FormControl className={classes.formControl}>
-                      <InputLabel className={classes.inputLabel} shrink htmlFor="ethnicity-label-placeholder">
-                        Ethnicity
-                      </InputLabel>
-                      <Select
-                          value={this.state.Ethnicity}
-                          onChange={this.handleInputChange}
-                          input={<Input name="Ethnicity" className={classes.input} id="ethnicity-label-placeholder" />}
-                          displayEmpty
-                          name="Ethnicity"
-                          className={classes.selectEmpty}
-                      >
-                        {
-                          Object.keys(ethnicityPickList).map(key =>
-                              <MenuItem value={key}>{ethnicityPickList[key]}</MenuItem>
-                          )
-                        }
-                      </Select>
-                    </FormControl>
+                  <Grid item xs={12}>
 
 
                     {/*<TextField*/}
@@ -353,6 +346,9 @@ class Signup extends React.Component {
                             InputLabelProps={{ shrink: true, className : classes.label }}
                         />
                       </Grid>
+                      <Grid item xs={12}>
+                        {errors.hasOwnProperty("SpokenLanguage") && errors["SpokenLanguage"]}
+                      </Grid>
                     </Grid>
 
                   </Grid>
@@ -368,6 +364,8 @@ class Signup extends React.Component {
                         onChange={this.handleInputChange}
                         name="Age"
                         InputLabelProps={{ shrink: true, className : classes.label }}
+                        error={errors.hasOwnProperty("Age")}
+                        helperText={errors.hasOwnProperty("Age") && errors["Age"]}
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -382,6 +380,8 @@ class Signup extends React.Component {
                         onChange={this.handleInputChange}
                         name="Weight"
                         InputLabelProps={{ shrink: true, className : classes.label }}
+                        error={errors.hasOwnProperty("Weight")}
+                        helperText={errors.hasOwnProperty("Weight") && errors["Weight"]}
                     />
                   </Grid>
                   <Grid item xs={6}>
@@ -396,6 +396,8 @@ class Signup extends React.Component {
                         onChange={this.handleInputChange}
                         name="Height"
                         InputLabelProps={{ shrink: true, className : classes.label }}
+                        error={errors.hasOwnProperty("Height")}
+                        helperText={errors.hasOwnProperty("Height") && errors["Height"]}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -410,6 +412,8 @@ class Signup extends React.Component {
                         onChange={this.handleInputChange}
                         name="City"
                         InputLabelProps={{ shrink: true, className : classes.label }}
+                        error={errors.hasOwnProperty("City")}
+                        helperText={errors.hasOwnProperty("City") && errors["City"]}
                     />
                   </Grid>
                   <Grid item xs={12}>
@@ -417,27 +421,29 @@ class Signup extends React.Component {
                         {/*className={classes.textField}*/}
                         {/*fullWidth*/}
                         {/*style={{ margin: 8 }}*/}
-                        {/*placeholder="Prefecture"*/}
+                        {/*placeholder="State"*/}
                         {/*margin="normal"*/}
                     {/*/>*/}
                     <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="prefecture-label-placeholder">Prefecture</InputLabel>
+                      <InputLabel htmlFor="state-label-placeholder">State</InputLabel>
                       <Select
-                          value={this.state.Prefecture}
+                          value={this.state.State}
                           onChange={this.handleInputChange}
                           inputProps={{
-                            name: 'Prefecture',
-                            id: 'prefecture-label-placeholder',
+                            name: 'State',
+                            id: 'state-label-placeholder',
                           }}
                           className={classes.selectEmpty}
+                          error={errors.hasOwnProperty("State")}
+                          helperText={errors.hasOwnProperty("State") && errors["State"]}
 
                       >
                         <MenuItem disabled value="">
                           <em>None</em>
                         </MenuItem>
                         {
-                          Object.keys(prefecturePickList).map(key =>
-                              <MenuItem value={key}>{prefecturePickList[key]}</MenuItem>
+                          Object.keys(statePickList).map(key =>
+                              <MenuItem value={key}>{statePickList[key]}</MenuItem>
                           )
                         }
                       </Select>
@@ -453,6 +459,8 @@ class Signup extends React.Component {
                         value={this.state.PostalCode}
                         onChange={this.handleInputChange}
                         name="PostalCode"
+                        error={errors.hasOwnProperty("PostalCode")}
+                        helperText={errors.hasOwnProperty("PostalCode") && errors["PostalCode"]}
                     />
                   </Grid>
                 </React.Fragment>

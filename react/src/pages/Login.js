@@ -64,18 +64,15 @@ const styles = theme => ({
 
 class Login extends React.Component {
 
-    constructor(props) {
-        super(props);
-        this.state = {
-            redirect : null,
-            Username : null,
-            Password : null,
-        };
-        this.handleSubmit = this.handleSubmit.bind(this);
-        this.handleInputChange = this.handleInputChange.bind(this);
-    }
+    state = {
+        redirect : null,
+        Username : null,
+        Password : null,
+        errors: {},
+        errorMessage: '',
+    };
 
-    handleInputChange(event) {
+    handleInputChange = (event => {
         const target = event.target;
         let value = "";
         if (target.type === 'checkbox') {
@@ -92,38 +89,34 @@ class Login extends React.Component {
         this.setState({
             [name]: value
         });
-    }
+    });
 
-    handleSubmit(event) {
+    handleFormSubmit = (event => {
 
         let that = this;
 
         let response = AuthenticationService.login(this.state);
-        response.then(res => {
-            if (res.status) {
-                AuthenticationService.profile().then(function(r){
-                    Backend.setProfile(r);
-                    if (r.Gender === "Men"){
-                        that.setState({ redirect : '/m'});
-                    }
-                    if (r.Gender === "Women"){
-                        that.setState({ redirect : '/w'});
-                    }
+        response.then(r => {
+            this.setState({errors: r.errors, errorMessage: r.errorMessage });
+            if (r.status) {
+                AuthenticationService.profile().then(sub_r => {
+                    Backend.setProfile(sub_r);
+                    this.setState({ redirect : sub_r.Gender === "Men" ? '/m' : '/w'});
                 });
             }
         });
         event.preventDefault();
-    }
+    });
 
     render() {
         const { classes } = this.props;
-        const { redirect } = this.state;
+        const { redirect, errors, errorMessage } = this.state;
 
         return (
             <div className={classes.root}>
                 {redirect && <Redirect to={redirect}/>}
                 <Navbar/>
-                <form onSubmit={this.handleSubmit}>
+                <form onSubmit={this.handleFormSubmit}>
                     <Grid container>
                         <Grid item xs={12}>
                             <Grid container className={classes.form} alignContent="center">
@@ -141,6 +134,8 @@ class Login extends React.Component {
                                         value={this.state.Username}
                                         onChange={this.handleInputChange}
                                         name="Username"
+                                        error={errors.hasOwnProperty("Username")}
+                                        helperText={errors.hasOwnProperty("Username") && errors["Username"]}
                                     />
                                 </Grid>
                                 <Grid item xs={12}>
@@ -158,10 +153,13 @@ class Login extends React.Component {
                                         value={this.state.Password}
                                         onChange={this.handleInputChange}
                                         name="Password"
+                                        error={errors.hasOwnProperty("Password")}
+                                        helperText={errors.hasOwnProperty("Password") && errors["Password"]}
                                     />
                                 </Grid>
                             </Grid>
                         </Grid>
+                        {errorMessage}
                         <Grid item xs={12}>
                             <MainButton className={classes.button} type="submit">
                                 <img className={classes.buttonImg} src={loginImg} alt="login"/>
