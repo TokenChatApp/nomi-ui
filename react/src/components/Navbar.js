@@ -56,7 +56,8 @@ const styles = theme => ({
     marginLeft : 'auto',
     marginRight : 'auto',
     display : 'block',
-    fontWeight: 600
+    fontWeight: 400,
+    maxWidth : 230,
   },
   manColor : {
     color : manColor[1],
@@ -67,51 +68,72 @@ const styles = theme => ({
 });
 
 const helpStyle = {
-  height: 60,
-  width: 60,
+  height: 40,
+  width: '100%',
+  maxWidth : 230,
   margin: 'auto',
-  marginTop: 80,
-  marginBottom : 0,
-  fontSize: '2rem',
-  fontWeight: 900,
-  backgroundColor: 'white',
-  borderRadius: '50%',
+  fontSize: '1rem',
+  fontWeight: 500,
+  backgroundColor: '#e84646',
+  borderRadius: 30,
+  padding : '0 30px',
   border : 0,
+  color : 'white',
   cursor : 'pointer'
 };
 
-const helpText = {
+const privacyText = {
   textAlign: 'center',
   color: 'white',
-  fontSize: '1rem'
+  fontSize: '1rem',
+  marginBottom : 40,
 }
+
+const wrapperStyle = {
+  margin : 'auto',
+  width : '100%',
+};
+
+const Divider = props => <div style={{height : props.height || 20}}/>
 
 const ManButtons = props => {
 
   const { handleRedirect } = props;
   const { handleLogout } = props
+
   return (
     <React.Fragment>
-      <MainButton {...props} onClick={handleRedirect('/m/myBookings')} >
-        My Bookings
-      </MainButton>
-      <MainButton {...props} onClick={handleRedirect('/w')} >
-        History
-      </MainButton>
-      <MainButton {...props} onClick={handleRedirect('/w')} >
-        Help Center
-      </MainButton>
-      <MainButton {...props} onClick={handleRedirect('/w')} >
-        Launch my Lolchat
-      </MainButton>
-      <MainButton {...props} onClick={handleRedirect('/w')} >
-        Privacy
-      </MainButton>
-      <MainButton {...props} onClick={handleLogout}>
-        Logout
-      </MainButton>
-      <button {...props} style={helpStyle} onClick={handleRedirect('/w')}>!</button>
-      <h1 style={helpText}>Live Help</h1>
+      <div style={wrapperStyle}>
+        <MainButton {...props} onClick={handleRedirect('/m/myBookings')} >
+          My Date
+        </MainButton>
+        <Divider/>
+        <MainButton {...props} onClick={handleRedirect('/m/locationEdit')} >
+          Change Location
+        </MainButton>
+        <Divider/>
+        <MainButton {...props} onClick={handleRedirect('/m')} >
+          FAQ
+        </MainButton>
+        <Divider/>
+        <MainButton {...props} onClick={handleRedirect('/m')} >
+          Help Center
+        </MainButton>
+        <Divider/>
+        <MainButton {...props} onClick={handleRedirect('/m')} >
+          Launch my Lolchat
+        </MainButton>
+        <Divider/>
+      </div>
+      <Divider height={30}/>
+      <div style={wrapperStyle}>
+        <MainButton {...props} onClick={handleLogout}>
+          Sign Out
+        </MainButton>
+        <Divider/>
+        <button {...props} style={helpStyle} onClick={handleRedirect('/m')}>Emergency contact</button>
+      </div>
+      <h1 style={privacyText}>Privacy Policy</h1>
     </React.Fragment>
   );
 }
@@ -123,26 +145,37 @@ const WomanButtons = props => {
 
   return (
     <React.Fragment>
-      <MainButton {...props} onClick={handleRedirect('/w/myRequest')} >
-        My Request
-      </MainButton>
-      <MainButton {...props} onClick={handleRedirect('/w/history')} >
-        History
-      </MainButton>
-      <MainButton {...props} onClick={handleRedirect('/w/helpCenter')} >
-        Help Center
-      </MainButton>
-      <MainButton {...props} onClick={handleRedirect('/w')} >
-        Launch my Lolchat
-      </MainButton>
-      <MainButton {...props} onClick={handleRedirect('/w')} >
-        Privacy
-      </MainButton>
-      <MainButton {...props} onClick={handleLogout}>
-        Logout
-      </MainButton>
-      <button {...props} style={helpStyle} onClick={handleRedirect('/w/liveHelp')}>!</button>
-      <h1 style={helpText}>Live Help</h1>
+      <div style={wrapperStyle}>
+        <MainButton {...props} onClick={handleRedirect('/w/myRequest')} >
+          My Jobs
+        </MainButton>
+        <Divider/>
+        <MainButton {...props} onClick={handleRedirect('/w/history')} >
+          Change Location
+        </MainButton>
+        <Divider/>
+        <MainButton {...props} onClick={handleRedirect('/w/helpCenter')} >
+          FAQ
+        </MainButton>
+        <Divider/>
+        <MainButton {...props} onClick={handleRedirect('/w')} >
+          Help Center
+        </MainButton>
+        <Divider/>
+        <MainButton {...props} onClick={handleRedirect('/w')} >
+          Launch my LOL chat
+        </MainButton>
+        <Divider/>
+      </div>
+      <Divider height={30}/>
+      <div style={wrapperStyle}>
+        <MainButton {...props} onClick={handleLogout}>
+          Sign Out
+        </MainButton>
+        <Divider/>
+        <button {...props} style={helpStyle} onClick={handleRedirect('/w/liveHelp')}>Emergency contact</button>
+      </div>
+      <h1 style={privacyText}>Privacy Policy</h1>
     </React.Fragment>
   );
 }

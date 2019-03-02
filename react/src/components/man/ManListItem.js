@@ -26,7 +26,8 @@ const styles = theme => ({
     fontWeight : 700
   },
   container : {
-    padding : 20,
+    paddingTop : 20,
+    paddingBottom : 20,
     textLeft : 'left',
   },
   alignLeft : {
@@ -36,8 +37,9 @@ const styles = theme => ({
     textAlign : 'center'
   },
   jobAvatar : {
+    maxWidth : '100%',
+    height : 'auto',
     width   : 100,
-    height  : 100,
   },
   date : {
     color : 'white',

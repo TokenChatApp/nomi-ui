@@ -19,8 +19,6 @@ const styles = theme => ({
     width : `calc(100% - ${buttonOffset}px)`,
     height : buttonHeight,
     borderRadius : buttonHeight / 2,
-    marginTop : 10,
-    marginBottom : 10,
   }
 });
 
