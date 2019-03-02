@@ -10,6 +10,8 @@ import DiscoverSelection from './man/DiscoverSelection';
 import ProfilePicUploader from './man/ProfilePicUploader';
 import SignupComplete from './man/SignupComplete';
 import LocationEdit from './man/LocationEdit';
+import BookingDetail from './man/booking/BookingDetail';
+import BookingSent from './man/booking/BookingSent';
 import { MenRoute } from '../services/routes/MenRoute';
 
 const ErrorPage = () => (<div>Error 404</div>);
@@ -25,6 +27,8 @@ class Man extends Component {
           <Route exact path="/m/signup/profilePicUploader" component={ProfilePicUploader}/>
           <MenRoute exact path="/m/signup/complete" component={SignupComplete}/>
           <MenRoute exact path="/m/locationEdit" component={LocationEdit}/>
+          <MenRoute exact path="/m/booking/detail" component={BookingDetail}/>
+          <MenRoute exact path="/m/booking/sent" component={BookingSent}/>
           {/*<Route component={ErrorPage}/>*/}
         </div>
     );

@@ -14,6 +14,7 @@ import History from './woman/History';
 import LiveHelp from './woman/LiveHelp';
 import HelpCenter from './woman/HelpCenter';
 import PendingJob from './woman/PendingJob';
+import LocationEdit from './woman/LocationEdit';
 import { WomenRoute } from '../services/routes/WomenRoute';
 
 const ErrorPage = () => (<div>Error 404</div>);
@@ -39,6 +40,7 @@ class Woman extends Component {
           <WomenRoute exact path="/w" component={Main}/>
           <Route exact path="/w/signup" component={Signup}/>
           <Route exact path="/w/signup/profilePicUploader" component={ProfilePicUploader}/>
+          <WomenRoute exact path="/w/locationEdit" component={LocationEdit}/>
           {/*<Route component={ErrorPage}/>*/}
         </div>
     );

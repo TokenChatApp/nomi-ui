@@ -10,7 +10,7 @@ import {Backend} from "./services/Backend";
 const theme = createMuiTheme({
     palette: {
         primary: {
-            main: '#ffffff',
+            main: '#1c7698',
         }
     },
 });

@@ -154,7 +154,7 @@ class ManLanding extends React.Component {
             <NomiButton 
               className={classes.button} 
               gender="man" 
-              onClick={() => this.setState({ redirect : '/m/discoverSelection' })}
+              onClick={() => this.setState({ redirect : '/m/booking/detail' })}
             >
               <Favorite className={classes.favIcon}/>
               Make a Booking
