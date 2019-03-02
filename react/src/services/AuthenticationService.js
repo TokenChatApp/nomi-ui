@@ -49,7 +49,10 @@ const AuthenticationService = {
         return axios.post(Backend.apiUrl + Backend.profileUrl + "info").then(res => {
             Cookies.set("nomi-profile", JSON.stringify(res.data));
             return res.data;
-        }, res => { return res.response.data; });
+        }, res => {
+            Cookies.remove("nomi-token");
+            return res.response.data;
+        });
     },
     logout: function(){
         return axios.post(Backend.apiUrl + Backend.authUrl + "logout").then(res => {

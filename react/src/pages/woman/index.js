@@ -187,7 +187,7 @@ class WomanLanding extends React.Component {
           <Grid item xs={6}>
             <Grid container className={classNames(classes.alignLeft, classes.whiteColor)}>
               <Grid item xs={12} className={classes.name}>
-                Hello, Akari!
+                Hello, {user.Username}!
                 <img src={penImg} className={classes.pen}/>
               </Grid>
               <Grid item xs={12}>
