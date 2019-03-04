@@ -20,6 +20,7 @@ const styles = theme => ({
     padding : 10,
   },
   avatar : {
+    cursor : 'pointer',
     maxWidth : '90%',
     border : `1px solid ${manColor[0]}`
   },
@@ -58,8 +59,13 @@ const styles = theme => ({
     marginRight : 15,
   },
   crown : {
+    cursor : 'pointer',
     width : 45,
     marginBottom : -55
+  },
+  starWrapper : {
+    lineHeight : '1px',
+    margin : 0
   }
 });
 
@@ -114,7 +120,7 @@ class GirlCard extends React.Component {
         <Grid item xs={9} className={classes.wrapper}>
           <Typography variant="h6">
             <span className={classes.name}>{name} </span> <span className={classes.age}>{age}years old</span>
-            <GenerateStars rating={rating}/>
+            <h1 className={classes.starWrapper}><GenerateStars rating={rating}/></h1>
           </Typography>
         </Grid>
         <Grid item xs={3} className={classes.manColor} onClick={this.handleClick}>
