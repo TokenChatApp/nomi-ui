@@ -6,12 +6,18 @@ import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import StarRate from '@material-ui/icons/StarRate';
 
+import CheckCircle from '@material-ui/icons/CheckCircle';
+import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
+
 import { manColor } from '../../Constants';
 import { Backend } from "../../services/Backend";
+
+import crownGold from '../../images/male/dashboard/crown_gold.svg';
 
 const styles = theme => ({
   root : {
     marginBottom : 20,
+    padding : 10,
   },
   avatar : {
     maxWidth : '90%',
@@ -25,7 +31,7 @@ const styles = theme => ({
   age : {
     color : '#a9a9a9',
     fontWeight : 300,
-    fontSize : 12,
+    fontSize : 8,
   },
   starFilled : {
     marginLeft : -7,
@@ -37,9 +43,23 @@ const styles = theme => ({
     marginTop : -6,
     color : '#dadada'
   },
-  starWrapper : {
+  wrapper : {
     textAlign : 'left',
-    paddingLeft : 7,
+    paddingLeft : 10,
+  },
+  manColor : {
+    color : manColor[0]
+  },
+  crownContainer : {
+    position : 'relative',
+    display:'block',
+    textAlign : 'right',
+    marginLeft : 'auto',
+    marginRight : 15,
+  },
+  crown : {
+    width : 45,
+    marginBottom : -55
   }
 });
 
@@ -60,26 +80,48 @@ const GenerateStars = withStyles(styles)(props => {
 class GirlCard extends React.Component {
 
   state = {
-    redirect : null
+    redirect : null,
+    crown : false,
+    checked : false
+  }
+
+  handleClick = event => {
+    let isChecked = this.state.checked;
+    this.setState({ checked : !isChecked });
+  }
+
+  handleCrownClick = event => {
+    this.props.handleToggleCrown();
+  }
+
+  handleRedirect = event => {
+    this.setState({ redirect : '/m/girlProfile'})
   }
 
   render() {
     const { classes, name, age, rating, level, imgUrl } = this.props;
-    const { redirect } = this.state;
+    const { redirect, checked } = this.state;
 
     return (
-      <Grid container className={classes.root}>
+      <Grid container className={classes.root} alignItems="center">
         {redirect && <Redirect to={redirect}/>}
+        <div className={classes.crownContainer} onClick={this.handleCrownClick}>
+          <img className={classes.crown} src={crownGold}/>
+        </div>
         <Grid item xs={12}>
-          <img className={classes.avatar} src={imgUrl} alt="girl avatar"/>
+          <img className={classes.avatar} src={imgUrl} alt="girl avatar" onClick={this.handleRedirect}/>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={9} className={classes.wrapper}>
           <Typography variant="h6">
             <span className={classes.name}>{name} </span> <span className={classes.age}>{age}years old</span>
+            <GenerateStars rating={rating}/>
           </Typography>
         </Grid>
-        <Grid item xs={12} className={classes.starWrapper}>
-          <GenerateStars rating={rating}/>
+        <Grid item xs={3} className={classes.manColor} onClick={this.handleClick}>
+          {checked 
+            ? <CheckCircle/>
+            : <RadioButtonUnchecked/>
+          }
         </Grid>
       </Grid>
     );

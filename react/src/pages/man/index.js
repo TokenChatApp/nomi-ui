@@ -3,15 +3,18 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { NavLink, Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-import Divider from '@material-ui/core/Divider';
 import Navbar from '../../components/Navbar';
 import Grid from '@material-ui/core/Grid';
+import Dialog from '@material-ui/core/Dialog';
+import DialogTitle from '@material-ui/core/DialogTitle';
 import Favorite from '@material-ui/icons/Favorite';
 import GirlCard from './GirlCard';
 
 import { manColor } from '../../Constants';
 
 import dummyGirl from '../../images/dummyGirl.png';
+import crownGold from '../../images/male/dashboard/crown_gold.svg';
+import crownSilver from '../../images/male/dashboard/crown_silver.svg';
 
 import NomiButton from '../../components/NomiButton';
 import { Backend } from "../../services/Backend";
@@ -89,13 +92,26 @@ const styles = theme => ({
     margin : 15,
     marginBottom : 30,
     color : '#888'
+  },
+  dialog : {
+    padding : 20,
+    color : '#9c9c9c'
+  },
+  dialogTitle : {
+    textAlign: 'center',
+    color : '#9c9c9c',
+  },
+  crown : {
+    width : '100%',
+  },
+  crownTitle : {
+    paddingLeft : 10
   }
 });
 
 const womanList = [
   { name : 'Himiko', age : '20', rating : 3, level : 3, imgUrl : dummyGirl },
   { name : 'Himiko', age : '20', rating : 3, level : 2, imgUrl : dummyGirl },
-  { name : 'Himiko', age : '20', rating : 3, level : 1, imgUrl : dummyGirl },
   { name : 'Himiko', age : '20', rating : 3, level : 1, imgUrl : dummyGirl },
   { name : 'Himiko', age : '20', rating : 3, level : 1, imgUrl : dummyGirl },
   { name : 'Himiko', age : '20', rating : 3, level : 1, imgUrl : dummyGirl },
@@ -115,6 +131,7 @@ class ManLanding extends React.Component {
       locationEnabled : true,
       womanList : womanList,
       user: Backend.user,
+      crown : false,
     };
   }
 
@@ -128,6 +145,12 @@ class ManLanding extends React.Component {
       this.setState({ locationEnabled : false });
     }
     */
+  }
+
+
+  handleToggleCrown = () => {
+    let { crown } = this.state;
+    this.setState({ crown : !crown });
   }
 
   handleUserAcceptLocation = ret => {
@@ -148,44 +171,28 @@ class ManLanding extends React.Component {
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
         <Navbar title="Hello, Username" gender="man"/>
-
         <Grid container className={classes.container}>
           <Grid item xs={12}>
             <NomiButton 
               className={classes.button} 
               gender="man" 
-              onClick={() => this.setState({ redirect : '/m/booking/detail' })}
+              onClick={() => this.setState({ redirect : '/m/invitation/detail' })}
             >
               <Favorite className={classes.favIcon}/>
-              Make a Booking
+              SEND INVITATION
             </NomiButton>
           </Grid>
 
-          {/*Horizontal Divider*/}
-        
-          <Grid item xs={12} className={classes.divider}>
-            <Grid container alignItems="center">
-              <Grid item xs={5}>
-                <Divider/>
-              </Grid>
-              <Grid item xs={2}>
-                <span style={{color : '#888'}}>or</span>
-              </Grid>
-              <Grid item xs={5}>
-                <Divider/>
-              </Grid>
-            </Grid>
-          </Grid>
-
           <Typography variant="h4" className={classes.explore}>
-            Explore the girls around you
+            Explore the girls around your City, Place
           </Typography>
 
           {locationEnabled ? 
             womanList.map(e => 
-              <Grid item xs={6} sm={4}>
+              <Grid item xs={6}>
                 <GirlCard
                   {...e}
+                  handleToggleCrown={this.handleToggleCrown}
                 />
               </Grid>
             )
@@ -194,12 +201,48 @@ class ManLanding extends React.Component {
               Ops, we couldn't get any girl for you
             </Typography>
           }
-
-          <Grid item xs={12} className={classes.viewMoreContainer}>
-            <span className={classes.viewMore} onClick={() => alert('View more!')}>+ View more </span>
+          
+          {locationEnabled &&
+          <Grid item xs={12}>
+            <NomiButton 
+              className={classes.button} 
+              gender="man" 
+              onClick={() => this.setState({ redirect : '/m/invitation/detail' })}
+            >
+              <Favorite className={classes.favIcon}/>
+              SEND INVITATION
+            </NomiButton>
           </Grid>
-
+          }
         </Grid>
+        <Dialog onClose={this.handleToggleCrown} open={this.state.crown}>
+          <DialogTitle className={classes.dialogTitle}>Our Selected Girls</DialogTitle>
+          <Grid container alignItems="center" className={classes.dialog}>
+            <Grid item xs={2}>
+              <img className={classes.crown} src={crownGold}/>
+            </Grid>
+            <Grid item xs={10} className={classes.crownTitle}>
+              Prestige Girls
+            </Grid>
+            <Grid item xs={10}>
+              *Customer provide write up of description*
+            </Grid>
+          </Grid>
+          <Grid container alignItems="center" className={classes.dialog}>
+            <Grid item xs={2}>
+              <img className={classes.crown} src={crownSilver}/>
+            </Grid>
+            <Grid item xs={10} className={classes.crownTitle}>
+              Premium Girls
+            </Grid>
+            <Grid item xs={10}>
+              *Customer provide write up of description*
+            </Grid>
+          </Grid>
+        </Dialog>
+
+
+
       </div>
     );
   }

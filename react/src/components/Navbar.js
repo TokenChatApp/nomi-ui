@@ -27,15 +27,15 @@ const styles = theme => ({
   title : {
     color : 'white',
     textAlign : 'left',
-    fontSize : '3rem',
-    fontWeight : 200,
+    fontSize : '2rem',
+    fontWeight : 400,
     marginLeft: 20,
     textDecoration : 'none',
     display : 'block'
   },
   subTitle : {
-    fontSize : '2rem',
-    fontWeight : 700,
+    fontSize : '1rem',
+    fontWeight : 400,
   },
   menuButton: {
     marginLeft: -12,
