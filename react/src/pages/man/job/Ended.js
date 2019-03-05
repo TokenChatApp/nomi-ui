@@ -4,9 +4,10 @@ import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../../components/Navbar';
-import clockImg from '../../../images/clock.png';
+import starsImg from '../../../images/stars.png';
 import { manColor } from '../../../Constants';
 import DateDetail from './DateDetail';
+import MainButton from '../../../components/MainButton';
 
 const styles = theme => ({
   root: {
@@ -23,25 +24,31 @@ const styles = theme => ({
     right : 0
   },
   img : {
-    paddingTop:50,
-    width : 60,
+    padding:20,
+    width : 70,
   },
   imgContainer : {
     paddingTop : 20
   },
-  remaining : {
-    marginTop : 20,
+  description : {
     paddingLeft : '10%',
     paddingRight : '10%',
     color : 'white'
   },
-  timer : {
-    marginTop : 0,
+  title : {
+    marginTop : 30,
+    fontWeight : 700,
+    fontSize : 23,
     color : 'white'
   },
+  button : {
+    color : manColor[0],
+    marginTop : 15,
+    maxWidth : 200
+  }
 });
 
-class OnGoing extends React.Component {
+class Ended extends React.Component {
 
   state = {
     redirect : null,
@@ -59,21 +66,24 @@ class OnGoing extends React.Component {
 
         <DateDetail/>
 
-        <img className={classes.img} src={clockImg} alt="clock"/>
-        <Typography className={classes.remaining} variant="h6">
-          Time Remaining:
+        <Typography className={classes.title} variant="h6">
+          You have finished your date
         </Typography>
-        <Typography className={classes.timer} variant="h6">
-          01:25:00
+        <img className={classes.img} src={starsImg} alt="stars"/>
+        <Typography className={classes.description} variant="h6">
+          How is your date?
         </Typography>
+        <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/m/dates/rating'})}>
+          Rate the girls
+        </MainButton>
       </div>
     );
   }
 }
 
-OnGoing.propTypes = {
+Ended.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(OnGoing);
+export default withStyles(styles)(Ended);
 

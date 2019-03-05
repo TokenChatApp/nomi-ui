@@ -19,6 +19,8 @@ import Job from './man/job/index';
 import JobExpired from './man/job/Expired';
 import JobOnGoing from './man/job/OnGoing';
 import JobConfirmed from './man/job/Confirmed';
+import JobEnded from './man/job/Ended';
+import JobRating from './man/job/Rating';
 import { MenRoute } from '../services/routes/MenRoute';
 
 // const ErrorPage = () => (<div>Error 404</div>);
@@ -43,6 +45,8 @@ class Man extends Component {
           <MenRoute exact path="/m/dates/expired" component={JobExpired}/>
           <MenRoute exact path="/m/dates/ongoing" component={JobOnGoing}/>
           <MenRoute exact path="/m/dates/confirmed" component={JobConfirmed}/>
+          <MenRoute exact path="/m/dates/ended" component={JobEnded}/>
+          <MenRoute exact path="/m/dates/rating" component={JobRating}/>
           {/*<Route component={ErrorPage}/>*/}
         </div>
     );

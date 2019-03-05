@@ -1,12 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
-import Navbar from '../../../components/Navbar';
-import clockImg from '../../../images/clock.png';
 import girlImg from '../../../images/dummyGirl.png';
-import { manColor } from '../../../Constants';
 import classNames from 'classnames';
 
 const styles = theme => ({
@@ -71,7 +67,7 @@ class DateDetail extends React.Component {
   }
 
   getCurrentGirl = page => {
-    let { currentGirl, allGirls, totalPages } = this.state;
+    let { allGirls } = this.state;
     let indexes = [page * 3, page * 3 + 1, page * 3 + 2];
     let tmp = indexes.map(e => allGirls[e]);
     let girls = tmp.filter(e => e);
@@ -80,7 +76,7 @@ class DateDetail extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { page, currentGirls, totalPages } = this.state;
+    const { currentGirls } = this.state;
     return (
         <Grid container className={classes.detailWrapper}>
           <Grid item xs={12}>

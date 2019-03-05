@@ -31,7 +31,7 @@ const statusList = [
   {
     label : 'ENDED',
     color : '#e66060',
-    redirect : '/m/dates',
+    redirect : '/m/dates/ended',
   }
 ];
 

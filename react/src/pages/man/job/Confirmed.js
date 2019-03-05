@@ -3,12 +3,9 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
 import Navbar from '../../../components/Navbar';
 import clockImg from '../../../images/clock.png';
-import girlImg from '../../../images/dummyGirl.png';
 import { manColor } from '../../../Constants';
-import classNames from 'classnames';
 import DateDetail from './DateDetail';
 
 const styles = theme => ({
