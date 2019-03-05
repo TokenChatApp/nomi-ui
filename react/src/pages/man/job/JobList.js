@@ -3,17 +3,15 @@ import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
-import Typography from '@material-ui/core/Typography';
 import Badge from '@material-ui/core/Badge';
 
 import { manColor } from '../../../Constants';
-import girlImg from '../../../images/male/dashboard/girl_photo_2.jpg';
 
 const statusList = [
   { 
     label : 'ON GOING', 
     color : '#7ae43a',
-    redirect : '/m/dates',
+    redirect : '/m/dates/ongoing',
   },
   { 
     label : 'EXPIRED',
@@ -28,7 +26,7 @@ const statusList = [
   {
     label : 'CONFIRMED',
     color : '#04dec2',
-    redirect : '/m/dates',
+    redirect : '/m/dates/confirmed',
   },
   {
     label : 'ENDED',

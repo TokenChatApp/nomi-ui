@@ -92,7 +92,7 @@ class Expired extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="Hello, Username" gender="man"/>
+        <Navbar title="My Dates" gender="man"/>
         <Grid container className={classes.container}>
           <Typography variant="h4" className={classes.expiredText}>
             EXPIRED

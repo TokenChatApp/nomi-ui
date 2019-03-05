@@ -262,9 +262,9 @@ class Navbar extends React.Component {
           <IconButton color="inherit" onClick={this.handleClose} aria-label="Close" className={classes.close}>
             <CloseIcon/>
           </IconButton>
-          {gender === 'man'
-            ? <ManButtons className={classNames(classes.redirectButton, classes.manColor)} handleRedirect={this.handleRedirect} handleLogout={this.handleLogout} />
-            : <WomanButtons className={classNames(classes.redirectButton, classes.womanColor)} handleRedirect={this.handleRedirect} handleLogout={this.handleLogout} />
+          {gender === 'woman'
+            ? <WomanButtons className={classNames(classes.redirectButton, classes.womanColor)} handleRedirect={this.handleRedirect} handleLogout={this.handleLogout} />
+            : <ManButtons className={classNames(classes.redirectButton, classes.manColor)} handleRedirect={this.handleRedirect} handleLogout={this.handleLogout} />
           }
         </Dialog>
       </div>
