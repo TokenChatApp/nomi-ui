@@ -21,6 +21,10 @@ import JobOnGoing from './man/job/OnGoing';
 import JobConfirmed from './man/job/Confirmed';
 import JobEnded from './man/job/Ended';
 import JobRating from './man/job/Rating';
+import JobPending from './man/job/Pending';
+import Payment from './man/job/Payment';
+import PaymentDone from './man/job/PaymentDone';
+import AddLolChat from './man/job/AddLolChat';
 import { MenRoute } from '../services/routes/MenRoute';
 
 // const ErrorPage = () => (<div>Error 404</div>);
@@ -47,6 +51,10 @@ class Man extends Component {
           <MenRoute exact path="/m/dates/confirmed" component={JobConfirmed}/>
           <MenRoute exact path="/m/dates/ended" component={JobEnded}/>
           <MenRoute exact path="/m/dates/rating" component={JobRating}/>
+          <MenRoute exact path="/m/dates/pending" component={JobPending}/>
+          <MenRoute exact path="/m/payment" component={Payment}/>
+          <MenRoute exact path="/m/paymentDone" component={PaymentDone}/>
+          <MenRoute exact path="/m/addLolChat" component={AddLolChat}/>
           {/*<Route component={ErrorPage}/>*/}
         </div>
     );

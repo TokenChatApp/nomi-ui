@@ -21,7 +21,7 @@ const statusList = [
   {
     label : 'PENDING',
     color : '#ffc800',
-    redirect : '/m/dates',
+    redirect : '/m/dates/pending',
   },
   {
     label : 'CONFIRMED',
