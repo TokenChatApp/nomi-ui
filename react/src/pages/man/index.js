@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
 import Grid from '@material-ui/core/Grid';
@@ -54,7 +54,6 @@ const styles = theme => ({
     bottom : 35,
     padding : 5,
     fontSize : 10,
-    textAlign : 'center',
     left :0,
     right : 0,
   },
@@ -219,7 +218,7 @@ class ManLanding extends React.Component {
           <DialogTitle className={classes.dialogTitle}>Our Selected Girls</DialogTitle>
           <Grid container alignItems="center" className={classes.dialog}>
             <Grid item xs={2}>
-              <img className={classes.crown} src={crownGold}/>
+              <img className={classes.crown} src={crownGold} alt="crown"/>
             </Grid>
             <Grid item xs={10} className={classes.crownTitle}>
               Prestige Girls
@@ -230,7 +229,7 @@ class ManLanding extends React.Component {
           </Grid>
           <Grid container alignItems="center" className={classes.dialog}>
             <Grid item xs={2}>
-              <img className={classes.crown} src={crownSilver}/>
+              <img className={classes.crown} src={crownSilver} alt="crown"/>
             </Grid>
             <Grid item xs={10} className={classes.crownTitle}>
               Premium Girls

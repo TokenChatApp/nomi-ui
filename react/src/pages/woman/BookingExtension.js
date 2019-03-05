@@ -1,13 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
 import { womanColor } from '../../Constants';
 import MainButton from '../../components/MainButton';
-
-const grey = '#585858';
 
 const styles = theme => ({
   root: {

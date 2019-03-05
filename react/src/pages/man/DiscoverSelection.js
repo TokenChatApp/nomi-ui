@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
 import Grid from '@material-ui/core/Grid';
@@ -101,7 +101,7 @@ class DiscoverSelection extends React.Component {
 
               <div onClick={ () => this.setState({ redirect : '/m/signup' })}>
                 <div className={classNames(classes.request, classes.imgContainer)}>
-                  <img className={classes.img} src={requestIcon} />
+                  <img className={classes.img} src={requestIcon} alt='request'/>
                 </div>
                 <h3>Make a request</h3>
               </div>
@@ -110,7 +110,7 @@ class DiscoverSelection extends React.Component {
 
               <div onClick={ () => this.setState({ redirect : '/m/signup' })}>
                 <div className={classNames(classes.discover, classes.imgContainer)}>
-                  <img className={classes.img} src={discoverIcon} />
+                  <img className={classes.img} src={discoverIcon} alt="discover" />
                 </div>
                 <h3>Discover nearby</h3>
               </div>

@@ -115,7 +115,7 @@ const GirlList = withStyles(styles)(props => {
   return(
     <Grid className={classes.girlContainer}>
       <Cancel className={classes.cancelIcon}/>
-      <img className={classes.img} src={girlImg}/>
+      <img className={classes.img} src={girlImg} alt="Girl"/>
     </Grid>
   );
 });
@@ -145,7 +145,7 @@ class DateDetail extends React.Component {
   render() {
     const { classes } = this.props;
     const { redirect } = this.state;
-    const { selectedDate, selectedTime, endingTime, city, place } = this.state;
+    const { selectedDate, endingTime, city, place } = this.state;
 
     return (
       <div className={classes.root}>

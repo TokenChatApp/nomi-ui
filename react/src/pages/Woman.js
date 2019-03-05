@@ -17,13 +17,9 @@ import PendingJob from './woman/PendingJob';
 import LocationEdit from './woman/LocationEdit';
 import { WomenRoute } from '../services/routes/WomenRoute';
 
-const ErrorPage = () => (<div>Error 404</div>);
+//const ErrorPage = () => (<div>Error 404</div>);
 
 class Woman extends Component {
-
-  constructor(props){
-    super(props);
-  }
 
   render() {
     return (

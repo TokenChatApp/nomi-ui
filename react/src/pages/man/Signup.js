@@ -1,12 +1,11 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Navbar from '../../components/Navbar';
 import TextField from '@material-ui/core/TextField';
 import Grid from '@material-ui/core/Grid';
 import imgSignup from '../../images/signupWhite.png';
-import { manColor } from '../../Constants';
 import ProfilePicHolder from '../../components/ProfilePicHolder';
 import NomiButton from '../../components/NomiButton';
 import AuthenticationService from "../../services/AuthenticationService";

@@ -2,7 +2,7 @@ import React from 'react';
 import { Backend } from '../../services/Backend';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
 import classNames from 'classnames';
@@ -182,13 +182,13 @@ class WomanLanding extends React.Component {
         </div>
         <Grid container alignItems="center">
           <Grid item xs={6}>
-            <img className={classes.avatar} src={avatarImg}/>
+            <img className={classes.avatar} src={avatarImg} alt=""/>
           </Grid>
           <Grid item xs={6}>
             <Grid container className={classNames(classes.alignLeft, classes.whiteColor)}>
               <Grid item xs={12} className={classes.name}>
                 Hello, {user.Username}!
-                <img src={penImg} className={classes.pen}/>
+                <img src={penImg} className={classes.pen} alt="pen"/>
               </Grid>
               <Grid item xs={12}>
                 <Select

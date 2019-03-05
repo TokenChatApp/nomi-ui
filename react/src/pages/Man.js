@@ -17,7 +17,7 @@ import DateDetail from './man/invitation/DateDetail';
 import InvitationSent from './man/invitation/InvitationSent';
 import { MenRoute } from '../services/routes/MenRoute';
 
-const ErrorPage = () => (<div>Error 404</div>);
+// const ErrorPage = () => (<div>Error 404</div>);
 
 class Man extends Component {
   render() {

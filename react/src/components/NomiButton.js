@@ -55,7 +55,7 @@ class NomiButton extends React.Component {
         className={classNames(this.props.className, classes.button, background)}
         variant="contained"
       >
-        {src && <img className={classes.buttonImg} src={src} alt="button image"/>}
+        {src && <img className={classes.buttonImg} src={src} alt=""/>}
         {children}
       </Button>
     );

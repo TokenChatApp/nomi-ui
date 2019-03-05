@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../components/Navbar';
 import Grid from '@material-ui/core/Grid';
@@ -99,6 +99,7 @@ const GenderButton = props => {
           margin: 'auto',
         }}
         src={imgSrc}
+        alt=""
       />
     </div>    
   );

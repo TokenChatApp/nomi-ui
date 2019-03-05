@@ -26,11 +26,6 @@ const styles = {
 
 class App extends Component {
 
-  constructor(pros){
-    super(pros);
-
-  }
-
   render() {
     return (
       <div className="App" style={{ minHeight: '100vh'}}>

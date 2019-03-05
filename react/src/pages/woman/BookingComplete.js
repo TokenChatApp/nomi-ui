@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
 import cheersImg from '../../images/cheers.png';
 import { womanColor } from '../../Constants';
 import MainButton from '../../components/MainButton';
-
-const grey = '#585858';
 
 const styles = theme => ({
   root: {
@@ -61,7 +59,7 @@ class BookingComplete extends React.Component {
         <div className={classes.fixedNav}>
           <Navbar title=""/>
         </div>
-        <img className={classes.img} src={cheersImg}/>
+        <img className={classes.img} src={cheersImg} alt="cheers"/>
         <Typography className={classes.title} variant="h6">
           DONE!<br/>
           Enjoy your date!

@@ -1,11 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Navbar from '../../../components/Navbar';
 import Grid from '@material-ui/core/Grid';
 import MobileStepper from '@material-ui/core/MobileStepper';
-import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import Button from '@material-ui/core/Button';
 import KeyboardArrowLeft from '@material-ui/icons/KeyboardArrowLeft';
@@ -177,7 +176,7 @@ class BookingDetail extends React.Component {
   render() {
     const { classes } = this.props;
     const { activeStep, redirect } = this.state;
-    const { selectedDate, selectedTime, endingTime, city, place, ethnicity, selectedLanguages } = this.state;
+    const { selectedDate, endingTime, city, place, ethnicity, selectedLanguages } = this.state;
     const { ageRange, heightRange, weightRange } = this.state;
     const labels = ['Booking details', 'Girl Preference'];
     const maxSteps = 2;

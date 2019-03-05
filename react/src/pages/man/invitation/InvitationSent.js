@@ -8,8 +8,6 @@ import invitationImgSrc from '../../../images/male/dashboard/invitation_sent.png
 import { manColor } from '../../../Constants';
 import MainButton from '../../../components/MainButton';
 
-const grey = '#585858';
-
 const styles = theme => ({
   root: {
     height : '100%',
@@ -65,7 +63,7 @@ class InvitationSent extends React.Component {
           <div className={classes.fixedNav}>
             <Navbar title="Girls around you"/>
           </div>
-          <img className={classes.img} src={invitationImgSrc}/>
+          <img className={classes.img} src={invitationImgSrc} alt="invitation"/>
           <Typography className={classes.title} variant="h6">
             Your Invitation has been sent!
           </Typography>

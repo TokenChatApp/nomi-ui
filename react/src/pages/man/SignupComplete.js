@@ -1,14 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
 import heartImgSrc from '../../images/heart.png';
 import { manColor } from '../../Constants';
 import MainButton from '../../components/MainButton';
-
-const grey = '#585858';
 
 const styles = theme => ({
   root: {
@@ -60,7 +58,7 @@ class SignupComplete extends React.Component {
           <div className={classes.fixedNav}>
             <Navbar title=""/>
           </div>
-          <img className={classes.img} src={heartImgSrc}/>
+          <img className={classes.img} src={heartImgSrc} alt="heart"/>
           <Typography className={classes.title} variant="h6">
             Get ready for your date!
           </Typography>

@@ -8,8 +8,6 @@ import heartImgSrc from '../../../images/heart.png';
 import { manColor } from '../../../Constants';
 import MainButton from '../../../components/MainButton';
 
-const grey = '#585858';
-
 const styles = theme => ({
   root: {
     height : '100%',
@@ -64,7 +62,7 @@ class BookingSent extends React.Component {
           <div className={classes.fixedNav}>
             <Navbar title=""/>
           </div>
-          <img className={classes.img} src={heartImgSrc}/>
+          <img className={classes.img} src={heartImgSrc} alt="heart"/>
           <Typography className={classes.title} variant="h6">
             Your booking has been posted!
           </Typography>

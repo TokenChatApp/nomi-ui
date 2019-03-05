@@ -7,8 +7,6 @@ import chooseSrc from '../../images/upload.png';
 import { womanColor } from '../../Constants';
 import MainButton from '../../components/MainButton';
 
-const grey = '#585858';
-
 const styles = theme => ({
   root: {
     height : '100%',
@@ -73,7 +71,7 @@ const CapturePhoto = props => {
 
   return (
     <div {...props}>
-      <img style={imgStyle} src={captureSrc}/>
+      <img style={imgStyle} src={captureSrc} alt="capture"/>
       <h6 style={textStyle}>Capture a photo</h6>
     </div>    
   );
@@ -83,7 +81,7 @@ const ChoosePhoto = props => {
 
   return (
     <div {...props}>
-      <img style={imgStyle} src={chooseSrc}/>
+      <img style={imgStyle} src={chooseSrc} alt="choose"/>
       <h6 style={textStyle}>Choose file to upload</h6>
     </div>    
   );

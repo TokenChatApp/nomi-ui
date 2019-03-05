@@ -1,11 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
+import { Redirect } from 'react-router-dom';
 import Grid from '@material-ui/core/Grid';
 import Navbar from '../../components/Navbar';
-import heartImgSrc from '../../images/heart.png';
 import { manColor } from '../../Constants';
 import MainButton from '../../components/MainButton';
 import StarRate from '@material-ui/icons/StarRate';
@@ -14,9 +12,6 @@ import classNames from 'classnames';
 import SimpleSlider from './SimpleSlider';
 
 import crownGold from '../../images/male/dashboard/crown_gold.svg';
-import crownSilver from '../../images/male/dashboard/crown_silver.svg';
-
-const grey = '#585858';
 
 const styles = theme => ({
   root: {

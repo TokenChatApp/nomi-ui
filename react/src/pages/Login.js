@@ -93,8 +93,6 @@ class Login extends React.Component {
 
     handleFormSubmit = (event => {
 
-        let that = this;
-
         let response = AuthenticationService.login(this.state);
         response.then(r => {
             this.setState({errors: r.errors, errorMessage: r.errorMessage });

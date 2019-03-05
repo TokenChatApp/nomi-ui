@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
+import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import StarRate from '@material-ui/icons/StarRate';
@@ -13,6 +13,7 @@ import { manColor } from '../../Constants';
 import { Backend } from "../../services/Backend";
 
 import crownGold from '../../images/male/dashboard/crown_gold.svg';
+import crownSilver from '../../images/male/dashboard/crown_silver.svg';
 
 const styles = theme => ({
   root : {
@@ -112,7 +113,7 @@ class GirlCard extends React.Component {
       <Grid container className={classes.root} alignItems="center">
         {redirect && <Redirect to={redirect}/>}
         <div className={classes.crownContainer} onClick={this.handleCrownClick}>
-          <img className={classes.crown} src={crownGold}/>
+          <img className={classes.crown} src={level === 3 ? crownGold : crownSilver} alt="crown"/>
         </div>
         <Grid item xs={12}>
           <img className={classes.avatar} src={imgUrl} alt="girl avatar" onClick={this.handleRedirect}/>
