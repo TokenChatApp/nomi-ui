@@ -15,6 +15,8 @@ import BookingSent from './man/booking/BookingSent';
 import GirlProfile from './man/GirlProfile';
 import DateDetail from './man/invitation/DateDetail';
 import InvitationSent from './man/invitation/InvitationSent';
+import Job from './man/job/index';
+import JobExpired from './man/job/Expired';
 import { MenRoute } from '../services/routes/MenRoute';
 
 // const ErrorPage = () => (<div>Error 404</div>);
@@ -35,6 +37,8 @@ class Man extends Component {
           <MenRoute exact path="/m/girlProfile" component={GirlProfile}/>
           <MenRoute exact path="/m/invitation/detail" component={DateDetail}/>
           <MenRoute exact path="/m/invitation/sent" component={InvitationSent}/>
+          <MenRoute exact path="/m/dates" component={Job}/>
+          <MenRoute exact path="/m/dates/expired" component={JobExpired}/>
           {/*<Route component={ErrorPage}/>*/}
         </div>
     );

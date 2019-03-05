@@ -104,8 +104,8 @@ const ManButtons = props => {
   return (
     <React.Fragment>
       <div style={wrapperStyle}>
-        <MainButton {...props} onClick={handleRedirect('/m/myBookings')} >
-          My Date
+        <MainButton {...props} onClick={handleRedirect('/m/dates')} >
+          My Dates
         </MainButton>
         <Divider/>
         <MainButton {...props} onClick={handleRedirect('/m/locationEdit')} >
