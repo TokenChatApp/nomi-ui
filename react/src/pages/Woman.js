@@ -15,6 +15,7 @@ import LiveHelp from './woman/LiveHelp';
 import HelpCenter from './woman/HelpCenter';
 import PendingJob from './woman/PendingJob';
 import LocationEdit from './woman/LocationEdit';
+import Job from './woman/job/index';
 import { WomenRoute } from '../services/routes/WomenRoute';
 
 //const ErrorPage = () => (<div>Error 404</div>);
@@ -24,6 +25,7 @@ class Woman extends Component {
   render() {
     return (
         <div>
+          <WomenRoute exact path="/w" component={Main}/>
           <WomenRoute exact path="/w/signup/complete" component={SignupComplete}/>
           <WomenRoute exact path="/w/newBooking" component={NewBooking}/>
           <WomenRoute exact path="/w/bookingComplete" component={BookingComplete}/>
@@ -33,10 +35,10 @@ class Woman extends Component {
           <WomenRoute exact path="/w/liveHelp" component={LiveHelp}/>
           <WomenRoute exact path="/w/helpCenter" component={HelpCenter}/>
           <WomenRoute exact path="/w/pendingJob" component={PendingJob}/>
-          <WomenRoute exact path="/w" component={Main}/>
           <Route exact path="/w/signup" component={Signup}/>
           <Route exact path="/w/signup/profilePicUploader" component={ProfilePicUploader}/>
           <WomenRoute exact path="/w/locationEdit" component={LocationEdit}/>
+          <WomenRoute exact path="/w/dates" component={Job}/>
           {/*<Route component={ErrorPage}/>*/}
         </div>
     );

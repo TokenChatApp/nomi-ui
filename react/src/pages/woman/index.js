@@ -5,28 +5,18 @@ import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
-import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
+import InputLabel from '@material-ui/core/InputLabel';
+import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
-
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import Checkbox from '@material-ui/core/Checkbox';
-
-import List from '@material-ui/core/List';
-import ListItem from '@material-ui/core/ListItem';
-import ListItemText from '@material-ui/core/ListItemText';
-import ListItemAvatar from '@material-ui/core/ListItemAvatar';
+import Refresh from '@material-ui/icons/Refresh';
 import Avatar from '@material-ui/core/Avatar';
 
-import avatarImg from '../../images/dummyGirl.png';
 import dummyMan from '../../images/dummyMan.png';
-import penImg from '../../images/pen.png';
+import crown from '../../images/male/dashboard/crown_gold.svg';
 
 import { womanColor } from '../../Constants';
 
-import MainButton from '../../components/MainButton';
 import NomiButton from '../../components/NomiButton';
 
 const styles = theme => ({
@@ -35,7 +25,6 @@ const styles = theme => ({
     minHeight : 'calc(100vh - 100px)',
     position : 'relative',
     paddingTop : 100,
-    background : `linear-gradient(to bottom, ${womanColor[0]}, ${womanColor[1]})`
   },
   fixedNav : {
     position : 'absolute',
@@ -43,54 +32,86 @@ const styles = theme => ({
     left : 0,
     right : 0
   },
+  wrapper : {
+    padding : 10,
+    paddingLeft : 30,
+    paddingRight : 30,
+    textAlign:'left'
+  },
+  avatar : {
+    width : 90,
+    height : 90
+  },
   button : {
     width : '100%',
-    color : womanColor[1],
+    color : 'white',
     maxWidth : 200,
     display : 'block',
     margin : 'auto',
     fontSize : '1rem',
     fontWeight : 700
   },
-  avatar : {
-    width : 130,
-    borderRadius : '50%',
-    margin: 'auto',
-    marginRight: 0,
-    display: 'block',
+  earning : {
+    fontSize : 16,
   },
   title : {
-    marginTop : 20,
-    paddingLeft : '10%',
-    paddingRight : '10%',
-    color : 'white',
-    fontWeight : 700
+    paddingTop : 20,
+    color : '#a2a2a2',
+    fontSize : 16,
+  },
+  label : {
+    color : '#434343',
+    fontSize : 12,
+  },
+  goldLabel : {
+    color : '#b38e34',
+    paddingLeft : 10,
+  },
+  infoWrapper : {
+    padding : 10,
+  },
+  description : {
+    color : '#434343',
+    fontSize : 10,
   },
   alignLeft : {
     textAlign : 'left',
-    paddingLeft : 20
   },
   alignCenter : {
     textAlign : 'center'
   },
-  whiteColor : {
-    color : 'white',
-  },
-  pen : {
-    width : 20,
+  formControl : {
+    width : '100%'
   },
   select : {
     backgroundColor : 'white',
     color : womanColor[1],
     borderRadius : 0,
     fontSize : '0.9rem',
-    width : 100,
+    width : '100%',
     height : 24,
     fontWeight : 700,
     paddingLeft : 10
   },
   badge : {
     backgroundColor : womanColor[1],
+  },
+  crown : {
+    width : 30,
+  },
+  refresh : {
+    color : womanColor[1],
+  },
+  refreshIcon : {
+    fontSize : 14,
+  },
+  listContainer : {
+    paddingTop : 30,
+    paddingBottom : 30,
+  },
+  manList : {
+    paddingTop:20,
+    paddingBottom : 20,
   },
   customBadge : {
     color : 'white',
@@ -102,57 +123,66 @@ const styles = theme => ({
     padding : '0 10px',
     border : '2px solid white'
   },
-  name : {
-    marginBottom : 10,
-    fontWeight : 700
+  acceptButton : {
+    fontSize : 16,
+    width : 'auto',
+    margin : 0,
+    height : 'auto',
+    padding : '0 19px',
   },
-  jobContainer : {
-    padding : '0 25px',
-  },
-  jobAvatar : {
-    width   : 100,
-    height  : 100,
-  },
-  date : {
+  tag : {
+    fontSize : 10,
+    backgroundColor : '#ded2b5',
     color : 'white',
-    fontWeight : 700
+    borderRadius : 5,
+    padding : '3px 13px',
+    display : 'inline',
   },
-  manName : {
-    color : 'white',
-    fontSize : '1.5rem',
-    fontWeight : 700,
-  },
-  chatButton : {
-    maxWidth : 100,
-    height : 30,
-    marginRight : 0,
-    color : womanColor[1],
-    padding : 0,
-    display : 'block',
-    margin : 'auto',
-    fontSize : '1rem',
-    fontWeight : 700
-  },
-  notification : {
-    backgroundColor : 'white',
-    position : 'fixed',
-    bottom : 0,
-    width : 450,
-    maxWidth : '100vw',
-  },
-  notiWrapper : {
-    borderTop: '1px solid #d6d6d6',
-    position : 'relative',
-    textAlign : 'left',
-    padding : 20,
-    paddingTop : 20,
-  },
-  close : {
-    position : 'absolute',
-    right : 0,
-    top : 0,
-    color : womanColor[1],
+  tinyText : {
+    fontSize : 10,
+    color : '#434343',
+    textAlign : 'center',
+    marginTop :30,
+    marginBottom : 30,
   }
+
+});
+
+const manList = [
+  { name : 'Hanako', pax : 2, time : '10:00 - 12:00', location : 'City, Place', method : 'BY INVITATION' },
+  { name : 'Hanako', pax : 2, time : '10:00 - 12:00', location : 'City, Place', method : 'BY INVITATION' },
+  { name : 'Hanako', pax : 2, time : '10:00 - 12:00', location : 'City, Place', method : 'BY INVITATION' },
+  { name : 'Hanako', pax : 2, time : '10:00 - 12:00', location : 'City, Place', method : 'BY INVITATION' },
+];
+
+const ManList = withStyles(styles)(props => {
+  const { classes, name, pax, time, location, method } = props;
+  return (
+    <Grid container className={classes.manList}>
+      <Grid item xs={4}>
+        <Avatar alt="man" src={dummyMan} className={classes.avatar} />
+      </Grid>
+      <Grid item xs={5}>
+        <Typography className={classes.earning} variant="h6">
+          {name}
+        </Typography>
+        <Typography className={classes.label} variant="h6">
+          {pax}pax | {time}
+        </Typography>
+        <Typography className={classes.label} variant="h6">
+          {location}
+        </Typography>
+        <Typography className={classes.tag} variant="span">
+          {method}
+        </Typography>
+      </Grid>
+      <Grid item xs={3}>
+        <NomiButton className={classes.acceptButton} onClick={() => alert('accept')}>
+          Accept
+        </NomiButton>
+      </Grid>
+    </Grid>
+  );
 });
 
 class WomanLanding extends React.Component {
@@ -161,167 +191,98 @@ class WomanLanding extends React.Component {
     super(props);
     this.state = {
       redirect : null,
-      notification : true,
-      user: Backend.user,
+      manList : manList,
     };
-  }
-
-  handleCloseNotification = () => {
-    this.setState({ notification : false });
   }
 
   render() {
     const { classes } = this.props;
-    const { redirect, notification, user } = this.state;
+    const { redirect, manList } = this.state;
 
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
         <div className={classes.fixedNav}>
-          <Navbar title="" />
+          <Navbar title="Hello, Username" gender="woman"/>
         </div>
-        <Grid container alignItems="center">
-          <Grid item xs={6}>
-            <img className={classes.avatar} src={avatarImg} alt=""/>
-          </Grid>
-          <Grid item xs={6}>
-            <Grid container className={classNames(classes.alignLeft, classes.whiteColor)}>
-              <Grid item xs={12} className={classes.name}>
-                Hello, {user.Username}!
-                <img src={penImg} className={classes.pen} alt="pen"/>
-              </Grid>
-              <Grid item xs={12}>
-                <Select
-                  native
-                  name="age"
-                  className={classes.select}
-                >
-                  <option value={10}>Status</option>
-                  <option value={20}>Twenty</option>
-                  <option value={30}>Thirty</option>
-                </Select>
-
-              </Grid>
-
+        <div className={classes.wrapper}>
+          <Grid container alignItems="center">
+            <Grid item xs={6} className={classes.infoWrapper}>
+              <Typography className={classes.earning} variant="h6">
+                Total Earning : 
+              </Typography>
+              <Typography className={classes} variant="h6">
+                2,000 
+              </Typography>
             </Grid>
-
-          </Grid>
-        </Grid>
-        <Typography className={classNames(classes.title, classes.alignLeft)} variant="h6">
-          Total Earning : 
-        </Typography>
-        <Typography className={classes.title} variant="h3">
-          $100,000
-        </Typography>
-        <div style={{marginTop :20, position:'relative'}}>
-          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/w/newBooking'})}>
-          <div className={classes.customBadge}>10</div>
-            New Booking
-          </MainButton>
-        </div>
-        <div className={classes.jobContainer}>
-        <Typography className={classNames(classes.title, classes.alignLeft)} variant="h6" onClick={() => this.setState({ redirect : '/w/pendingJob' })}>
-          Pending Job 
-        </Typography>
-        
-        <List>
-          <Typography className={classNames(classes.date, classes.alignLeft)} variant="p">
-            10 Jan 2019
-          </Typography>
-
-          <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <Avatar alt="job avatar" src={dummyMan} className={classes.jobAvatar}/>
-            </ListItemAvatar>
-            <ListItemText
-              className={classes.whiteColor}
-              primary={
-                <Typography component="span" className={classes.manName}>
-                  Haruto
+            <Grid item xs={6} className={classes.infoWrapper}>
+              <NomiButton className={classes.button}  onClick={() => this.setState({ redirect : '/w/dates'})}>
+              <div className={classes.customBadge}>10</div>
+                My Jobs
+              </NomiButton>
+            </Grid>
+            <Grid item container xs={6} alignItems="center" className={classes.infoWrapper}>
+              <Grid item xs={12}>
+                <Typography className={classes.label} variant="h6">
+                  MY LEVEL
                 </Typography>
-              }
-              secondary={
-                <React.Fragment>
-                  <Typography component="span" className={classes.whiteColor}>
-                    Location: Tokyo
-                  </Typography>
-                  <Typography component="span" className={classes.whiteColor}>
-                    Date : 10 Jan 2019
-                  </Typography>
-                  <Typography component="span" className={classes.whiteColor}>
-                    Timing : 18:00 - 20:00
-                  </Typography>
-                  <MainButton className={classes.chatButton}>
-                    Chat
-                  </MainButton>
-                </React.Fragment>
-              }
-            />
-          </ListItem>
-
-          <ListItem alignItems="flex-start">
-            <ListItemAvatar>
-              <Avatar alt="job avatar" src={dummyMan} className={classes.jobAvatar}/>
-            </ListItemAvatar>
-            <ListItemText
-              className={classes.whiteColor}
-              primary={
-                <Typography component="span" className={classes.manName}>
-                  Haruto
-                </Typography>
-              }
-              secondary={
-                <React.Fragment>
-                  <Typography component="span" className={classes.whiteColor}>
-                    Location: Tokyo
-                  </Typography>
-                  <Typography component="span" className={classes.whiteColor}>
-                    Date : 10 Jan 2019
-                  </Typography>
-                  <Typography component="span" className={classes.whiteColor}>
-                    Timing : 18:00 - 20:00
-                  </Typography>
-                  <MainButton className={classes.chatButton}>
-                    Chat
-                  </MainButton>
-                </React.Fragment>
-                }
-              />
-            </ListItem>
-
-          </List>
-
-        </div>
-
-        {/*Notification*/}
-        {notification &&
-          <div className={classes.notification} >
-            <div className={classes.notiWrapper}>
-              <IconButton onClick={this.handleCloseNotification} aria-label="Close" className={classes.close}>
-                <CloseIcon/>
-              </IconButton>
-              <h4>You have 3 new requests!</h4>
-              <h4>Enable auto accept?</h4>
-              <Grid container className={classes.alignCenter}>
-                <Grid item xs={6}>
-                  <NomiButton>
-                    Yes
-                  </NomiButton>
-                </Grid>
-                <Grid item xs={6}>
-                  <NomiButton>
-                    No
-                  </NomiButton>
+              </Grid>
+              <Grid item>
+                <img className={classes.crown} src={crown}/>
+              </Grid>
+              <Grid item xs={8}>
+                <span className={classes.goldLabel}>Prestige</span>
+              </Grid>
+              <Typography className={classes.description} variant="h6">
+                20,000 / session
+              </Typography>
+            </Grid>
+            <Grid item xs={6} className={classes.infoWrapper}>
+              <Grid container className={classes.alignLeft}>
+                <Grid item xs={12}>
+                  <FormControl className={classes.formControl}>
+                    <InputLabel shrink className={classes.inputLabel}>
+                      MY STATUS
+                    </InputLabel>
+                    <Select
+                      native
+                      label="age"
+                      className={classes.select}
+                    >
+                      <option value={0}>Available</option>
+                      <option value={1}>Not-Available</option>
+                    </Select>
+                  </FormControl>
                 </Grid>
               </Grid>
-              <FormControlLabel
-                control={ <Checkbox /> }
-                label="Don't show this message again."
-              />
-            </div>
-          </div>
-        }
-
+            </Grid>
+          </Grid>
+          <Grid container alignItems="center" justify="space-between" className={classes.listContainer}>
+            <Grid item>
+              <Typography className={classes.title} variant="h6">
+                Today's recommended jobs
+              </Typography>
+            </Grid>
+            <Grid item className={classes.refresh} onClick={() => alert("Refresh")}>
+              <Refresh className={classes.refreshIcon}/><span> Refresh</span>
+            </Grid>
+            <Grid item xs={12}>
+              {manList.map(e => <ManList {...e}/>)}
+            </Grid>
+            <Grid item xs={12}>
+              <Typography className={classes.title} variant="h6">
+                14 Nov 2019
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              {manList.map(e => <ManList {...e}/>)}
+            </Grid>
+            {/* Render this if no man found */}
+            <Grid item xs={12} className={classes.tinyText}>
+              There is no available job
+            </Grid>
+          </Grid>
+        </div>
       </div>
     );
   }
