@@ -8,7 +8,11 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import Dialog from '@material-ui/core/Dialog';
 import CloseIcon from '@material-ui/icons/Close';
+import AddBox from '@material-ui/icons/AddBox';
 import Slide from '@material-ui/core/Slide';
+import Avatar from '@material-ui/core/Avatar';
+import femaleAvatar from '../images/dummyGirl.png';
+import maleAvatar from '../images/dummyMan.png';
 import AuthenticationService from '../services/AuthenticationService';
 
 import classNames from 'classnames';
@@ -64,6 +68,17 @@ const styles = theme => ({
   },
   womanColor : {
     color : womanColor[1],
+  },
+  text : {
+    color : 'white',
+    fontSize : 13,
+    alignItems : 'center',
+    justifyContent : "center",
+    display : 'flex'
+  },
+  avatar : {
+    marginLeft : 'auto',
+    marginRight : 0
   }
 });
 
@@ -231,12 +246,24 @@ class Navbar extends React.Component {
     return (
       <div className={classes.layout} style={{background : backgroundColor || 'none'}}>
         {redirect && <Redirect to={redirect}/>}
-        <Grid container>
+        <Grid container alignItems="center">
           <Grid item xs={8}>
-            {backTo 
-              ? <NavLink className={classes.title} to={backTo}>{'< NOMI'}</NavLink>
-              : <a href="/" className={classes.title}>NOMI</a>
-            }
+            <a href="/" className={classes.title}>NOMI</a>
+          </Grid>
+          <Grid item xs={4} className={classes.alignRight}>
+            <Grid container alignItems="center">
+              <Grid item xs={6}>
+                <Avatar alt="man or girl" src={gender === "man" ? maleAvatar : femaleAvatar } className={classes.avatar} />
+              </Grid>
+              <Grid item xs={6}>
+                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleClickOpen}>
+                  <MenuIcon />
+                </IconButton>
+              </Grid>
+            </Grid>
+          </Grid>
+          <Grid item xs={8}>
+            { backTo && <NavLink className={classes.title} to={backTo}>{'< Back'}</NavLink> }
             {title &&
               <Typography component="h1" variant="h6" className={classNames(classes.title,classes.subTitle)} noWrap>
                 {title}
@@ -244,9 +271,15 @@ class Navbar extends React.Component {
             }
           </Grid>
           <Grid item xs={4} className={classes.alignRight}>
-            <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleClickOpen}>
-              <MenuIcon />
-            </IconButton>
+            <Typography component="h1" align="right" variant="h6" className={classes.text}>
+              <span>
+              {gender === "man" 
+                ? 'Credit : $100'
+                : '3 confirmed jobs >'
+              }
+              </span>
+              {gender === "man" && <AddBox/>}
+            </Typography>
           </Grid>
         </Grid>
 

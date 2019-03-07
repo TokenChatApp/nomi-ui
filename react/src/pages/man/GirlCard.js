@@ -5,6 +5,7 @@ import { Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import StarRate from '@material-ui/icons/StarRate';
+import classNames from 'classnames';
 
 import CheckCircle from '@material-ui/icons/CheckCircle';
 import RadioButtonUnchecked from '@material-ui/icons/RadioButtonUnchecked';
@@ -67,6 +68,9 @@ const styles = theme => ({
   starWrapper : {
     lineHeight : '1px',
     margin : 0
+  },
+  noPadding : {
+    padding : 0
   }
 });
 
@@ -106,30 +110,34 @@ class GirlCard extends React.Component {
   }
 
   render() {
-    const { classes, name, age, rating, level, imgUrl } = this.props;
+    const { classes, name, age, rating, level, imgUrl, disabled, noPadding } = this.props;
     const { redirect, checked } = this.state;
 
     return (
-      <Grid container className={classes.root} alignItems="center">
+      <Grid container className={classNames(classes.root, noPadding && classes.noPadding)} alignItems="center">
         {redirect && <Redirect to={redirect}/>}
-        <div className={classes.crownContainer} onClick={this.handleCrownClick}>
-          <img className={classes.crown} src={level === 3 ? crownGold : crownSilver} alt="crown"/>
-        </div>
+        {!disabled &&
+          <div className={classes.crownContainer} onClick={this.handleCrownClick}>
+            <img className={classes.crown} src={level === 3 ? crownGold : crownSilver} alt="crown"/>
+          </div>
+        }
         <Grid item xs={12}>
           <img className={classes.avatar} src={imgUrl} alt="girl avatar" onClick={this.handleRedirect}/>
         </Grid>
-        <Grid item xs={9} className={classes.wrapper}>
+        <Grid item xs={disabled ? 12 : 9} className={classes.wrapper}>
           <Typography variant="h6">
             <span className={classes.name}>{name} </span> <span className={classes.age}>{age}years old</span>
             <h1 className={classes.starWrapper}><GenerateStars rating={rating}/></h1>
           </Typography>
         </Grid>
-        <Grid item xs={3} className={classes.manColor} onClick={this.handleClick}>
-          {checked 
-            ? <CheckCircle/>
-            : <RadioButtonUnchecked/>
-          }
-        </Grid>
+        {!disabled &&
+          <Grid item xs={3} className={classes.manColor} onClick={this.handleClick}>
+            {checked 
+              ? <CheckCircle/>
+              : <RadioButtonUnchecked/>
+            }
+          </Grid>
+        }
       </Grid>
     );
   }

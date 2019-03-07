@@ -146,7 +146,6 @@ class ManLanding extends React.Component {
     */
   }
 
-
   handleToggleCrown = () => {
     let { crown } = this.state;
     this.setState({ crown : !crown });

@@ -3,6 +3,7 @@ import { Backend } from '../../services/Backend';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import { Redirect } from 'react-router-dom';
+import classNames from 'classnames';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../../components/Navbar';
 import Grid from '@material-ui/core/Grid';
@@ -228,7 +229,7 @@ class WomanLanding extends React.Component {
                 </Typography>
               </Grid>
               <Grid item>
-                <img className={classes.crown} src={crown}/>
+                <img className={classes.crown} src={crown} alt="crown"/>
               </Grid>
               <Grid item xs={8}>
                 <span className={classes.goldLabel}>Prestige</span>
@@ -280,6 +281,9 @@ class WomanLanding extends React.Component {
             {/* Render this if no man found */}
             <Grid item xs={12} className={classes.tinyText}>
               There is no available job
+            </Grid>
+            <Grid item xs={12} className={classNames(classes.refresh, classes.alignCenter)} onClick={() => alert("Refresh")}>
+              <Refresh className={classes.refreshIcon}/><span> Refresh</span>
             </Grid>
           </Grid>
         </div>

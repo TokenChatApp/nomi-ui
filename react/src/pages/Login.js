@@ -7,39 +7,48 @@ import { NavLink, Redirect } from 'react-router-dom';
 import Typography from '@material-ui/core/Typography';
 import Navbar from '../components/Navbar';
 import TextField from '@material-ui/core/TextField';
+import classNames from 'classnames';
 import Grid from '@material-ui/core/Grid';
-import MainButton from '../components/MainButton'
-
-import loginImg from '../images/female/loginGirl.png';
+import NomiButton from '../components/NomiButton'
+import GenderSwitch from '../components/GenderSwitch';
+import girlImg from '../images/girl.jpg';
+import manImg from '../images/man.png';
+import { womanColor, manColor } from '../Constants';
 
 const styles = theme => ({
     root: {
-        background : 'linear-gradient(#ff9954 , #ff268a)',
         height : '100%',
         minHeight : '100vh',
         position : 'relative',
     },
-    textField: {
-        marginLeft: theme.spacing.unit,
-        marginRight: theme.spacing.unit,
-        width: '100%',
-        maxWidth : 250
+    heroContainer : {
+        backgroundSize : 'cover',
+        WebkitBackgroundSize : 'cover',
+        MozBackgroundSize : 'cover',
+        OBackgroundSize : 'cover',
+        height: '50vh',
+        paddingTop : 10,
+        paddingBottom : 10,
+    },
+    contentWrapper : {
+        padding : '0 50px'
+    },
+    heroMale : { backgroundImage : 'url(' + manImg + ')' },
+    heroFemale : { backgroundImage : 'url(' + girlImg + ')' },
+    title : {
+        color : 'white'
     },
     input : {
         backgroundColor : 'transparent',
         border : 'none',
-        color : 'white',
         outline: 'none',
     },
-    label : {
-        color : 'white!important'
-    },
-    form : {
-        minHeight : 300
-    },
     button : {
-        fontWeight : 700,
-        color : '#ff666d'
+        fontWeight : 600,
+        maxWidth : 250,
+    },
+    alignRight : {
+        textAlign : 'right'
     },
     buttonImg : {
         width : 25,
@@ -47,25 +56,34 @@ const styles = theme => ({
         paddingRight : 10,
     },
     footer : {
-        color : '#ff268a',
+        color : '#8c8c8c',
         position : 'absolute',
         bottom : 0,
         left : 0,
         right : 0,
         width : '100%',
-        backgroundColor : 'white',
+        backgroundColor : '#f5f5f5',
         padding : 15,
         height : 60,
     },
-    footerColor : {
-        color : '#ff268a',
-    }
+    install : {
+        color : womanColor[0]
+    },
+    lolChat : {
+        margin : '35px 0'
+    },
+    divider : {
+        height : 20,
+    },
+    menBackground : { background : `linear-gradient(to left, ${manColor[0]} , ${manColor[1]})` },
+    womenBackground : { background : `linear-gradient(to left, ${womanColor[0]} , ${womanColor[1]})` },
 });
 
 class Login extends React.Component {
 
     state = {
         redirect : null,
+        gender : "man",
         Username : null,
         Password : null,
         errors: {},
@@ -91,6 +109,10 @@ class Login extends React.Component {
         });
     });
 
+    switchGender = gender => () => {
+        this.setState({ gender });
+    }
+
     handleFormSubmit = (event => {
 
         let response = AuthenticationService.login(this.state);
@@ -108,20 +130,35 @@ class Login extends React.Component {
 
     render() {
         const { classes } = this.props;
-        const { redirect, errors, errorMessage } = this.state;
+        const { redirect, gender, errors, errorMessage } = this.state;
+        const man = gender === 'man';
 
         return (
             <div className={classes.root}>
-                {redirect && <Redirect to={redirect}/>}
-                <Navbar/>
+                {redirect && <Redirect to={redirect} push/>}
+                <Grid 
+                    container 
+                    alignContent="space-between" 
+                    className={classNames(classes.heroContainer, man ? classes.heroFemale : classes.heroMale)}
+                >
+                    <Grid item xs={12}>
+                        <GenderSwitch gender={gender} onClick={this.switchGender(man ? 'woman' : 'man')}/>
+                    </Grid>
+                    <Grid item xs={12}>
+                        <Typography className={classes.title} variant="h1" color="inherit" noWrap >NOMI</Typography>
+                    </Grid>
+                </Grid>
+                <div className={classNames(classes.divider, man ? classes.menBackground : classes.womenBackground)}/>
+                {man ?
                 <form onSubmit={this.handleFormSubmit}>
-                    <Grid container>
+                    <Grid container className={classes.contentWrapper} alignItems="center">
                         <Grid item xs={12}>
                             <Grid container className={classes.form} alignContent="center">
                                 <Grid item xs={12}>
                                     <TextField
                                         label="Username"
                                         className={classes.textField}
+                                        fullWidth
                                         margin="normal"
                                         InputLabelProps={{
                                             className: classes.label
@@ -141,6 +178,7 @@ class Login extends React.Component {
                                         label="Password"
                                         type="password"
                                         className={classes.textField}
+                                        fullWidth
                                         margin="normal"
                                         InputLabelProps={{
                                             className: classes.label
@@ -158,21 +196,33 @@ class Login extends React.Component {
                             </Grid>
                         </Grid>
                         {errorMessage}
-                        <Grid item xs={12}>
-                            <MainButton className={classes.button} type="submit">
-                                <img className={classes.buttonImg} src={loginImg} alt="login"/>
-                                Login
-                            </MainButton>
+                        <Grid item xs={6}>
                             <Typography className={classes.label}>
                                 Forget Password ?
                             </Typography>
                         </Grid>
+                        <Grid item xs={6} className={classes.alignRight}>
+                            <NomiButton className={classes.button} gender="man" type="submit">
+                                GO
+                            </NomiButton>
+                        </Grid>
                         <Grid item xs={12} className={classes.footer}>
-                            {"Don't have an account? "}
-                            <NavLink to="/" className={classes.footerColor}>SIGN UP</NavLink>
+                            Log in with LOL Chat
                         </Grid>
                     </Grid>
                 </form>
+                :
+                <Grid container>
+                    <Grid item xs={12}>
+                        <NomiButton className={classNames(classes.button, classes.lolChat)} gender="woman" >
+                            Log in with LOL Chat
+                        </NomiButton>
+                    </Grid>
+                    <Grid item xs={12} className={classes.install}>
+                        Install lol chat
+                    </Grid>
+                </Grid>
+                }
             </div>
         );
     }
