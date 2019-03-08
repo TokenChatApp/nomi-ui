@@ -45,7 +45,7 @@ const styles = theme => ({
     cursor : 'pointer'
   },
   name : {
-    fontWeight : 700 
+    fontWeight : 700
   },
   text : {
     color : 'white',
@@ -164,16 +164,16 @@ class ManLanding extends React.Component {
   render() {
     const { classes } = this.props;
     const { redirect, womanList, locationEnabled } = this.state;
-
+    let title = `Hello, ${Backend.user.Username}`;
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="Hello, Username" gender="man"/>
+        <Navbar title={title} gender="man"/>
         <Grid container className={classes.container}>
           <Grid item xs={12}>
-            <NomiButton 
-              className={classes.button} 
-              gender="man" 
+            <NomiButton
+              className={classes.button}
+              gender="man"
               onClick={() => this.setState({ redirect : '/m/invitation/detail' })}
             >
               <Favorite className={classes.favIcon}/>
@@ -185,8 +185,8 @@ class ManLanding extends React.Component {
             Explore the girls around your City, Place
           </Typography>
 
-          {locationEnabled ? 
-            womanList.map(e => 
+          {locationEnabled ?
+            womanList.map(e =>
               <Grid item xs={6}>
                 <GirlCard
                   {...e}
@@ -194,17 +194,17 @@ class ManLanding extends React.Component {
                 />
               </Grid>
             )
-            : 
+            :
             <Typography variant="h5" className={classes.disabledText}>
               Ops, we couldn't get any girl for you
             </Typography>
           }
-          
+
           {locationEnabled &&
           <Grid item xs={12}>
-            <NomiButton 
-              className={classes.button} 
-              gender="man" 
+            <NomiButton
+              className={classes.button}
+              gender="man"
               onClick={() => this.setState({ redirect : '/m/invitation/detail' })}
             >
               <Favorite className={classes.favIcon}/>
@@ -251,4 +251,3 @@ ManLanding.propTypes = {
 };
 
 export default withStyles(styles)(ManLanding);
-

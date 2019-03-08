@@ -102,15 +102,14 @@ class Signup extends React.Component {
     Username: null,
     EmailAddress: null,
     Password: null,
-    State: null,
+    Place: null,
     RatePerHour: null,
     PostalCode: null,
     City: null,
     Height: null,
     Weight: null,
     SpokenLanguage: [],
-    OtherSpokenLanguage: null,
-    Ethnicity: null,
+    Nationality: null,
     errors: {},
   };
 
@@ -264,16 +263,16 @@ class Signup extends React.Component {
                     <TextField
                         className={classes.textField}
                         fullWidth
-                        label="Ethnicity"
+                        label="Nationality"
                         style={{ margin: 8 }}
-                        placeholder="Ethnicity"
+                        placeholder="Nationality"
                         type="text"
                         margin="normal"
-                        value={this.state.Ethnicity}
+                        value={this.state.Nationality}
                         onChange={this.handleInputChange}
-                        name="Ethnicity"
-                        error={errors.hasOwnProperty("Ethnicity")}
-                        helperText={errors.hasOwnProperty("Ethnicity") && errors["Ethnicity"]}
+                        name="Nationality"
+                        error={errors.hasOwnProperty("Nationality")}
+                        helperText={errors.hasOwnProperty("Nationality") && errors["Nationality"]}
                         InputLabelProps={{ shrink: true, className : classes.label }}
                     />
                   </Grid>
@@ -330,18 +329,6 @@ class Signup extends React.Component {
                             name="SpokenLanguage[Others]"
                             value="Others"
                             onChange={this.handleInputChange}
-                        />
-                      </Grid>
-                      <Grid item xs={8}>
-                        <TextField
-                            disabled={ this.state["SpokenLanguage[Others]"] !== "Others" }
-                            className={classes.textField}
-                            fullWidth
-                            style={{ margin: 8 }}
-                            margin="normal"
-                            value={this.state.OtherSpokenLanguage}
-                            onChange={this.handleInputChange}
-                            InputLabelProps={{ shrink: true, className : classes.label }}
                         />
                       </Grid>
                       <Grid item xs={12}>
@@ -423,17 +410,17 @@ class Signup extends React.Component {
                         {/*margin="normal"*/}
                     {/*/>*/}
                     <FormControl className={classes.formControl}>
-                      <InputLabel htmlFor="state-label-placeholder">State</InputLabel>
+                      <InputLabel htmlFor="place-label-placeholder">Place</InputLabel>
                       <Select
-                          value={this.state.State}
+                          value={this.state.Place}
                           onChange={this.handleInputChange}
                           inputProps={{
-                            name: 'State',
-                            id: 'state-label-placeholder',
+                            name: 'Place',
+                            id: 'place-label-placeholder',
                           }}
                           className={classes.selectEmpty}
-                          error={errors.hasOwnProperty("State")}
-                          helperText={errors.hasOwnProperty("State") && errors["State"]}
+                          error={errors.hasOwnProperty("Place")}
+                          helperText={errors.hasOwnProperty("Place") && errors["Place"]}
 
                       >
                         <MenuItem disabled value="">
@@ -507,4 +494,3 @@ Signup.propTypes = {
 };
 
 export default withStyles(styles)(Signup);
-

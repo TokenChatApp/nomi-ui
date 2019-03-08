@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Navbar from '../../components/Navbar';
+import { Redirect } from 'react-router-dom';
 import captureSrc from '../../images/camera.png';
 import chooseSrc from '../../images/upload.png';
 import { manColor } from '../../Constants';
@@ -89,29 +90,26 @@ const ChoosePhoto = props => {
 
 class ProfilePicUploader extends React.Component {
 
+    state = {
+      redirect: null
+    }
+
   render() {
     const { classes } = this.props;
 
     return (
         <div className={classes.root}>
+          {this.state.redirect && <Redirect to={this.state.redirect}/>}
           <div className={classes.fixedNav}>
             <Navbar title="SIGN UP"/>
           </div>
+          <MainButton className={classes.button}  onClick={() => this.setState({ redirect : '/m/signup'})}>
+            Back
+          </MainButton>
           <CapturePhoto/>
           <Divider/>
           <ChoosePhoto/>
           <Divider/>
-          <div>
-            <MainButton className={classes.button}>
-              URL
-            </MainButton>
-            <MainButton className={classes.button}>
-              Google Drive
-            </MainButton>
-            <MainButton className={classes.button}>
-              Dropbox
-            </MainButton>
-          </div>
         </div>
     );
   }
@@ -122,4 +120,3 @@ ProfilePicUploader.propTypes = {
 };
 
 export default withStyles(styles)(ProfilePicUploader);
-

@@ -93,4 +93,3 @@ InvitationSent.propTypes = {
 };
 
 export default withStyles(styles)(InvitationSent);
-

@@ -57,13 +57,13 @@ const styles = theme => ({
     fontWeight : 500,
     textAlign : 'center',
   },
-  colorMen : { 
+  colorMen : {
     backgroundColor : 'white',
     color : menIconColor,
   },
-  colorWomen : { 
+  colorWomen : {
     backgroundColor : 'white',
-    color : womenIconColor, 
+    color : womenIconColor,
   },
   userButtonLabel : {
     marginBottom : '0!important',
@@ -161,9 +161,9 @@ class Landing extends React.Component {
       <div className={classes.layout}>
         {redirect && <Redirect to={redirect} push/>}
         <div>
-          <Grid 
-            container 
-            alignContent="space-between" 
+          <Grid
+            container
+            alignContent="space-between"
             className={classNames(classes.heroContainer, man ? classes.heroFemale : classes.heroMale)}
           >
             <Grid item xs={12}>
@@ -187,8 +187,8 @@ class Landing extends React.Component {
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <MainButton 
-              className={classNames(classes.userButton, classes.maxWidthButton)} 
+            <MainButton
+              className={classNames(classes.userButton, classes.maxWidthButton)}
               onClick={() => this.setState({ redirect : '/login'})}
             >
               <img className={classes.buttonImg} src={login} alt="login"/>
@@ -197,15 +197,15 @@ class Landing extends React.Component {
           </Grid>
           <Grid item xs={12}>
             <Typography className={classNames(classes.userButtonLabel, classes.description)}>
-              {man 
+              {man
                 ? 'Not a member? Sign up now to see the ladies!'
                 : 'Not a member? Sign up now start earning!'
               }
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <MainButton 
-              className={classNames(classes.userButton, classes.maxWidthButton)} 
+            <MainButton
+              className={classNames(classes.userButton, classes.maxWidthButton)}
               onClick={() => this.setState({ redirect : '/signup'})}
             >
               <img className={classes.buttonImg} src={signup} alt="signup"/>
@@ -217,7 +217,7 @@ class Landing extends React.Component {
         <Grid container alignItems="center" className={classes.contentContainer}>
           <Grid item xs={12}>
             <Typography variant="h5" className={classes.text}>
-              {man 
+              {man
                 ? 'Over 1000 model graded girls for your choice!'
                 : 'Over 1000 Jobs to start right away!'
               }
@@ -232,10 +232,10 @@ class Landing extends React.Component {
           <Grid item xs={4} className={classes.paddingY}>
             <img className={classes.img} src={stepsIcon} alt="3 Steps "/>
           </Grid>
-          {man 
+          {man
             // Man Section
             ? <React.Fragment>
-              {womanList.map(e => 
+              {womanList.map(e =>
                 <Grid item xs={4}>
                   <GirlCard
                     {...e}
@@ -280,17 +280,17 @@ class Landing extends React.Component {
           }
           </Grid>
           {!man &&
-            <Grid 
-              container 
+            <Grid
+              container
               alignItems="center"
               className={classNames(classes.heroContainer, classes.subContainer)}
             >
-              <Grid item xs={12}> 
+              <Grid item xs={12}>
                 <Typography variant="h5" className={classNames(classes.contentContainer, classes.whiteText)}>
                   Earn up to ¥1000 every 2 hours
                 </Typography>
               </Grid>
-              <Grid item xs={12}> 
+              <Grid item xs={12}>
                 <MainButton className={classNames(classes.maxWidthButton, classes.colorWomen)}>
                   Sign up now
                 </MainButton>
@@ -298,7 +298,7 @@ class Landing extends React.Component {
             </Grid>
           }
           <Grid container className={classNames(classes.contentContainer, classes.questionContainer)}>
-            <Grid item xs={12}> 
+            <Grid item xs={12}>
               <Typography variant="h5" className={classes.questionTitle}>
                 Question? Let us know!
               </Typography>

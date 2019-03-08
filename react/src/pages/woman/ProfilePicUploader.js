@@ -33,7 +33,7 @@ const styles = theme => ({
 });
 
 const Divider = () => {
- 
+
   const inlineStyle = {
     display : 'inline-block',
     width : '30%',
@@ -46,7 +46,7 @@ const Divider = () => {
     <div style={{
       marginTop     : 30,
       marginBottom  : 30,
-    }}>     
+    }}>
       <hr style={inlineStyle}/>
       <span style={{
         padding : 10,
@@ -73,7 +73,7 @@ const CapturePhoto = props => {
     <div {...props}>
       <img style={imgStyle} src={captureSrc} alt="capture"/>
       <h6 style={textStyle}>Capture a photo</h6>
-    </div>    
+    </div>
   );
 }
 
@@ -83,7 +83,7 @@ const ChoosePhoto = props => {
     <div {...props}>
       <img style={imgStyle} src={chooseSrc} alt="choose"/>
       <h6 style={textStyle}>Choose file to upload</h6>
-    </div>    
+    </div>
   );
 }
 
@@ -100,18 +100,6 @@ class ProfilePicUploader extends React.Component {
         <CapturePhoto/>
         <Divider/>
         <ChoosePhoto/>
-        <Divider/>
-        <div>
-          <MainButton className={classes.button}>
-            URL
-          </MainButton>
-          <MainButton className={classes.button}>
-            Google Drive
-          </MainButton>
-          <MainButton className={classes.button}>
-            Dropbox
-          </MainButton>
-        </div>
       </div>
     );
   }
@@ -122,4 +110,3 @@ ProfilePicUploader.propTypes = {
 };
 
 export default withStyles(styles)(ProfilePicUploader);
-

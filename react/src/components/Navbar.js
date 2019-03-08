@@ -233,13 +233,13 @@ class Navbar extends React.Component {
     let backgroundColor;
 
     switch(gender) {
-      case "man" : 
+      case "man" :
         backgroundColor = `linear-gradient(to top, ${manColor[0]} , ${manColor[1]})`;
         break;
       case "woman" :
         backgroundColor = `linear-gradient(to top, ${womanColor[0]} , ${womanColor[1]})`;
         break;
-      default : 
+      default :
         backgroundColor = 'none';
     }
 
@@ -273,12 +273,12 @@ class Navbar extends React.Component {
           <Grid item xs={4} className={classes.alignRight}>
             <Typography component="h1" align="right" variant="h6" className={classes.text}>
               <span>
-              {gender === "man" 
-                ? 'Credit : $100'
-                : '3 confirmed jobs >'
+              {gender === "man"
+                ? ''
+                // : '3 confirmed jobs >
+                : ''
               }
               </span>
-              {gender === "man" && <AddBox/>}
             </Typography>
           </Grid>
         </Grid>
@@ -310,4 +310,3 @@ Navbar.propTypes = {
 };
 
 export default withStyles(styles)(Navbar);
-

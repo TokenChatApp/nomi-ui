@@ -46,7 +46,7 @@ const AuthenticationService = {
 
     },
     profile: function(){
-        return axios.post(Backend.apiUrl + Backend.profileUrl + "info").then(res => {
+        return axios.post(Backend.apiUrl + Backend.profileUrl).then(res => {
             Cookies.set("nomi-profile", JSON.stringify(res.data));
             return res.data;
         }, res => {

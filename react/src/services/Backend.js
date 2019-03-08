@@ -3,10 +3,11 @@ import Cookies from 'js-cookie';
 import AuthenticationService from './AuthenticationService';
 
 export const Backend = {
-    apiUrl: "http://api.nomi.gm.design/api/v0/",
+    apiUrl: "http://192.168.131.7:8000/api/v1/",
+    // apiUrl: "http://api.nomi.gm.design/api/v0/",
     //apiUrl: "http://playground.nomi.com/api/v0/",
     authUrl: "auth/",
-    profileUrl: "profile/",
+    profileUrl: "profile/info",
     user: {},
     bootstrap: async function(){
         console.log("Nomi user bootstrap");
