@@ -5,18 +5,25 @@ import Navbar from "../../components/Navbar";
 import { Redirect } from "react-router-dom";
 import captureSrc from "../../images/camera.png";
 import chooseSrc from "../../images/upload.png";
-import { womanColor } from "../../Constants";
+import { womanColor, manColor } from "../../Constants";
 import MainButton from "../../components/MainButton";
 import ImageUploader from "react-images-upload";
 import { Backend } from "../../services/Backend";
 
 const styles = theme => ({
-  root: {
+  rootMan: {
     height: "100%",
     minHeight: "calc(100vh - 165px)",
     position: "relative",
     paddingTop: 165,
-    background: `linear-gradient(to bottom, ${womanColor[0]}, ${womanColor[1]})`
+    background: `linear-gradient(to top, ${manColor[0]}, ${manColor[1]})`
+  },
+  rootWoman: {
+    height: "100%",
+    minHeight: "calc(100vh - 165px)",
+    position: "relative",
+    paddingTop: 165,
+    background: `linear-gradient(to top, ${womanColor[0]}, ${womanColor[1]})`
   },
   fixedNav: {
     position: "absolute",
@@ -145,14 +152,22 @@ class ProfilePicUploader extends React.Component {
 
   render() {
     const { classes } = this.props;
+    var redirectString = "/w/signup";
+    if (this.props.gender === "male") {
+      redirectString = "/m/signup";
+    }
     return (
-      <div className={classes.root}>
+      <div
+        className={
+          this.props.gender === "male" ? classes.rootMan : classes.rootWoman
+        }
+      >
         {this.state.redirect && <Redirect to={this.state.redirect} />}
         <div className={classes.fixedNav}>
           <Navbar title="SIGN UP" isLoggedIn="false" />
           <MainButton
             className={classes.button}
-            onClick={() => this.setState({ redirect: "/w/signup" })}
+            onClick={() => this.setState({ redirect: redirectString })}
           >
             Back
           </MainButton>

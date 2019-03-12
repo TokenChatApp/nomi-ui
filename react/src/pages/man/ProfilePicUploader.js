@@ -9,7 +9,14 @@ import { manColor } from "../../Constants";
 import MainButton from "../../components/MainButton";
 
 const styles = theme => ({
-  root: {
+  rootMan: {
+    height: "100%",
+    minHeight: "calc(100vh - 165px)",
+    position: "relative",
+    paddingTop: 165,
+    background: `linear-gradient(to top, ${manColor[0]}, ${manColor[1]})`
+  },
+  rootWoman: {
     height: "100%",
     minHeight: "calc(100vh - 165px)",
     position: "relative",
@@ -100,7 +107,7 @@ class ProfilePicUploader extends React.Component {
     const { classes } = this.props;
 
     return (
-      <div className={classes.root}>
+      <div className={classes.rootMan}>
         {this.state.redirect && <Redirect to={this.state.redirect} />}
         <div className={classes.fixedNav}>
           <Navbar title="SIGN UP" isLoggedIn="false" />
