@@ -167,7 +167,7 @@ class ManLanding extends React.Component {
   render() {
     const { classes } = this.props;
     const { redirect, womanList, locationEnabled } = this.state;
-    let title = `Hello, ${Backend.user.Username}`;
+    let title = `Hello, ${Backend.user.displayName}`;
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}

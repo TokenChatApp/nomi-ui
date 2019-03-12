@@ -3,7 +3,8 @@ import Cookies from "js-cookie";
 import { Backend } from "./Backend";
 import qs from "qs";
 
-axios.interceptors.request.use(
+const instance = axios.create();
+instance.interceptors.request.use(
   function(config) {
     const token = Cookies.get("X-CSRF-Token");
     config.withCredentials = true;
@@ -25,7 +26,7 @@ axios.interceptors.request.use(
 
 const AuthenticationService = {
   login: function(value) {
-    return axios
+    return instance
       .post(Backend.apiUrl + Backend.authUrl + "login", qs.stringify(value))
       .then(
         res => {
@@ -41,7 +42,7 @@ const AuthenticationService = {
       );
   },
   signUp: function(value) {
-    return axios({
+    return instance({
       method: "post",
       url: Backend.apiUrl + Backend.authUrl + "sign-up",
       data: qs.stringify(value),
@@ -62,7 +63,7 @@ const AuthenticationService = {
     );
   },
   profile: function() {
-    return axios.get(Backend.apiUrl + Backend.profileUrl).then(
+    return instance.get(Backend.apiUrl + Backend.profileUrl).then(
       res => {
         Cookies.set("nomi-profile", JSON.stringify(res.data));
         return res.data;
@@ -74,7 +75,7 @@ const AuthenticationService = {
     );
   },
   logout: function() {
-    return axios.post(Backend.apiUrl + Backend.authUrl + "logout").then(
+    return instance.post(Backend.apiUrl + Backend.authUrl + "logout").then(
       res => {
         Cookies.remove("nomi-token");
         Cookies.remove("nomi-profile");

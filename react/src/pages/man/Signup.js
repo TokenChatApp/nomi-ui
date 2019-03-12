@@ -100,7 +100,7 @@ class Signup extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="SIGN UP" gender="man" />
+        <Navbar title="SIGN UP" gender="man" isLoggedIn="false" />
         <MainButton
           className={classes.button}
           onClick={() => this.setState({ redirect: "/signup" })}

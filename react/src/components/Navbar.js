@@ -1,230 +1,313 @@
-import React from 'react';
-import PropTypes from 'prop-types';
-import { withStyles } from '@material-ui/core/styles';
-import { NavLink, Redirect } from 'react-router-dom';
-import Typography from '@material-ui/core/Typography';
-import Grid from '@material-ui/core/Grid';
-import IconButton from '@material-ui/core/IconButton';
-import MenuIcon from '@material-ui/icons/Menu';
-import Dialog from '@material-ui/core/Dialog';
-import CloseIcon from '@material-ui/icons/Close';
-import AddBox from '@material-ui/icons/AddBox';
-import Slide from '@material-ui/core/Slide';
-import Avatar from '@material-ui/core/Avatar';
-import femaleAvatar from '../images/dummyGirl.png';
-import maleAvatar from '../images/dummyMan.png';
-import AuthenticationService from '../services/AuthenticationService';
+import React from "react";
+import PropTypes from "prop-types";
+import { withStyles } from "@material-ui/core/styles";
+import { NavLink, Redirect } from "react-router-dom";
+import Typography from "@material-ui/core/Typography";
+import Grid from "@material-ui/core/Grid";
+import IconButton from "@material-ui/core/IconButton";
+import MenuIcon from "@material-ui/icons/Menu";
+import Dialog from "@material-ui/core/Dialog";
+import CloseIcon from "@material-ui/icons/Close";
+import AddBox from "@material-ui/icons/AddBox";
+import Slide from "@material-ui/core/Slide";
+import Avatar from "@material-ui/core/Avatar";
+import femaleAvatar from "../images/dummyGirl.png";
+import maleAvatar from "../images/dummyMan.png";
+import AuthenticationService from "../services/AuthenticationService";
 
-import classNames from 'classnames';
+import classNames from "classnames";
 
-import { manColor, womanColor } from '../Constants';
-import MainButton from './MainButton';
+import { manColor, womanColor } from "../Constants";
+import MainButton from "./MainButton";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
 }
 
 const styles = theme => ({
-  layout : {
-    padding : 10
+  layout: {
+    padding: 10
   },
-  title : {
-    color : 'white',
-    textAlign : 'left',
-    fontSize : '2rem',
-    fontWeight : 400,
+  title: {
+    color: "white",
+    textAlign: "left",
+    fontSize: "2rem",
+    fontWeight: 400,
     marginLeft: 20,
-    textDecoration : 'none',
-    display : 'block'
+    textDecoration: "none",
+    display: "block"
   },
-  subTitle : {
-    fontSize : '1rem',
-    fontWeight : 400,
+  subTitle: {
+    fontSize: "1rem",
+    fontWeight: 400
   },
   menuButton: {
     marginLeft: -12,
     marginRight: 20,
-    color : 'white'
+    color: "white"
   },
-  alignRight : {
-    textAlign : 'right',
+  alignRight: {
+    textAlign: "right"
   },
-  dialog : {
-    backgroundColor : 'rgba(0, 0, 0, 0.4)'
+  dialog: {
+    backgroundColor: "rgba(0, 0, 0, 0.4)"
   },
-  close : {
-    color : 'white',
-    alignSelf: 'flex-end'
+  close: {
+    color: "white",
+    alignSelf: "flex-end"
   },
-  redirectButton : {
-    marginLeft : 'auto',
-    marginRight : 'auto',
-    display : 'block',
+  redirectButton: {
+    marginLeft: "auto",
+    marginRight: "auto",
+    display: "block",
     fontWeight: 400,
-    maxWidth : 230,
+    maxWidth: 230
   },
-  manColor : {
-    color : manColor[1],
+  manColor: {
+    color: manColor[1]
   },
-  womanColor : {
-    color : womanColor[1],
+  womanColor: {
+    color: womanColor[1]
   },
-  text : {
-    color : 'white',
-    fontSize : 13,
-    alignItems : 'center',
-    justifyContent : "center",
-    display : 'flex'
+  text: {
+    color: "white",
+    fontSize: 13,
+    alignItems: "center",
+    justifyContent: "center",
+    display: "flex"
   },
-  avatar : {
-    marginLeft : 'auto',
-    marginRight : 0
+  avatar: {
+    marginLeft: "auto",
+    marginRight: 0
   }
 });
 
 const helpStyle = {
   height: 40,
-  width: '100%',
-  maxWidth : 230,
-  margin: 'auto',
-  fontSize: '1rem',
+  width: "100%",
+  maxWidth: 230,
+  margin: "auto",
+  fontSize: "1rem",
   fontWeight: 500,
-  backgroundColor: '#e84646',
+  backgroundColor: "#e84646",
   borderRadius: 30,
-  padding : '0 30px',
-  border : 0,
-  color : 'white',
-  cursor : 'pointer'
+  padding: "0 30px",
+  border: 0,
+  color: "white",
+  cursor: "pointer"
 };
 
 const privacyText = {
-  textAlign: 'center',
-  color: 'white',
-  fontSize: '1rem',
-  marginBottom : 40,
-}
-
-const wrapperStyle = {
-  margin : 'auto',
-  width : '100%',
+  textAlign: "center",
+  color: "white",
+  fontSize: "1rem",
+  marginBottom: 40
 };
 
-const Divider = props => <div style={{height : props.height || 20}}/>
+const wrapperStyle = {
+  margin: "auto",
+  width: "100%"
+};
+
+const Divider = props => <div style={{ height: props.height || 20 }} />;
 
 const ManButtons = props => {
-
-  const { handleRedirect } = props;
-  const { handleLogout } = props
-
-  return (
-    <React.Fragment>
-      <div style={wrapperStyle}>
-        <MainButton {...props} onClick={handleRedirect('/m/dates')} >
-          My Dates
-        </MainButton>
-        <Divider/>
-        <MainButton {...props} onClick={handleRedirect('/m/locationEdit')} >
-          Change Location
-        </MainButton>
-        <Divider/>
-        <MainButton {...props} onClick={handleRedirect('/m')} >
-          FAQ
-        </MainButton>
-        <Divider/>
-        <MainButton {...props} onClick={handleRedirect('/m')} >
-          Help Center
-        </MainButton>
-        <Divider/>
-        <MainButton {...props} onClick={handleRedirect('/m')} >
-          Launch my Lolchat
-        </MainButton>
-        <Divider/>
-      </div>
-      <Divider height={30}/>
-      <div style={wrapperStyle}>
-        <MainButton {...props} onClick={handleLogout}>
-          Sign Out
-        </MainButton>
-        <Divider/>
-        <button {...props} style={helpStyle} onClick={handleRedirect('/m')}>Emergency contact</button>
-      </div>
-      <h1 style={privacyText}>Privacy Policy</h1>
-    </React.Fragment>
-  );
-}
-
-const WomanButtons = props => {
-
   const { handleRedirect } = props;
   const { handleLogout } = props;
 
   return (
     <React.Fragment>
       <div style={wrapperStyle}>
-        <MainButton {...props} onClick={handleRedirect('/w/myRequest')} >
-          My Jobs
+        <MainButton {...props} onClick={handleRedirect("/m/dates")}>
+          My Dates
         </MainButton>
-        <Divider/>
-        <MainButton {...props} onClick={handleRedirect('/w/history')} >
+        <Divider />
+        <MainButton {...props} onClick={handleRedirect("/m/locationEdit")}>
           Change Location
         </MainButton>
-        <Divider/>
-        <MainButton {...props} onClick={handleRedirect('/w/helpCenter')} >
+        <Divider />
+        <MainButton {...props} onClick={handleRedirect("/m")}>
           FAQ
         </MainButton>
-        <Divider/>
-        <MainButton {...props} onClick={handleRedirect('/w')} >
+        <Divider />
+        <MainButton {...props} onClick={handleRedirect("/m")}>
           Help Center
         </MainButton>
-        <Divider/>
-        <MainButton {...props} onClick={handleRedirect('/w')} >
-          Launch my LOL chat
+        <Divider />
+        <MainButton {...props} onClick={handleRedirect("/m")}>
+          Launch my Lolchat
         </MainButton>
-        <Divider/>
+        <Divider />
       </div>
-      <Divider height={30}/>
+      <Divider height={30} />
       <div style={wrapperStyle}>
         <MainButton {...props} onClick={handleLogout}>
           Sign Out
         </MainButton>
-        <Divider/>
-        <button {...props} style={helpStyle} onClick={handleRedirect('/w/liveHelp')}>Emergency contact</button>
+        <Divider />
+        <button {...props} style={helpStyle} onClick={handleRedirect("/m")}>
+          Emergency contact
+        </button>
       </div>
       <h1 style={privacyText}>Privacy Policy</h1>
     </React.Fragment>
   );
-}
+};
+
+const WomanButtons = props => {
+  const { handleRedirect } = props;
+  const { handleLogout } = props;
+
+  return (
+    <React.Fragment>
+      <div style={wrapperStyle}>
+        <MainButton {...props} onClick={handleRedirect("/w/myRequest")}>
+          My Jobs
+        </MainButton>
+        <Divider />
+        <MainButton {...props} onClick={handleRedirect("/w/history")}>
+          Change Location
+        </MainButton>
+        <Divider />
+        <MainButton {...props} onClick={handleRedirect("/w/helpCenter")}>
+          FAQ
+        </MainButton>
+        <Divider />
+        <MainButton {...props} onClick={handleRedirect("/w")}>
+          Help Center
+        </MainButton>
+        <Divider />
+        <MainButton {...props} onClick={handleRedirect("/w")}>
+          Launch my LOL chat
+        </MainButton>
+        <Divider />
+      </div>
+      <Divider height={30} />
+      <div style={wrapperStyle}>
+        <MainButton {...props} onClick={handleLogout}>
+          Sign Out
+        </MainButton>
+        <Divider />
+        <button
+          {...props}
+          style={helpStyle}
+          onClick={handleRedirect("/w/liveHelp")}
+        >
+          Emergency contact
+        </button>
+      </div>
+      <h1 style={privacyText}>Privacy Policy</h1>
+    </React.Fragment>
+  );
+};
 
 class Navbar extends React.Component {
-
   state = {
-    open : false,
-    redirect : null
-  }
+    open: false,
+    redirect: null
+  };
 
   handleClickOpen = () => {
-    this.setState({ open: true })
+    this.setState({ open: true });
   };
 
   handleClose = () => {
-    this.setState({ open: false })
+    this.setState({ open: false });
   };
 
   handleRedirect = url => () => {
-    this.setState({ redirect : url })
-  }
+    this.setState({ redirect: url });
+  };
 
-  handleLogout = () =>{
+  handleLogout = () => {
     let that = this;
-    AuthenticationService.logout().then(function(){
-      that.setState({ redirect : '/login'});
+    AuthenticationService.logout().then(function() {
+      that.setState({ redirect: "/login" });
     });
+  };
+
+  renderDialogue() {
+    console.log("hfueiwd");
+    console.log(this.props);
+    const { classes, gender, isLoggedIn } = this.props;
+    console.log(isLoggedIn);
+    if (isLoggedIn === "false") {
+      console.log("called");
+      return;
+    }
+    console.log("called2");
+    return (
+      <Dialog
+        fullScreen
+        open={this.state.open}
+        onClose={this.handleClose}
+        TransitionComponent={Transition}
+        PaperProps={{ className: classes.dialog }}
+      >
+        <IconButton
+          color="inherit"
+          onClick={this.handleClose}
+          aria-label="Close"
+          className={classes.close}
+        >
+          <CloseIcon />
+        </IconButton>
+        {gender === "woman" ? (
+          <WomanButtons
+            className={classNames(classes.redirectButton, classes.womanColor)}
+            handleRedirect={this.handleRedirect}
+            handleLogout={this.handleLogout}
+          />
+        ) : (
+          <ManButtons
+            className={classNames(classes.redirectButton, classes.manColor)}
+            handleRedirect={this.handleRedirect}
+            handleLogout={this.handleLogout}
+          />
+        )}
+      </Dialog>
+    );
   }
 
-  // this.props :
-  // gender
-  // title
-  // backTo
+  renderHamburgerIcon() {
+    const { classes, isLoggedIn } = this.props;
+    if (isLoggedIn === "false") {
+      return;
+    }
+    return (
+      <Grid item xs={6}>
+        <IconButton
+          className={classes.menuButton}
+          color="inherit"
+          aria-label="Menu"
+          onClick={this.handleClickOpen}
+        >
+          <MenuIcon />
+        </IconButton>
+      </Grid>
+    );
+  }
+
+  renderLoggedInButtons() {
+    const { classes, gender, isLoggedIn } = this.props;
+    if (isLoggedIn === "false") {
+      return;
+    }
+    return (
+      <Grid item xs={4} className={classes.alignRight}>
+        <Grid container alignItems="center">
+          <Grid item xs={6}>
+            <Avatar
+              alt="man or girl"
+              src={gender === "man" ? maleAvatar : femaleAvatar}
+              className={classes.avatar}
+            />
+          </Grid>
+          {this.renderHamburgerIcon()}
+        </Grid>
+      </Grid>
+    );
+  }
 
   render() {
     const { redirect } = this.state;
@@ -232,81 +315,75 @@ class Navbar extends React.Component {
 
     let backgroundColor;
 
-    switch(gender) {
-      case "man" :
-        backgroundColor = `linear-gradient(to top, ${manColor[0]} , ${manColor[1]})`;
+    switch (gender) {
+      case "man":
+        backgroundColor = `linear-gradient(to top, ${manColor[0]} , ${
+          manColor[1]
+        })`;
         break;
-      case "woman" :
-        backgroundColor = `linear-gradient(to top, ${womanColor[0]} , ${womanColor[1]})`;
+      case "woman":
+        backgroundColor = `linear-gradient(to top, ${womanColor[0]} , ${
+          womanColor[1]
+        })`;
         break;
-      default :
-        backgroundColor = 'none';
+      default:
+        backgroundColor = "none";
     }
 
     return (
-      <div className={classes.layout} style={{background : backgroundColor || 'none'}}>
-        {redirect && <Redirect to={redirect}/>}
+      <div
+        className={classes.layout}
+        style={{ background: backgroundColor || "none" }}
+      >
+        {redirect && <Redirect to={redirect} />}
         <Grid container alignItems="center">
           <Grid item xs={8}>
-            <a href="/" className={classes.title}>NOMI</a>
+            <a href="/" className={classes.title}>
+              NOMI
+            </a>
           </Grid>
-          <Grid item xs={4} className={classes.alignRight}>
-            <Grid container alignItems="center">
-              <Grid item xs={6}>
-                <Avatar alt="man or girl" src={gender === "man" ? maleAvatar : femaleAvatar } className={classes.avatar} />
-              </Grid>
-              <Grid item xs={6}>
-                <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={this.handleClickOpen}>
-                  <MenuIcon />
-                </IconButton>
-              </Grid>
-            </Grid>
-          </Grid>
+          {this.renderLoggedInButtons()}
           <Grid item xs={8}>
-            { backTo && <NavLink className={classes.title} to={backTo}>{'< Back'}</NavLink> }
-            {title &&
-              <Typography component="h1" variant="h6" className={classNames(classes.title,classes.subTitle)} noWrap>
+            {backTo && (
+              <NavLink className={classes.title} to={backTo}>
+                {"< Back"}
+              </NavLink>
+            )}
+            {title && (
+              <Typography
+                component="h1"
+                variant="h6"
+                className={classNames(classes.title, classes.subTitle)}
+                noWrap
+              >
                 {title}
               </Typography>
-            }
+            )}
           </Grid>
           <Grid item xs={4} className={classes.alignRight}>
-            <Typography component="h1" align="right" variant="h6" className={classes.text}>
+            <Typography
+              component="h1"
+              align="right"
+              variant="h6"
+              className={classes.text}
+            >
               <span>
-              {gender === "man"
-                ? ''
-                // : '3 confirmed jobs >
-                : ''
-              }
+                {gender === "man"
+                  ? ""
+                  : // : '3 confirmed jobs >
+                    ""}
               </span>
             </Typography>
           </Grid>
         </Grid>
-
-        {/* Dialog */}
-
-        <Dialog
-          fullScreen
-          open={this.state.open}
-          onClose={this.handleClose}
-          TransitionComponent={Transition}
-          PaperProps={{className : classes.dialog}}
-        >
-          <IconButton color="inherit" onClick={this.handleClose} aria-label="Close" className={classes.close}>
-            <CloseIcon/>
-          </IconButton>
-          {gender === 'woman'
-            ? <WomanButtons className={classNames(classes.redirectButton, classes.womanColor)} handleRedirect={this.handleRedirect} handleLogout={this.handleLogout} />
-            : <ManButtons className={classNames(classes.redirectButton, classes.manColor)} handleRedirect={this.handleRedirect} handleLogout={this.handleLogout} />
-          }
-        </Dialog>
+        {this.renderDialogue()}
       </div>
     );
   }
 }
 
 Navbar.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(Navbar);

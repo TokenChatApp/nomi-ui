@@ -130,6 +130,95 @@ class Login extends React.Component {
     event.preventDefault();
   };
 
+  renderFields() {
+    const { classes } = this.props;
+    const { errors, errorMessage } = this.state;
+    if (this.state.gender === "man") {
+      return (
+        <form onSubmit={this.handleFormSubmit}>
+          <Grid
+            container
+            className={classes.contentWrapper}
+            alignItems="center"
+          >
+            <Grid item xs={12}>
+              <Grid container className={classes.form} alignContent="center">
+                <Grid item xs={12}>
+                  <TextField
+                    label="username"
+                    className={classes.textField}
+                    fullWidth
+                    margin="normal"
+                    InputLabelProps={{
+                      className: classes.label
+                    }}
+                    InputProps={{
+                      className: classes.input
+                    }}
+                    value={this.state.username}
+                    onChange={this.handleInputChange}
+                    name="username"
+                    error={errors.hasOwnProperty("username")}
+                    helperText={
+                      errors.hasOwnProperty("username") && errors["username"]
+                    }
+                  />
+                </Grid>
+                <Grid item xs={12}>
+                  <TextField
+                    label="password"
+                    type="password"
+                    className={classes.textField}
+                    fullWidth
+                    margin="normal"
+                    InputLabelProps={{
+                      className: classes.label
+                    }}
+                    InputProps={{
+                      className: classes.input
+                    }}
+                    value={this.state.password}
+                    onChange={this.handleInputChange}
+                    name="password"
+                    error={errors.hasOwnProperty("password")}
+                    helperText={
+                      errors.hasOwnProperty("password") && errors["password"]
+                    }
+                  />
+                </Grid>
+              </Grid>
+            </Grid>
+            {errorMessage}
+            <Grid item xs={6}>
+              <Typography className={classes.label}>Forget Password</Typography>
+            </Grid>
+            <Grid item xs={6} className={classes.alignRight}>
+              <NomiButton className={classes.button} gender="man" type="submit">
+                GO
+              </NomiButton>
+            </Grid>
+          </Grid>
+        </form>
+      );
+    } else {
+      return (
+        <Grid container>
+          <Grid item xs={12}>
+            <NomiButton
+              className={classNames(classes.button, classes.lolChat)}
+              gender="woman"
+            >
+              Log in with LOL Chat
+            </NomiButton>
+          </Grid>
+          <Grid item xs={12} className={classes.install}>
+            Install lol chat
+          </Grid>
+        </Grid>
+      );
+    }
+  }
+
   render() {
     const { classes } = this.props;
     const { redirect, gender, errors, errorMessage } = this.state;
@@ -169,95 +258,7 @@ class Login extends React.Component {
             man ? classes.menBackground : classes.womenBackground
           )}
         />
-        {man ? (
-          <form onSubmit={this.handleFormSubmit}>
-            <Grid
-              container
-              className={classes.contentWrapper}
-              alignItems="center"
-            >
-              <Grid item xs={12}>
-                <Grid container className={classes.form} alignContent="center">
-                  <Grid item xs={12}>
-                    <TextField
-                      label="username"
-                      className={classes.textField}
-                      fullWidth
-                      margin="normal"
-                      InputLabelProps={{
-                        className: classes.label
-                      }}
-                      InputProps={{
-                        className: classes.input
-                      }}
-                      value={this.state.username}
-                      onChange={this.handleInputChange}
-                      name="username"
-                      error={errors.hasOwnProperty("username")}
-                      helperText={
-                        errors.hasOwnProperty("username") && errors["username"]
-                      }
-                    />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <TextField
-                      label="password"
-                      type="password"
-                      className={classes.textField}
-                      fullWidth
-                      margin="normal"
-                      InputLabelProps={{
-                        className: classes.label
-                      }}
-                      InputProps={{
-                        className: classes.input
-                      }}
-                      value={this.state.password}
-                      onChange={this.handleInputChange}
-                      name="password"
-                      error={errors.hasOwnProperty("password")}
-                      helperText={
-                        errors.hasOwnProperty("password") && errors["password"]
-                      }
-                    />
-                  </Grid>
-                </Grid>
-              </Grid>
-              {errorMessage}
-              <Grid item xs={6}>
-                <Typography className={classes.label}>
-                  Forget Password ?
-                </Typography>
-              </Grid>
-              <Grid item xs={6} className={classes.alignRight}>
-                <NomiButton
-                  className={classes.button}
-                  gender="man"
-                  type="submit"
-                >
-                  GO
-                </NomiButton>
-              </Grid>
-              <Grid item xs={12} className={classes.footer}>
-                Log in with LOL Chat
-              </Grid>
-            </Grid>
-          </form>
-        ) : (
-          <Grid container>
-            <Grid item xs={12}>
-              <NomiButton
-                className={classNames(classes.button, classes.lolChat)}
-                gender="woman"
-              >
-                Log in with LOL Chat
-              </NomiButton>
-            </Grid>
-            <Grid item xs={12} className={classes.install}>
-              Install lol chat
-            </Grid>
-          </Grid>
-        )}
+        {this.renderFields()}
       </div>
     );
   }

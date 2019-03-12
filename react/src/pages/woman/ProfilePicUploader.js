@@ -149,7 +149,7 @@ class ProfilePicUploader extends React.Component {
       <div className={classes.root}>
         {this.state.redirect && <Redirect to={this.state.redirect} />}
         <div className={classes.fixedNav}>
-          <Navbar title="SIGN UP" />
+          <Navbar title="SIGN UP" isLoggedIn="false" />
           <MainButton
             className={classes.button}
             onClick={() => this.setState({ redirect: "/w/signup" })}
