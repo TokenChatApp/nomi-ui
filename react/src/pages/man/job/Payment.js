@@ -180,7 +180,7 @@ class Payment extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="Summary" gender="man"/>
+        <Navbar title="Summary" gender="M"/>
         <Grid container className={classes.container}>
           <Grid item xs={12} className={classes.detailTitle}>
             Date Detail
@@ -235,7 +235,7 @@ class Payment extends React.Component {
           <Grid item xs={12}>
             <NomiButton 
               className={classes.button} 
-              gender="man" 
+              gender="M" 
               onClick={() => this.setState({ redirect : '/m/paymentDone' })}
             >
               Pay now
@@ -260,7 +260,7 @@ class Payment extends React.Component {
           </DialogContent>
           <NomiButton 
             className={classNames(classes.button, classes.mAuto)} 
-            gender="man" 
+            gender="M" 
             onClick={() => this.setState({ redirect : '/m/paymentDone' })}
           >
             Top up credit

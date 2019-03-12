@@ -118,7 +118,7 @@ class JobList extends React.Component {
         {redirect && <Redirect to={redirect}/>}
         <Grid container alignItems="center" className={classes.container}>
           <Grid item xs={4} className={classes.alignLeft}>
-            <Avatar alt="man" src={image} className={classes.avatar} />
+            <Avatar alt="M" src={image} className={classes.avatar} />
           </Grid>
           <Grid item xs={5} className={classes.alignLeft}>
             <h6 className={classes.name}>{name}</h6>

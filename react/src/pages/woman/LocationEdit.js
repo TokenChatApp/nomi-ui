@@ -98,7 +98,7 @@ class LocationEdit extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="Hello, Username" gender="woman"/>
+        <Navbar title="Hello, Username" gender="F"/>
 
         <div className={classes.wrapper}>
         <Grid container className={classes.container}>
@@ -144,7 +144,7 @@ class LocationEdit extends React.Component {
           <Grid item xs={12}>
             <NomiButton 
               className={classes.button} 
-              gender="woman" 
+              gender="F" 
               onClick={this.handleConfirm}
             >
               <Check className={classes.checkIcon}/>

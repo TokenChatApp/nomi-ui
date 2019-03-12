@@ -34,10 +34,10 @@ export const Backend = {
     }
   },
   isWomen: function() {
-    return this.user.gender === "Women";
+    return this.user.gender === "F";
   },
   isMen: function() {
-    return this.user.gender === "Men";
+    return this.user.gender === "M";
   },
   setProfile(user) {
     this.user = user;

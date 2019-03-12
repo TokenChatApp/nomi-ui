@@ -161,7 +161,7 @@ const ManList = withStyles(styles)(props => {
   return (
     <Grid container className={classes.manList}>
       <Grid item xs={4}>
-        <Avatar alt="man" src={dummyMan} className={classes.avatar} />
+        <Avatar alt="M" src={dummyMan} className={classes.avatar} />
       </Grid>
       <Grid item xs={5}>
         <Typography className={classes.earning} variant="h6">
@@ -204,7 +204,7 @@ class WomanLanding extends React.Component {
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
         <div className={classes.fixedNav}>
-          <Navbar title="Hello, Username" gender="woman"/>
+          <Navbar title="Hello, Username" gender="F"/>
         </div>
         <div className={classes.wrapper}>
           <Grid container alignItems="center">

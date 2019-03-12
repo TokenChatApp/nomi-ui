@@ -93,7 +93,7 @@ class Pending extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="My Dates" gender="man"/>
+        <Navbar title="My Dates" gender="M"/>
         <Grid container className={classes.container}>
           <Typography variant="h4" className={classes.pendingText}>
             4 responses received, select the girl you like
@@ -112,7 +112,7 @@ class Pending extends React.Component {
           <Grid item xs={12}>
             <NomiButton 
               className={classes.button} 
-              gender="man" 
+              gender="M" 
               onClick={() => this.setState({ redirect : '/m/payment' })}
             >
               Checkout

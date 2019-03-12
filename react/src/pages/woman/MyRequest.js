@@ -125,7 +125,7 @@ class MyRequest extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="My Request" gender="woman" backTo="/w"/>
+        <Navbar title="My Request" gender="F" backTo="/w"/>
 
         <Grid container className={classes.container}>
 
@@ -172,7 +172,7 @@ class MyRequest extends React.Component {
             <Grid item xs={12}>
               <NomiButton 
                 className={classes.button} 
-                gender="woman" 
+                gender="F" 
                 onClick={() => this.setState({ redirect : '/w' })}
               >
                 Accept

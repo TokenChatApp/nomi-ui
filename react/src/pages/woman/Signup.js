@@ -20,6 +20,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Backend } from "../../services/Backend";
 import MainButton from "../../components/MainButton";
+import { womanColor } from "../../Constants";
 
 const grey = "#585858";
 
@@ -39,7 +40,8 @@ const styles = theme => ({
     paddingRight: "10%"
   },
   button: {
-    maxWidth: 250
+    maxWidth: 250,
+    marginBottom: 30
   },
   label: {
     color: grey,
@@ -52,7 +54,7 @@ const styles = theme => ({
     textAlign: "left"
   },
   title: {
-    marginTop: 30,
+    marginTop: 10,
     color: grey,
     fontWeight: 700
   },
@@ -70,6 +72,15 @@ const styles = theme => ({
   },
   selectEmpty: {
     textAlign: "left"
+  },
+  backButton: {
+    color: womanColor[0],
+    maxWidth: 200,
+    display: "block",
+    margin: "auto",
+    marginTop: 15,
+    fontSize: "1rem",
+    fontWeight: 700
   },
   input: {
     textAlign: "left"
@@ -97,10 +108,10 @@ class Signup extends React.Component {
   state = {
     redirect: "",
     step: "1",
-    gender: "Women",
+    gender: "F",
     age: null,
     avatar: null,
-    mobileNumber: null,
+    mobile_no: null,
     username: null,
     displayName: null,
     emailAddress: null,
@@ -111,7 +122,7 @@ class Signup extends React.Component {
     height: null,
     weight: null,
     spokenLanguageArray: [],
-    spokenLanguage: "",
+    language: "",
     nationality: null,
     errors: {},
     cities: [],
@@ -180,7 +191,7 @@ class Signup extends React.Component {
   handleFormSubmit = event => {
     let string = this.state.spokenLanguageArray.toString();
     this.setState({
-      spokenLanguage: string,
+      language: string,
       avatar: Backend.user.profileImage
     });
     console.log(this.state);
@@ -192,9 +203,7 @@ class Signup extends React.Component {
           Backend.setProfile(sub_r);
           this.setState({
             redirect:
-              sub_r.gender === "Men"
-                ? "/m/signup/complete"
-                : "/w/signup/complete"
+              sub_r.gender === "M" ? "/m/signup/complete" : "/w/signup/complete"
           });
         });
       }
@@ -234,14 +243,14 @@ class Signup extends React.Component {
               fullWidth
               label="Display Name"
               style={{ margin: 8 }}
-              placeholder="display name"
+              placeholder="Display Name"
               margin="normal"
-              value={this.state.displayName}
+              value={this.state.display_name}
               onChange={this.handleInputChange}
-              name="displayName"
-              error={errors.hasOwnProperty("displayName")}
+              name="display_name"
+              error={errors.hasOwnProperty("display_name")}
               helperText={
-                errors.hasOwnProperty("displayName") && errors["displayName"]
+                errors.hasOwnProperty("display_name") && errors["display_name"]
               }
               InputLabelProps={{ shrink: true, className: classes.label }}
             />
@@ -270,12 +279,12 @@ class Signup extends React.Component {
               style={{ margin: 8 }}
               placeholder="Mobile no."
               margin="normal"
-              value={this.state.mobileNumber}
+              value={this.state.mobile_no}
               onChange={this.handleInputChange}
-              name="mobileNumber"
-              error={errors.hasOwnProperty("mobileNumber")}
+              name="mobile_no"
+              error={errors.hasOwnProperty("mobile_no")}
               helperText={
-                errors.hasOwnProperty("mobileNumber") && errors["mobileNumber"]
+                errors.hasOwnProperty("mobile_no") && errors["mobile_no"]
               }
               InputLabelProps={{ shrink: true, className: classes.label }}
             />
@@ -349,7 +358,7 @@ class Signup extends React.Component {
               </Grid>
               <Grid item xs={12}>
                 {errors.hasOwnProperty("spokenLanguageArray") &&
-                  errors["spokenLspokenLanguageArrayanguage"]}
+                  errors["spokenLanguageArray"]}
               </Grid>
             </Grid>
           </Grid>
@@ -501,9 +510,9 @@ class Signup extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="SIGN UP" gender="woman" isLoggedIn="false" />
+        <Navbar title="SIGN UP" gender="F" isLoggedIn="false" />
         <MainButton
-          className={classes.button}
+          className={classes.backButton}
           onClick={() => this.setState({ redirect: "/signup" })}
         >
           Back
@@ -555,7 +564,7 @@ class Signup extends React.Component {
             <Grid item xs={12}>
               <NomiButton
                 className={classes.button}
-                gender="woman"
+                gender="F"
                 src={imgSignup}
                 type="submit"
               >

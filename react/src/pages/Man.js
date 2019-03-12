@@ -61,7 +61,6 @@ class Man extends Component {
         <MenRoute exact path="/m/payment" component={Payment} />
         <MenRoute exact path="/m/paymentDone" component={PaymentDone} />
         <MenRoute exact path="/m/addLolChat" component={AddLolChat} />
-        {/*<Route component={ErrorPage}/>*/}
       </div>
     );
   }

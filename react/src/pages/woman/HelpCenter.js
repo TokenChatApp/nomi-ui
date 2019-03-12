@@ -39,7 +39,7 @@ class HelpCenter extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="Help Center" gender="woman" backTo="/w"/>
+        <Navbar title="Help Center" gender="F" backTo="/w"/>
 
         <Grid container className={classes.container}>
           <TextField

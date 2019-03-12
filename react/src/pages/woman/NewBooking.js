@@ -90,7 +90,7 @@ class NewBooking extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="New Booking" gender="woman" backTo="/w"/>
+        <Navbar title="New Booking" gender="F" backTo="/w"/>
 
         <Grid container className={classes.container}>
 
@@ -201,7 +201,7 @@ class NewBooking extends React.Component {
           <Grid item xs={12} className={classes.alignRight}>
             <NomiButton
               className={classes.filterButton}
-              gender="woman"
+              gender="F"
                onClick={this.toggleFilter}
             >
             Filter
@@ -226,7 +226,7 @@ class NewBooking extends React.Component {
           <Grid item xs={12}>
             <NomiButton 
               className={classes.button} 
-              gender="woman" 
+              gender="F" 
               onClick={() => this.setState({ redirect : '/w/bookingComplete' })}
             >
               Submit

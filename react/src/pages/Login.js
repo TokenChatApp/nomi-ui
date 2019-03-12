@@ -86,7 +86,7 @@ const styles = theme => ({
 class Login extends React.Component {
   state = {
     redirect: null,
-    gender: "man",
+    gender: "M",
     username: null,
     password: null,
     errors: {},
@@ -123,7 +123,7 @@ class Login extends React.Component {
       if (r.status) {
         AuthenticationService.profile().then(sub_r => {
           Backend.setProfile(sub_r);
-          this.setState({ redirect: sub_r.gender === "Men" ? "/m" : "/w" });
+          this.setState({ redirect: sub_r.gender === "M" ? "/m" : "/w" });
         });
       }
     });
@@ -133,7 +133,7 @@ class Login extends React.Component {
   renderFields() {
     const { classes } = this.props;
     const { errors, errorMessage } = this.state;
-    if (this.state.gender === "man") {
+    if (this.state.gender === "M") {
       return (
         <form onSubmit={this.handleFormSubmit}>
           <Grid
@@ -193,7 +193,7 @@ class Login extends React.Component {
               <Typography className={classes.label}>Forget Password</Typography>
             </Grid>
             <Grid item xs={6} className={classes.alignRight}>
-              <NomiButton className={classes.button} gender="man" type="submit">
+              <NomiButton className={classes.button} gender="M" type="submit">
                 GO
               </NomiButton>
             </Grid>
@@ -206,7 +206,7 @@ class Login extends React.Component {
           <Grid item xs={12}>
             <NomiButton
               className={classNames(classes.button, classes.lolChat)}
-              gender="woman"
+              gender="F"
             >
               Log in with LOL Chat
             </NomiButton>
@@ -222,7 +222,7 @@ class Login extends React.Component {
   render() {
     const { classes } = this.props;
     const { redirect, gender, errors, errorMessage } = this.state;
-    const man = gender === "man";
+    const man = gender === "M";
 
     return (
       <div className={classes.root}>
@@ -238,7 +238,7 @@ class Login extends React.Component {
           <Grid item xs={12}>
             <GenderSwitch
               gender={gender}
-              onClick={this.switchGender(man ? "woman" : "man")}
+              onClick={this.switchGender(man ? "F" : "M")}
             />
           </Grid>
           <Grid item xs={12}>

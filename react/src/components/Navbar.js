@@ -252,7 +252,7 @@ class Navbar extends React.Component {
         >
           <CloseIcon />
         </IconButton>
-        {gender === "woman" ? (
+        {gender === "F" ? (
           <WomanButtons
             className={classNames(classes.redirectButton, classes.womanColor)}
             handleRedirect={this.handleRedirect}
@@ -299,7 +299,7 @@ class Navbar extends React.Component {
           <Grid item xs={6}>
             <Avatar
               alt="man or girl"
-              src={gender === "man" ? maleAvatar : femaleAvatar}
+              src={gender === "M" ? maleAvatar : femaleAvatar}
               className={classes.avatar}
             />
           </Grid>
@@ -316,12 +316,12 @@ class Navbar extends React.Component {
     let backgroundColor;
 
     switch (gender) {
-      case "man":
+      case "M":
         backgroundColor = `linear-gradient(to top, ${manColor[0]} , ${
           manColor[1]
         })`;
         break;
-      case "woman":
+      case "F":
         backgroundColor = `linear-gradient(to top, ${womanColor[0]} , ${
           womanColor[1]
         })`;
@@ -368,7 +368,7 @@ class Navbar extends React.Component {
               className={classes.text}
             >
               <span>
-                {gender === "man"
+                {gender === "M"
                   ? ""
                   : // : '3 confirmed jobs >
                     ""}

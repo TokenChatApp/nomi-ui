@@ -63,7 +63,7 @@ class PendingJob extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="Pending Job" gender="woman" backTo="/w"/>
+        <Navbar title="Pending Job" gender="F" backTo="/w"/>
 
         <Grid container className={classes.container}>
             <Divider date="03 Jan 2019"/>

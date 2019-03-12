@@ -65,7 +65,7 @@ class Job extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="My Jobs" gender="woman"/>
+        <Navbar title="My Jobs" gender="F"/>
         <Tabs value={tab} 
           onChange={this.handleChange} 
           variant="fullWidth"

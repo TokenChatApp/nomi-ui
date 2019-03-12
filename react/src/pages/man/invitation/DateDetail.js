@@ -150,7 +150,7 @@ class DateDetail extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="Girls around you" gender="man"/>
+        <Navbar title="Girls around you" gender="M"/>
         <Grid container className={classes.iconWrapper} justify="center">
           <GirlList/>
           <GirlList/>
@@ -228,7 +228,7 @@ class DateDetail extends React.Component {
           </Grid>
           <NomiButton 
             className={classes.button} 
-            gender="man" 
+            gender="M" 
             onClick={this.handleConfirm}
           >
             <img src={wineImg} alt="glass" style={{width : 15, paddingRight : 10}}/>            

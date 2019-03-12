@@ -58,7 +58,7 @@ class LiveHelp extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="24/7 Live Help" gender="woman" backTo="/w"/>
+        <Navbar title="24/7 Live Help" gender="F" backTo="/w"/>
 
         <Grid container className={classes.container}>
           <Grid item xs={12} className={classNames(classes.chat, classes.alignLeft)}>

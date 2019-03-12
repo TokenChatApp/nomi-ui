@@ -92,7 +92,7 @@ class Expired extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="My Dates" gender="man"/>
+        <Navbar title="My Dates" gender="M"/>
         <Grid container className={classes.container}>
           <Typography variant="h4" className={classes.expiredText}>
             EXPIRED
@@ -114,7 +114,7 @@ class Expired extends React.Component {
           <Grid item xs={12}>
             <NomiButton 
               className={classes.button} 
-              gender="man" 
+              gender="M" 
               onClick={() => this.setState({ redirect : '/m/invitation/detail' })}
             >
               Make a new booking

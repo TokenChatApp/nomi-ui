@@ -153,13 +153,13 @@ class ProfilePicUploader extends React.Component {
   render() {
     const { classes } = this.props;
     var redirectString = "/w/signup";
-    if (this.props.gender === "male") {
+    if (this.props.gender === "M") {
       redirectString = "/m/signup";
     }
     return (
       <div
         className={
-          this.props.gender === "male" ? classes.rootMan : classes.rootWoman
+          this.props.gender === "M" ? classes.rootMan : classes.rootWoman
         }
       >
         {this.state.redirect && <Redirect to={this.state.redirect} />}

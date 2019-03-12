@@ -11,6 +11,7 @@ import NomiButton from "../../components/NomiButton";
 import AuthenticationService from "../../services/AuthenticationService";
 import { Backend } from "../../services/Backend";
 import MainButton from "../../components/MainButton";
+import { manColor } from "../../Constants";
 
 const grey = "#585858";
 
@@ -36,7 +37,13 @@ const styles = theme => ({
     paddingRight: "10%"
   },
   button: {
-    maxWidth: 250
+    color: manColor[0],
+    maxWidth: 200,
+    display: "block",
+    margin: "auto",
+    marginTop: 15,
+    fontSize: "1rem",
+    fontWeight: 700
   },
   input: {
     color: grey
@@ -46,9 +53,10 @@ const styles = theme => ({
 class Signup extends React.Component {
   state = {
     redirect: "",
-    gender: "man",
+    gender: "M",
     age: null,
-    mobileNumber: null,
+    display_name: null,
+    mobile_no: null,
     username: null,
     email: null,
     password: null,
@@ -83,9 +91,7 @@ class Signup extends React.Component {
           Backend.setProfile(sub_r);
           this.setState({
             redirect:
-              sub_r.gender === "Men"
-                ? "/m/signup/complete"
-                : "/w/signup/complete"
+              sub_r.gender === "M" ? "/m/signup/complete" : "/w/signup/complete"
           });
         });
       }
@@ -100,7 +106,7 @@ class Signup extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="SIGN UP" gender="man" isLoggedIn="false" />
+        <Navbar title="SIGN UP" gender="M" isLoggedIn="false" />
         <MainButton
           className={classes.button}
           onClick={() => this.setState({ redirect: "/signup" })}
@@ -120,7 +126,7 @@ class Signup extends React.Component {
               <TextField
                 className={classes.textField}
                 fullWidth
-                label="Choose an username"
+                label="Username"
                 style={{ margin: 8 }}
                 placeholder="username"
                 margin="normal"
@@ -134,6 +140,25 @@ class Signup extends React.Component {
                 }
               />
             </Grid>
+            <Grid item xs={12}>
+              <TextField
+                className={classes.textField}
+                fullWidth
+                label="Display Name"
+                style={{ margin: 8 }}
+                placeholder="Display Name"
+                margin="normal"
+                value={this.state.display_name}
+                onChange={this.handleInputChange}
+                name="display_name"
+                error={errors.hasOwnProperty("display_name")}
+                helperText={
+                  errors.hasOwnProperty("display_name") &&
+                  errors["display_name"]
+                }
+                InputLabelProps={{ shrink: true, className: classes.label }}
+              />
+            </Grid>
             <Grid item xs={4}>
               <TextField
                 className={classes.textField}
@@ -142,12 +167,12 @@ class Signup extends React.Component {
                 style={{ margin: 8 }}
                 placeholder="Age"
                 margin="normal"
-                value={this.state.Age}
-                name="Age"
+                value={this.state.age}
+                name="age"
                 onChange={this.handleInputChange}
                 InputLabelProps={{ shrink: true, className: classes.label }}
-                error={errors.hasOwnProperty("Age")}
-                helperText={errors.hasOwnProperty("Age") && errors["Age"]}
+                error={errors.hasOwnProperty("age")}
+                helperText={errors.hasOwnProperty("age") && errors["age"]}
               />
             </Grid>
             <Grid item xs={8}>
@@ -158,14 +183,13 @@ class Signup extends React.Component {
                 style={{ margin: 8 }}
                 placeholder="Mobile no."
                 margin="normal"
-                value={this.state.MobileNumber}
-                name="MobileNumber"
+                value={this.state.mobile_no}
+                name="mobile_no"
                 onChange={this.handleInputChange}
                 InputLabelProps={{ shrink: true, className: classes.label }}
-                error={errors.hasOwnProperty("MobileNumber")}
+                error={errors.hasOwnProperty("mobile_no")}
                 helperText={
-                  errors.hasOwnProperty("MobileNumber") &&
-                  errors["MobileNumber"]
+                  errors.hasOwnProperty("mobile_no") && errors["mobile_no"]
                 }
               />
             </Grid>
@@ -177,12 +201,12 @@ class Signup extends React.Component {
                 style={{ margin: 8 }}
                 placeholder="Email Address"
                 margin="normal"
-                value={this.state.Email}
-                name="Email"
+                value={this.state.email}
+                name="email"
                 onChange={this.handleInputChange}
                 InputLabelProps={{ shrink: true, className: classes.label }}
-                error={errors.hasOwnProperty("Email")}
-                helperText={errors.hasOwnProperty("Email") && errors["Email"]}
+                error={errors.hasOwnProperty("email")}
+                helperText={errors.hasOwnProperty("email") && errors["email"]}
               />
             </Grid>
             <Grid item xs={12}>
@@ -207,7 +231,7 @@ class Signup extends React.Component {
             <Grid item xs={12}>
               <NomiButton
                 className={classes.button}
-                gender="man"
+                gender="M"
                 src={imgSignup}
                 type="submit"
               >

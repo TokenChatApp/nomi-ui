@@ -133,18 +133,6 @@ class ManLanding extends React.Component {
     };
   }
 
-  componentDidMount() {
-    /*
-    if(navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(this.handleUserAcceptLocation, this.handleUserDeclineLocation);
-    }
-    else {
-      console.log("Geolocation is not supported by this browser.");
-      this.setState({ locationEnabled : false });
-    }
-    */
-  }
-
   handleToggleCrown = () => {
     let { crown } = this.state;
     this.setState({ crown: !crown });
@@ -167,16 +155,16 @@ class ManLanding extends React.Component {
   render() {
     const { classes } = this.props;
     const { redirect, womanList, locationEnabled } = this.state;
-    let title = `Hello, ${Backend.user.displayName}`;
+    let title = `Hello, ${Backend.user.display_name}`;
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title={title} gender="man" />
+        <Navbar title={title} gender="M" />
         <Grid container className={classes.container}>
           <Grid item xs={12}>
             <NomiButton
               className={classes.button}
-              gender="man"
+              gender="M"
               onClick={this.handleSendInvitationClicked}
             >
               <Favorite className={classes.favIcon} />
@@ -204,7 +192,7 @@ class ManLanding extends React.Component {
             <Grid item xs={12}>
               <NomiButton
                 className={classes.button}
-                gender="man"
+                gender="M"
                 onClick={() =>
                   this.setState({ redirect: "/m/invitation/detail" })
                 }

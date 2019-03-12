@@ -62,7 +62,7 @@ class MyBookings extends React.Component {
     return (
         <div className={classes.root}>
           {redirect && <Redirect to={redirect}/>}
-          <Navbar title="My Bookings" gender="man" backTo="/m"/>
+          <Navbar title="My Bookings" gender="M" backTo="/m"/>
 
           <button>Confirmed</button>
           <button>Pending</button>

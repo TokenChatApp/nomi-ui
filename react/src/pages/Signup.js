@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import { manColor, womanColor } from "../Constants";
 import maleIcon from "../images/male.png";
 import femaleIcon from "../images/female.png";
+import MainButton from "../components/MainButton";
 
 const styles = theme => ({
   root: {
@@ -16,7 +17,7 @@ const styles = theme => ({
     position: "relative"
   },
   label: {
-    marginTop: 40,
+    marginTop: 10,
     fontSize: "2rem",
     fontWeight: 700
   },
@@ -26,6 +27,15 @@ const styles = theme => ({
   },
   container: {
     marginTop: 30
+  },
+  button: {
+    color: manColor[0],
+    maxWidth: 200,
+    display: "block",
+    margin: "auto",
+    marginTop: 15,
+    fontSize: "1rem",
+    fontWeight: 700
   }
 });
 
@@ -75,7 +85,6 @@ const GirlButton = props => {
 };
 
 const GenderButton = props => {
-  // gender ? man : girl
   const backgroundColor = props.gender
     ? `linear-gradient(to top, ${manColor[0]} , ${manColor[1]})`
     : `linear-gradient(to top, ${womanColor[0]} , ${womanColor[1]})`;
@@ -119,7 +128,13 @@ class Signup extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="SIGN UP" gender="woman" isLoggedIn="false" />
+        <Navbar title="SIGN UP" gender="F" isLoggedIn="false" />
+        <MainButton
+          className={classes.button}
+          onClick={() => this.setState({ redirect: "/" })}
+        >
+          Back
+        </MainButton>
         <Typography className={classes.label}>Hi there!</Typography>
         <Typography className={classes.description}>
           Select your gender

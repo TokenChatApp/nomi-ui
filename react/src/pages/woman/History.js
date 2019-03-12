@@ -63,7 +63,7 @@ class History extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect}/>}
-        <Navbar title="History" gender="woman" backTo="/w"/>
+        <Navbar title="History" gender="F" backTo="/w"/>
 
         <Grid container className={classes.container}>
             <Divider date="03 Jan 2019"/>
