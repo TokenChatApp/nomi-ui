@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Navbar from "../components/Navbar";
 import Grid from "@material-ui/core/Grid";
@@ -36,6 +36,16 @@ const styles = theme => ({
     marginTop: 15,
     fontSize: "1rem",
     fontWeight: 700
+  },
+  navWrapper: {
+    textAlign: "left",
+    paddingTop: "10px",
+    paddingLeft: "5%",
+    paddingRight: "10%"
+  },
+  navText: {
+    color: manColor[1],
+    textDecoration: "none"
   }
 });
 
@@ -129,12 +139,11 @@ class Signup extends React.Component {
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
         <Navbar title="SIGN UP" gender="F" isLoggedIn="false" />
-        <MainButton
-          className={classes.button}
-          onClick={() => this.setState({ redirect: "/" })}
-        >
-          Back
-        </MainButton>
+        <div className={classes.navWrapper}>
+          <NavLink to="/" className={classes.navText}>
+            {"< Back"}
+          </NavLink>
+        </div>
         <Typography className={classes.label}>Hi there!</Typography>
         <Typography className={classes.description}>
           Select your gender

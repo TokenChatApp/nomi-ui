@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import Navbar from "../../components/Navbar";
 import TextField from "@material-ui/core/TextField";
 import Grid from "@material-ui/core/Grid";
@@ -47,6 +47,16 @@ const styles = theme => ({
   },
   input: {
     color: grey
+  },
+  navWrapper: {
+    textAlign: "left",
+    paddingTop: "10px",
+    paddingLeft: "5%",
+    paddingRight: "10%"
+  },
+  navText: {
+    color: manColor[1],
+    textDecoration: "none"
   }
 });
 
@@ -60,6 +70,7 @@ class Signup extends React.Component {
     username: null,
     email: null,
     password: null,
+    referral: null,
     errors: {}
   };
 
@@ -107,12 +118,11 @@ class Signup extends React.Component {
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
         <Navbar title="SIGN UP" gender="M" isLoggedIn="false" />
-        <MainButton
-          className={classes.button}
-          onClick={() => this.setState({ redirect: "/signup" })}
-        >
-          Back
-        </MainButton>
+        <div className={classes.navWrapper}>
+          <NavLink to="/signup" className={classes.navText}>
+            {"< Back"}
+          </NavLink>
+        </div>
         <br />
         <form onSubmit={this.handleFormSubmit}>
           <ProfilePicHolder
@@ -225,6 +235,24 @@ class Signup extends React.Component {
                 error={errors.hasOwnProperty("password")}
                 helperText={
                   errors.hasOwnProperty("password") && errors["password"]
+                }
+              />
+            </Grid>
+            <Grid item xs={12}>
+              <TextField
+                className={classes.textField}
+                fullWidth
+                label="Referral Code"
+                style={{ margin: 8 }}
+                placeholder="Referral Code"
+                margin="normal"
+                value={this.state.referral}
+                name="referral"
+                onChange={this.handleInputChange}
+                InputLabelProps={{ shrink: true, className: classes.label }}
+                error={errors.hasOwnProperty("referral")}
+                helperText={
+                  errors.hasOwnProperty("referral") && errors["referral"]
                 }
               />
             </Grid>

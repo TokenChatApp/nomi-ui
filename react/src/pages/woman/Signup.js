@@ -3,7 +3,7 @@ import AuthenticationService from "../../services/AuthenticationService";
 import ServerRequest from "../../services/ServerRequest";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Navbar from "../../components/Navbar";
 import TextField from "@material-ui/core/TextField";
@@ -20,7 +20,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Backend } from "../../services/Backend";
 import MainButton from "../../components/MainButton";
-import { womanColor } from "../../Constants";
+import { womanColor, manColor } from "../../Constants";
 
 const grey = "#585858";
 
@@ -84,6 +84,16 @@ const styles = theme => ({
   },
   input: {
     textAlign: "left"
+  },
+  navWrapper: {
+    textAlign: "left",
+    paddingTop: "10px",
+    paddingLeft: "5%",
+    paddingRight: "10%"
+  },
+  navText: {
+    color: manColor[1],
+    textDecoration: "none"
   }
 });
 
@@ -121,6 +131,7 @@ class Signup extends React.Component {
     city: null,
     height: null,
     weight: null,
+    referral: null,
     spokenLanguageArray: [],
     language: "",
     nationality: null,
@@ -194,7 +205,6 @@ class Signup extends React.Component {
       language: string,
       avatar: Backend.user.profileImage
     });
-    console.log(this.state);
     let response = AuthenticationService.signUp(this.state);
     response.then(r => {
       this.setState({ errors: r.errors });
@@ -306,6 +316,24 @@ class Signup extends React.Component {
                 errors.hasOwnProperty("password") && errors["password"]
               }
               InputLabelProps={{ shrink: true, className: classes.label }}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              className={classes.textField}
+              fullWidth
+              label="Referral Code"
+              style={{ margin: 8 }}
+              placeholder="Referral Code"
+              margin="normal"
+              value={this.state.referral}
+              name="referral"
+              onChange={this.handleInputChange}
+              InputLabelProps={{ shrink: true, className: classes.label }}
+              error={errors.hasOwnProperty("referral")}
+              helperText={
+                errors.hasOwnProperty("referral") && errors["referral"]
+              }
             />
           </Grid>
         </React.Fragment>
@@ -483,8 +511,6 @@ class Signup extends React.Component {
         </MenuItem>
       );
     }
-    console.log("99999");
-    console.log(items);
     return items;
   }
 
@@ -498,8 +524,6 @@ class Signup extends React.Component {
         </MenuItem>
       );
     }
-    console.log("8888");
-    console.log(items);
     return items;
   }
 
@@ -511,12 +535,11 @@ class Signup extends React.Component {
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
         <Navbar title="SIGN UP" gender="F" isLoggedIn="false" />
-        <MainButton
-          className={classes.backButton}
-          onClick={() => this.setState({ redirect: "/signup" })}
-        >
-          Back
-        </MainButton>
+        <div className={classes.navWrapper}>
+          <NavLink to="/signup" className={classes.navText}>
+            {"< Back"}
+          </NavLink>
+        </div>
         <form onSubmit={this.handleFormSubmit}>
           <Typography className={classes.title} variant="h5">
             {step === "1" ? "User Information" : "Personal Particulars"}

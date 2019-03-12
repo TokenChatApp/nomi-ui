@@ -12,6 +12,8 @@ export const Backend = {
   user: {},
   cities: [],
   places: [],
+  selectedCity: "",
+  selectedPlace: "",
   bootstrap: async function() {
     console.log("Nomi user bootstrap");
     let token = await axios.get(this.apiUrl + this.authUrl + "csrf-token", "", {

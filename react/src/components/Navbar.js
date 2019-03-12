@@ -79,6 +79,16 @@ const styles = theme => ({
   avatar: {
     marginLeft: "auto",
     marginRight: 0
+  },
+  backButton: {
+    color: "white",
+    textDecoration: "none",
+    textAlign: "left",
+    paddingTop: "10px",
+    paddingLeft: "0",
+    paddingRight: "10%",
+    marginLeft: 20,
+    display: "block"
   }
 });
 
@@ -227,15 +237,10 @@ class Navbar extends React.Component {
   };
 
   renderDialogue() {
-    console.log("hfueiwd");
-    console.log(this.props);
     const { classes, gender, isLoggedIn } = this.props;
-    console.log(isLoggedIn);
     if (isLoggedIn === "false") {
-      console.log("called");
       return;
     }
-    console.log("called2");
     return (
       <Dialog
         fullScreen
@@ -345,7 +350,7 @@ class Navbar extends React.Component {
           {this.renderLoggedInButtons()}
           <Grid item xs={8}>
             {backTo && (
-              <NavLink className={classes.title} to={backTo}>
+              <NavLink className={classes.backButton} to={backTo}>
                 {"< Back"}
               </NavLink>
             )}

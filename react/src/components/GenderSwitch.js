@@ -70,7 +70,7 @@ const GenderSwitch = props => {
         </Grid>
       )}
       <Grid item className={classes.genderText}>
-        Switch to {man ? "Girl" : "M"} user
+        Switch to {man ? "Girl" : "Man"} user
       </Grid>
       {!man && (
         <Grid item>

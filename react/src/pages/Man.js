@@ -1,6 +1,4 @@
 import React, { Component } from "react";
-//import { Switch, Route } from 'react-router';
-//import { BrowserRouter as Router } from "react-router-dom";
 import { Route } from "react-router-dom";
 
 import Landing from "./man/index";
@@ -31,7 +29,7 @@ class Man extends Component {
   render() {
     return (
       <div>
-        <MenRoute exact path="/m" component={Landing} />
+        <MenRoute exact path="/m" component={DateDetail} />
         <MenRoute exact path="/m/myBookings" component={MyBookings} />
         <MenRoute
           exact
@@ -49,7 +47,7 @@ class Man extends Component {
         <MenRoute exact path="/m/booking/detail" component={BookingDetail} />
         <MenRoute exact path="/m/booking/sent" component={BookingSent} />
         <MenRoute exact path="/m/girlProfile" component={GirlProfile} />
-        <MenRoute exact path="/m/invitation/detail" component={DateDetail} />
+        <MenRoute exact path="/m/listings" component={Landing} />
         <MenRoute exact path="/m/invitation/sent" component={InvitationSent} />
         <MenRoute exact path="/m/dates" component={Job} />
         <MenRoute exact path="/m/dates/expired" component={JobExpired} />

@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Navbar from "../../components/Navbar";
 import Grid from "@material-ui/core/Grid";
@@ -11,7 +11,6 @@ import Favorite from "@material-ui/icons/Favorite";
 import GirlCard from "./GirlCard";
 
 import { manColor } from "../../Constants";
-
 import dummyGirl from "../../images/dummyGirl.png";
 import crownGold from "../../images/male/dashboard/crown_gold.svg";
 import crownSilver from "../../images/male/dashboard/crown_silver.svg";
@@ -26,7 +25,7 @@ const styles = theme => ({
     position: "relative"
   },
   container: {
-    marginTop: 30,
+    marginTop: 10,
     paddingLeft: "5%",
     paddingRight: "5%"
   },
@@ -105,6 +104,16 @@ const styles = theme => ({
   },
   crownTitle: {
     paddingLeft: 10
+  },
+  navWrapper: {
+    textAlign: "left",
+    paddingTop: "15px",
+    paddingLeft: "5%",
+    paddingRight: "10%"
+  },
+  navText: {
+    color: manColor[1],
+    textDecoration: "none"
   }
 });
 
@@ -140,7 +149,6 @@ class ManLanding extends React.Component {
 
   handleUserAcceptLocation = ret => {
     // ret is the location object
-    console.log(ret);
     this.setState({ locationEnabled: true });
   };
 
@@ -149,7 +157,7 @@ class ManLanding extends React.Component {
   };
 
   handleSendInvitationClicked = () => {
-    this.setState({ redirect: "/m/invitation/detail" });
+    this.setState({ redirect: "/m/booking/sent" });
   };
 
   render() {
@@ -160,6 +168,11 @@ class ManLanding extends React.Component {
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
         <Navbar title={title} gender="M" />
+        <div className={classes.navWrapper}>
+          <NavLink to="/m" className={classes.navText}>
+            {"< Back"}
+          </NavLink>
+        </div>
         <Grid container className={classes.container}>
           <Grid item xs={12}>
             <NomiButton
@@ -173,7 +186,8 @@ class ManLanding extends React.Component {
           </Grid>
 
           <Typography variant="h4" className={classes.explore}>
-            Explore the girls around your City, Place
+            Explore the girls around {Backend.selectedPlace},{" "}
+            {Backend.selectedCity}
           </Typography>
 
           {locationEnabled ? (
