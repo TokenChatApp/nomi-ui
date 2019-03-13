@@ -12,6 +12,7 @@ export const Backend = {
   selectedCity: "",
   selectedPlace: "",
   selectedPlaceId: 0,
+  selectedListing: 0,
   selectedDate: Date(),
   firstTimeLoginUsername: "",
   firstTimeLoginPassword: "",

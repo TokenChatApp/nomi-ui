@@ -238,9 +238,11 @@ class WomanLanding extends React.Component {
     response.then(r => {
       ServerRequest.getOwnBookings().then(r => {
         Backend.bookings = r;
-        this.setState = { lol: "lol" };
+        window.location.reload();
+        alert(
+          `You have accepted this job. Please wait for the guy to confirm.`
+        );
       });
-      alert(`You have accepted this job. Please wait for the guy to confirm.`);
     });
   };
   handleReject = request_id => {

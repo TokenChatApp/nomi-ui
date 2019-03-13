@@ -96,6 +96,16 @@ class GirlCard extends React.Component {
     checked: false
   };
 
+  componentDidMount() {
+    for (var girl of Backend.listings) {
+      if (girl.username === this.props.username) {
+        if (girl.isSelected) {
+          this.setState({ checked: true });
+        }
+      }
+    }
+  }
+
   handleClick = event => {
     let isChecked = this.state.checked;
     for (var [i, listing] of Backend.listings.entries()) {
@@ -103,9 +113,7 @@ class GirlCard extends React.Component {
         Backend.listings[i].isSelected = !isChecked;
       }
     }
-    console.log(this.props);
     this.setState({ checked: !isChecked });
-    console.log(Backend.listings);
   };
 
   handleCrownClick = event => {
@@ -113,6 +121,11 @@ class GirlCard extends React.Component {
   };
 
   handleRedirect = event => {
+    for (var [i, listing] of Backend.listings.entries()) {
+      if (listing.username === this.props.username) {
+        Backend.selectedListing = i;
+      }
+    }
     this.setState({ redirect: "/m/girlProfile" });
   };
 
@@ -124,7 +137,8 @@ class GirlCard extends React.Component {
       level,
       avatar,
       disabled,
-      noPadding
+      noPadding,
+      username
     } = this.props;
     const rating = 5;
     const { redirect, checked } = this.state;

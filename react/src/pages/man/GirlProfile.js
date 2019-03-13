@@ -8,7 +8,8 @@ import { manColor } from "../../Constants";
 import MainButton from "../../components/MainButton";
 import StarRate from "@material-ui/icons/StarRate";
 import classNames from "classnames";
-
+import { Backend } from "../../services/Backend";
+import girlPhoto from "../../images/dummyGirl.png";
 import SimpleSlider from "./SimpleSlider";
 
 import crownGold from "../../images/male/dashboard/crown_gold.svg";
@@ -19,7 +20,7 @@ const styles = theme => ({
     minHeight: "calc(100vh - 100px)",
     position: "relative",
     paddingTop: 100,
-    background: `linear-gradient(to top, ${manColor[0]}, ${manColor[1]})`
+    background: `#3F9FFB`
   },
   fixedNav: {
     position: "absolute",
@@ -115,12 +116,15 @@ class GirlProfile extends React.Component {
 
   handleToggle = event => {
     let { checked } = this.state;
+    Backend.listings[Backend.selectedListing].isSelected = !checked;
     this.setState({ checked: !checked });
   };
 
   render() {
     const { classes } = this.props;
     const { redirect, checked } = this.state;
+
+    let girl = Backend.listings[Backend.selectedListing];
 
     return (
       <div className={classes.root}>
@@ -129,12 +133,16 @@ class GirlProfile extends React.Component {
           <Navbar title="" backTo="/m/listings" />
         </div>
         <div style={{ paddingBottom: 30 }}>
-          <SimpleSlider />
+          <img
+            style={{ width: "100%" }}
+            src={Backend.imgUrl + girl.avatar}
+            alt="girl"
+          />
         </div>
         <Grid container alignItems="center" className={classes.container}>
           <Grid item xs={6} className={classes.detailContainer}>
             <img className={classes.crown} alt="crown" src={crownGold} />
-            <h2 className={classes.girlName}>Hanako</h2>
+            <h2 className={classes.girlName}>{girl.display_name}</h2>
             <GenerateStars rating={3} />
           </Grid>
           <Grid item xs={6}>
@@ -163,24 +171,29 @@ class GirlProfile extends React.Component {
           className={classes.container}
         >
           <Grid item xs={6} className={classes.detailContainer}>
-            <Detail title="AGE" value="29" />
+            <Detail title="AGE" value={girl.age} />
           </Grid>
           <Grid item xs={3} className={classes.detailContainer}>
-            <Detail title="WEIGHT" value="50" />
+            <Detail title="WEIGHT" value={girl.weight + "kg"} />
           </Grid>
           <Grid item xs={3} className={classes.detailContainer}>
-            <Detail title="HEIGHT" value="160" />
+            <Detail title="HEIGHT" value={girl.height + "cm"} />
           </Grid>
           <Grid item xs={6} className={classes.detailContainer}>
-            <Detail title="NATIONALITY" value="Japan" />
+            <Detail title="NATIONALITY" value={girl.nationality} />
           </Grid>
           <Grid item xs={6} className={classes.detailContainer}>
-            <Detail title="SPOKEN LANGUAGE" value="Japanese, English" />
+            <Detail title="SPOKEN LANGUAGES" value={girl.language} />
           </Grid>
           <Grid item xs={6} className={classes.detailContainer}>
-            <Detail title="RATE" value="100/session" />
+            <Detail
+              title="RATE"
+              value={"¥" + girl.rate_per_session.toLocaleString() + "/session"}
+            />
           </Grid>
         </Grid>
+        <br />
+        <br />
       </div>
     );
   }

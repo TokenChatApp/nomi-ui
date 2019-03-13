@@ -23,12 +23,6 @@ export default class SimpleSlider extends Component {
           <div>
             <img style={imgStyle} src={girlPhoto} alt="girl" />
           </div>
-          <div>
-            <img style={imgStyle} src={girlPhoto} alt="girl" />
-          </div>
-          <div>
-            <img style={imgStyle} src={girlPhoto} alt="girl" />
-          </div>
         </Slider>
       </div>
     );

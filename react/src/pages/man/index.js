@@ -120,25 +120,11 @@ const styles = theme => ({
   }
 });
 
-const womanList = [
-  { name: "Himiko", age: "20", rating: 5, level: 3, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 5, level: 2, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl }
-];
-
 class ManLanding extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
       redirect: "",
-      womanList: womanList,
       user: Backend.user,
       crown: false
     };
@@ -214,7 +200,11 @@ class ManLanding extends React.Component {
           </span>
           {Backend.listings.map(e => (
             <Grid key={e.username} item xs={6}>
-              <GirlCard {...e} handleToggleCrown={this.handleToggleCrown} />
+              <GirlCard
+                {...e}
+                handleToggleCrown={this.handleToggleCrown}
+                username={e.username}
+              />
             </Grid>
           ))}
           <Grid item xs={12}>
@@ -234,7 +224,7 @@ class ManLanding extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { redirect, womanList } = this.state;
+    const { redirect } = this.state;
     let title = `Hello, ${Backend.user.display_name}`;
     let dateString = dateFormat(Backend.selectedDate, "dd mmm, HH:MM");
 
