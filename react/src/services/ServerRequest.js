@@ -65,11 +65,9 @@ const ServerRequest = {
       .then(
         res => {
           Backend.avatar = new Buffer(res.data, "binary").toString("base64");
-          console.log("lol1");
           return res.data;
         },
         res => {
-          console.log("lol2");
           return res.response;
         }
       );
@@ -128,7 +126,7 @@ const ServerRequest = {
       );
   },
   postBooking: function(value) {
-    return axios.put(Backend.apiUrl + "booking", qs.stringify(value)).then(
+    return instance.put(Backend.apiUrl + "booking", qs.stringify(value)).then(
       res => {
         return res.data;
       },
@@ -138,8 +136,9 @@ const ServerRequest = {
     );
   },
   getOwnBookings: function() {
-    return axios.get(Backend.apiUrl + "booking/retrieve").then(
+    return instance.get(Backend.apiUrl + "booking/retrieve").then(
       res => {
+        Backend.bookings = res;
         return res.data;
       },
       res => {

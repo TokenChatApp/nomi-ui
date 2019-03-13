@@ -5,14 +5,19 @@ import ServerRequest from "./ServerRequest";
 
 export const Backend = {
   apiUrl: "http://nomi-backend.tokenchatserver.com:8000/api/v1/",
+  imgUrl: "http://nomi-backend.tokenchatserver.com:8000/storage/",
   // apiUrl: "http://192.168.131.2:8000/api/v1/",
   profileUrl: "profile/info",
   user: {},
   selectedCity: "",
   selectedPlace: "",
+  selectedPlaceId: 0,
+  selectedDate: Date(),
   firstTimeLoginUsername: "",
   firstTimeLoginPassword: "",
   avatar: null,
+  listings: [],
+  bookings: [],
   bootstrap: async function() {
     let token = await axios.get(this.apiUrl + "auth/csrf-token", "", {
       withCredentials: true
@@ -22,8 +27,11 @@ export const Backend = {
       let profile = ServerRequest.getOwnProfile().then(res => {
         this.setProfile(res);
       });
+      let avatar = ServerRequest.getOwnAvatar();
+      let bookings = ServerRequest.getOwnBookings();
       await profile;
-      ServerRequest.getOwnAvatar();
+      await avatar;
+      await bookings;
     }
     return token;
   },

@@ -221,6 +221,15 @@ class WomanLanding extends React.Component {
     };
   }
 
+  renderListing() {
+    var items = [];
+    console.log(Backend.bookings);
+    for (var listing of Backend.bookings.data) {
+      items.push(<ManList name={listing.display_name} />);
+    }
+    return items;
+  }
+
   render() {
     const { classes } = this.props;
     const { redirect, manList } = this.state;
@@ -310,9 +319,7 @@ class WomanLanding extends React.Component {
               <span> Refresh</span>
             </Grid>
             <Grid item xs={12}>
-              {manList.map(e => (
-                <ManList {...e} />
-              ))}
+              {this.renderListing()}
             </Grid>
             <Grid item xs={12}>
               <Typography className={classes.title} variant="h6">

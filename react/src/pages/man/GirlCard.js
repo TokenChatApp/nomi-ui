@@ -11,6 +11,7 @@ import RadioButtonUnchecked from "@material-ui/icons/RadioButtonUnchecked";
 import { manColor } from "../../Constants";
 import crownGold from "../../images/male/dashboard/crown_gold.svg";
 import crownSilver from "../../images/male/dashboard/crown_silver.svg";
+import { Backend } from "../../services/Backend";
 
 const styles = theme => ({
   root: {
@@ -58,8 +59,8 @@ const styles = theme => ({
   },
   crown: {
     cursor: "pointer",
-    width: 45,
-    marginBottom: -55
+    width: 30,
+    marginBottom: -135
   },
   starWrapper: {
     lineHeight: "1px",
@@ -77,11 +78,11 @@ const GenerateStars = withStyles(styles)(props => {
 
   return (
     <React.Fragment>
-      {new Array(rating).fill(0).map(e => (
-        <StarRate className={classes.starFilled} />
+      {new Array(rating).fill(0).map((e, index) => (
+        <StarRate key={index} className={classes.starFilled} />
       ))}
-      {new Array(totalStars - rating).fill(0).map(e => (
-        <StarRate className={classes.starEmpty} />
+      {new Array(totalStars - rating).fill(0).map((e, index) => (
+        <StarRate key={index} className={classes.starEmpty} />
       ))}
     </React.Fragment>
   );
@@ -96,7 +97,14 @@ class GirlCard extends React.Component {
 
   handleClick = event => {
     let isChecked = this.state.checked;
+    for (var [i, listing] of Backend.listings.entries()) {
+      if (listing.username === this.props.username) {
+        Backend.listings[i].isSelected = !isChecked;
+      }
+    }
+    console.log(this.props);
     this.setState({ checked: !isChecked });
+    console.log(Backend.listings);
   };
 
   handleCrownClick = event => {
@@ -110,14 +118,14 @@ class GirlCard extends React.Component {
   render() {
     const {
       classes,
-      name,
+      display_name,
       age,
-      rating,
       level,
-      imgUrl,
+      avatar,
       disabled,
       noPadding
     } = this.props;
+    const rating = 5;
     const { redirect, checked } = this.state;
 
     return (
@@ -142,18 +150,18 @@ class GirlCard extends React.Component {
         <Grid item xs={12}>
           <img
             className={classes.avatar}
-            src={imgUrl}
+            src={Backend.imgUrl + avatar}
             alt="girl avatar"
             onClick={this.handleRedirect}
           />
         </Grid>
         <Grid item xs={disabled ? 12 : 9} className={classes.wrapper}>
           <Typography variant="h6">
-            <span className={classes.name}>{name} </span>{" "}
+            <span className={classes.name}>{display_name} </span>{" "}
             <span className={classes.age}>{age}years old</span>
-            <h1 className={classes.starWrapper}>
+            <span className={classes.starWrapper}>
               <GenerateStars rating={rating} />
-            </h1>
+            </span>
           </Typography>
         </Grid>
         {!disabled && (

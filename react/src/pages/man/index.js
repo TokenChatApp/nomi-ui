@@ -17,6 +17,9 @@ import crownSilver from "../../images/male/dashboard/crown_silver.svg";
 
 import NomiButton from "../../components/NomiButton";
 import { Backend } from "../../services/Backend";
+import ServerRequest from "../../services/ServerRequest";
+
+var dateFormat = require("dateformat");
 
 const styles = theme => ({
   root: {
@@ -147,23 +150,73 @@ class ManLanding extends React.Component {
   };
 
   handleSendInvitationClicked = () => {
-    this.setState({ redirect: "/m/booking/sent" });
+    var userIds = [];
+    for (const listing of Backend.listings) {
+      if (listing.isSelected) {
+        userIds.push(listing.user_id);
+      }
+    }
+    if (userIds.length === 0) {
+      alert("Please select at least one girl");
+      return;
+    }
+    let profileString = userIds.join();
+    let dateString = dateFormat(Backend.selectedDate, "yyyy-mm-dd HH:MM");
+    console.log(Backend.selectedPlaceId);
+    let dict = {
+      profile_ids: profileString,
+      request_date: dateString,
+      place_id: Backend.selectedPlaceId
+    };
+    let response = ServerRequest.postBooking(dict);
+    response.then(r => {
+      let bookings = ServerRequest.getOwnBookings();
+      bookings.then(r => {
+        this.setState({ redirect: "/m/booking/sent" });
+      });
+    });
   };
 
-  render() {
+  renderContent() {
     const { classes } = this.props;
-    const { redirect, womanList } = this.state;
-    let title = `Hello, ${Backend.user.display_name}`;
-    return (
-      <div className={classes.root}>
-        {redirect && <Redirect to={redirect} />}
-        <Navbar title={title} gender="M" />
-        <div className={classes.navWrapper}>
-          <NavLink to="/m" className={classes.navText}>
-            {"< Back"}
-          </NavLink>
+    let dateString = dateFormat(Backend.selectedDate, "dd mmm, HH:MM");
+
+    if (Backend.listings.length === 0) {
+      return (
+        <div>
+          <br />
+          No girls available at this time.
+          <br />
+          <br />
+          Refine your search on the previous page.
         </div>
+      );
+    } else {
+      return (
         <Grid container className={classes.container}>
+          <Grid item xs={12}>
+            {Backend.listings.length > 8 ? (
+              <NomiButton
+                className={classes.button}
+                gender="M"
+                onClick={this.handleSendInvitationClicked}
+              >
+                <Favorite className={classes.favIcon} />
+                SEND INVITATION
+              </NomiButton>
+            ) : (
+              <div />
+            )}
+          </Grid>
+          <span style={{ marginTop: 15 }}>
+            Girls available at {Backend.selectedPlace}, {Backend.selectedCity}{" "}
+            at {dateString}
+          </span>
+          {Backend.listings.map(e => (
+            <Grid key={e.username} item xs={6}>
+              <GirlCard {...e} handleToggleCrown={this.handleToggleCrown} />
+            </Grid>
+          ))}
           <Grid item xs={12}>
             <NomiButton
               className={classes.button}
@@ -174,28 +227,27 @@ class ManLanding extends React.Component {
               SEND INVITATION
             </NomiButton>
           </Grid>
-          <Typography variant="h4" className={classes.explore}>
-            Explore the girls around {Backend.selectedPlace},{" "}
-            {Backend.selectedCity}
-          </Typography>
-          {womanList.map(e => (
-            <Grid item xs={6}>
-              <GirlCard {...e} handleToggleCrown={this.handleToggleCrown} />
-            </Grid>
-          ))}
-          <Grid item xs={12}>
-            <NomiButton
-              className={classes.button}
-              gender="M"
-              onClick={() =>
-                this.setState({ redirect: "/m/invitation/detail" })
-              }
-            >
-              <Favorite className={classes.favIcon} />
-              SEND INVITATION
-            </NomiButton>
-          </Grid>
         </Grid>
+      );
+    }
+  }
+
+  render() {
+    const { classes } = this.props;
+    const { redirect, womanList } = this.state;
+    let title = `Hello, ${Backend.user.display_name}`;
+    let dateString = dateFormat(Backend.selectedDate, "dd mmm, HH:MM");
+
+    return (
+      <div className={classes.root}>
+        {redirect && <Redirect to={redirect} />}
+        <Navbar title={title} gender="M" />
+        <div className={classes.navWrapper}>
+          <NavLink to="/m" className={classes.navText}>
+            {"< Back"}
+          </NavLink>
+        </div>
+        {this.renderContent()}
         <Dialog onClose={this.handleToggleCrown} open={this.state.crown}>
           <DialogTitle className={classes.dialogTitle}>
             Our Selected Girls

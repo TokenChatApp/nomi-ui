@@ -105,20 +105,50 @@ const styles = theme => ({
 class DateDetail extends React.Component {
   state = {
     selectedDate: new Date(),
-    selectedTime: "10:00",
-    endingTime: new Date()
-      .toLocaleTimeString()
-      .split(":")
-      .splice(0, 2)
-      .join(":"),
+    selectedHour: "18",
+    endHour: "20",
+    selectedMinute: "00",
     city: "",
     place: "",
     redirect: null,
     cities: [],
-    places: []
+    places: [],
+    selectedPlaceId: 1
   };
 
   componentDidMount() {
+    var currentHour = new Date().getHours();
+    var currentMinute = new Date().getMinutes();
+    currentMinute = (currentMinute + 30) % 60;
+    if (currentMinute > 23) {
+      currentHour += 1;
+    }
+    if (currentMinute < 8 || currentMinute > 53) {
+      currentMinute = 0;
+    } else if (currentMinute < 23) {
+      currentMinute = 15;
+    } else if (currentMinute < 43) {
+      currentMinute = 30;
+    } else {
+      currentMinute = 45;
+    }
+    var hourString = currentHour.toString();
+    if (hourString.length === 1) {
+      hourString = "0" + hourString;
+    }
+    var minuteString = currentMinute.toString();
+    if (minuteString.length === 1) {
+      minuteString = "0" + minuteString;
+    }
+    var endHourString = ((Number(hourString) + 2) % 24).toString();
+    if (endHourString.length === 1) {
+      endHourString = "0" + endHourString;
+    }
+    this.setState({
+      selectedHour: hourString,
+      selectedMinute: minuteString,
+      endHour: endHourString
+    });
     if (this.state.cities.length === 0) {
       let response = ServerRequest.getCities();
       response.then(r => {
@@ -128,20 +158,28 @@ class DateDetail extends React.Component {
   }
 
   handleDateChange = date => {
-    console.log(`date = ${date}`);
     this.setState({ selectedDate: date });
   };
 
-  handleTimeChange = time => {
-    console.log(time);
-    // let array = time.split(":");
-    // console.log(array);
-
-    this.setState({
-      // selectedTime: time
-      // selectedDate: date,
-      // endingTime: endDate
-    });
+  handleTimeChange = event => {
+    const target = event.target;
+    const name = target.name;
+    var value = "";
+    value = target.value;
+    if (name === "selectedHour") {
+      var newString = ((Number(value) + 2) % 24).toString();
+      if (newString.length === 1) {
+        newString = "0" + newString;
+      }
+      this.setState({
+        [name]: value,
+        endHour: newString
+      });
+    } else {
+      this.setState({
+        [name]: value
+      });
+    }
   };
 
   handleChange = type => event => {
@@ -156,6 +194,13 @@ class DateDetail extends React.Component {
     this.setState({
       [name]: value
     });
+    if (name === "place") {
+      for (var place of this.state.places) {
+        if (place.place_name === value) {
+          this.setState({ selectedPlaceId: place.place_id });
+        }
+      }
+    }
   };
 
   handleInputChangeCity = event => {
@@ -178,15 +223,58 @@ class DateDetail extends React.Component {
   };
 
   handleConfirm = () => {
-    let dict = { place_id: 1, request_date: Date() };
+    const {
+      selectedDate,
+      selectedHour,
+      selectedMinute,
+      selectedPlaceId
+    } = this.state;
+
+    var finalDate = selectedDate;
+    finalDate.setHours(selectedHour);
+    finalDate.setMinutes(selectedMinute);
+    let dict = { place_id: selectedPlaceId, request_date: finalDate };
+    console.log(dict);
     let response = ServerRequest.getListing(dict);
     response.then(r => {
-      this.setState({ places: r });
+      Backend.listings = r;
+      console.log(Backend.listings);
+      Backend.selectedCity = this.state.city;
+      Backend.selectedPlace = this.state.place;
+      Backend.selectedPlaceId = selectedPlaceId;
+      Backend.selectedDate = finalDate;
+      this.setState({ redirect: "/m/listings" });
     });
-    Backend.selectedCity = this.state.city;
-    Backend.selectedPlace = this.state.place;
-    this.setState({ redirect: "/m/listings" });
   };
+
+  renderHourMenuItems() {
+    var items = [];
+    for (var i = 0; i < 24; i++) {
+      var newString = i.toString();
+      if (newString.length === 1) {
+        newString = "0" + newString;
+      }
+      items.push(
+        <MenuItem key={i} value={newString}>
+          {newString}
+        </MenuItem>
+      );
+    }
+    return items;
+  }
+
+  renderMinuteMenuItems() {
+    var items = [];
+    let array = ["00", "15", "30", "45"];
+    for (var [i, minute] of array.entries()) {
+      items.push(
+        <MenuItem key={i} value={minute}>
+          {minute}
+        </MenuItem>
+      );
+    }
+    return items;
+  }
 
   renderCitiesMenuItems() {
     var items = [];
@@ -229,7 +317,7 @@ class DateDetail extends React.Component {
           </Typography>
 
           <Grid container className={classes.container}>
-            <Grid item xs={12}>
+            <Grid item xs={4}>
               <NomiDatePicker
                 label="DATE"
                 selectedDate={selectedDate}
@@ -237,35 +325,45 @@ class DateDetail extends React.Component {
               />
             </Grid>
 
-            <Grid item xs={6}>
-              <TextField
-                id="time"
-                label="STARTING TIME"
-                type="time"
-                value={this.state.selectedTime}
-                onChange={this.handleTimeChange}
-                className={classes.textFieldTime}
-                InputLabelProps={{
-                  shrink: true
-                }}
-                inputProps={{
-                  step: 900
-                }}
-              />
+            <Grid item xs={3} className={classes.endWrapper}>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="hour-label-placeholder">HOUR</InputLabel>
+                <Select
+                  value={this.state.selectedHour}
+                  onChange={this.handleTimeChange}
+                  inputProps={{
+                    name: "selectedHour",
+                    id: "hour-label-placeholder"
+                  }}
+                  className={classes.selectEmpty}
+                >
+                  {this.renderHourMenuItems()}
+                </Select>
+              </FormControl>
             </Grid>
-
-            <Grid item xs={6} className={classes.endWrapper}>
-              <TextField
-                label="ENDING TIME"
-                defaultValue={endingTime}
-                margin="normal"
-                InputProps={{
-                  readOnly: true
-                }}
-              />
+            <Grid item xs={3} className={classes.endWrapper}>
+              <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="minute-label-placeholder">MIN</InputLabel>
+                <Select
+                  value={this.state.selectedMinute}
+                  onChange={this.handleTimeChange}
+                  inputProps={{
+                    name: "selectedMinute",
+                    id: "minute-label-placeholder"
+                  }}
+                  className={classes.selectEmpty}
+                >
+                  {this.renderMinuteMenuItems()}
+                </Select>
+              </FormControl>
             </Grid>
-
-            <Grid item xs={12}>
+            <Grid item xs={12} style={{ marginTop: 10, textAlign: "left" }}>
+              <span style={{ fontSize: "15px" }}>
+                This session will end at {this.state.endHour}:
+                {this.state.selectedMinute}.
+              </span>
+            </Grid>
+            <Grid item xs={5}>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="city-label-placeholder">City</InputLabel>
                 <Select
@@ -277,14 +375,11 @@ class DateDetail extends React.Component {
                   }}
                   className={classes.selectEmpty}
                 >
-                  <MenuItem disabled value="">
-                    <em>None</em>
-                  </MenuItem>
                   {this.renderCitiesMenuItems()}
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12}>
+            <Grid item xs={6} className={classes.endWrapper}>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="place-label-placeholder">Place</InputLabel>
                 <Select

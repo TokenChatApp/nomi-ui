@@ -184,7 +184,7 @@ const WomanButtons = props => {
         </MainButton>
         <Divider />
         <MainButton {...props} onClick={handleRedirect("/w")}>
-          Launch my LOL chat
+          Launch my lol chat
         </MainButton>
         <Divider />
       </div>
@@ -292,7 +292,6 @@ class Navbar extends React.Component {
   renderLoggedInButtons() {
     const { classes, isLoggedIn } = this.props;
     let imgSrc = `data:image/jpeg;base64,${Backend.avatar}`;
-    console.log(imgSrc);
     if (isLoggedIn === "false") {
       return;
     }
@@ -300,12 +299,30 @@ class Navbar extends React.Component {
       <Grid item xs={4} className={classes.alignRight}>
         <Grid container alignItems="center">
           <Grid item xs={6}>
-            <Avatar alt="man or girl" src={imgSrc} className={classes.avatar} />
+            {this.renderAvatar()}
           </Grid>
           {this.renderHamburgerIcon()}
         </Grid>
       </Grid>
     );
+  }
+
+  renderAvatar() {
+    const { classes } = this.props;
+    if (Backend.avatar !== null && Backend.avatar !== "") {
+      let imgSrc = `data:image/jpeg;base64,${Backend.avatar}`;
+      return (
+        <Avatar alt="man or girl" src={imgSrc} className={classes.avatar} />
+      );
+    } else {
+      return (
+        <Avatar
+          alt="man or girl"
+          src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+          className={classes.avatar}
+        />
+      );
+    }
   }
 
   render() {

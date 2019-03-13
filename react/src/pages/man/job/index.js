@@ -6,6 +6,7 @@ import Navbar from "../../../components/Navbar";
 import { manColor } from "../../../Constants";
 import girlImg from "../../../images/male/dashboard/girl_photo_2.jpg";
 import JobList from "./JobList";
+import { Backend } from "../../../services/Backend";
 
 const styles = theme => ({
   root: {
@@ -50,6 +51,25 @@ class Job extends React.Component {
     this.setState({ tab: value });
   };
 
+  renderBookings() {
+    var items = [];
+    console.log(Backend.bookings.data);
+    for (var booking of Backend.bookings.data) {
+      let timeString = `${booking.request_start_time.substring(0, 5)}
+      – ${booking.request_end_time.substring(0, 5)}`;
+      items.push(
+        <JobList
+          key={booking.request_id}
+          images={images4}
+          jobStatus={booking.status.toUpperCase()}
+          time={timeString}
+          location={booking.place ? booking.place.place_name : ""}
+        />
+      );
+    }
+    return items;
+  }
+
   render() {
     const { classes } = this.props;
     const { redirect } = this.state;
@@ -60,43 +80,7 @@ class Job extends React.Component {
         <Navbar title="My Dates" gender="M" />
         <div className={classes.tabWrapper}>
           <h3 className={classes.title}>14 Nov 2019</h3>
-          <JobList
-            images={images4}
-            jobStatus="ON GOING"
-            time="10:00 - 12:00"
-            location="市区町村 都道府県"
-          />
-          <JobList
-            images={images3}
-            jobStatus="EXPIRED"
-            time="10:00 - 12:00"
-            location="市区町村 都道府県"
-          />
-          <JobList
-            images={[]}
-            jobStatus="ENDED"
-            time="10:00 - 12:00"
-            location="市区町村 都道府県"
-          />
-          <h3 className={classes.title}>13 Nov 2019</h3>
-          <JobList
-            images={images2}
-            jobStatus="PENDING"
-            time="10:00 - 12:00"
-            location="市区町村 都道府県"
-          />
-          <JobList
-            images={images1}
-            jobStatus="CONFIRMED"
-            time="10:00 - 12:00"
-            location="市区町村 都道府県"
-          />
-          <JobList
-            images={[]}
-            jobStatus="ENDED"
-            time="10:00 - 12:00"
-            location="市区町村 都道府県"
-          />
+          {this.renderBookings()}
         </div>
       </div>
     );

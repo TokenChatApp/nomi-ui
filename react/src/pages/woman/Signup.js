@@ -131,6 +131,13 @@ class Signup extends React.Component {
     this.setState({
       [name]: value
     });
+    if (name === "place") {
+      for (var place of this.state.places) {
+        if (place.place_name === value) {
+          this.setState({ place_id: place.place_id });
+        }
+      }
+    }
   };
 
   handleInputChangeCity = event => {
@@ -145,7 +152,7 @@ class Signup extends React.Component {
       if (city.city_name === value) {
         let response = ServerRequest.getPlaces(city.city_id);
         response.then(r => {
-          this.setState({ places: r });
+          this.setState({ city_id: city.city_id, places: r });
         });
         break;
       }
@@ -171,23 +178,24 @@ class Signup extends React.Component {
   };
 
   handleFormSubmit = event => {
+    var formData = new FormData();
     let string = this.state.spokenLanguageArray.toString();
-    var dict = {
-      gender: this.state.gender,
-      display_name: this.state.display_name,
-      age: this.state.age,
-      mobile_no: this.state.mobile_no,
-      email: this.state.email,
-      nationality: this.state.nationality,
-      weight: this.state.weight,
-      height: this.state.height,
-      city_id: this.state.city_id,
-      avatar: Backend.user.profileImage,
-      username: Backend.firstTimeLoginUsername,
-      password: Backend.firstTimeLoginPassword,
-      language: string
-    };
-    let response = AuthenticationService.signUp(dict);
+    formData.set("gender", this.state.gender);
+    formData.set("age", this.state.age);
+    formData.set("display_name", this.state.display_name);
+    formData.set("mobile_no", this.state.mobile_no);
+    formData.set("username", Backend.firstTimeLoginUsername);
+    formData.set("email", this.state.email);
+    formData.set("password", Backend.firstTimeLoginPassword);
+    formData.set("referral", this.state.referral);
+    formData.set("nationality", this.state.nationality);
+    formData.set("language", string);
+    formData.set("weight", this.state.weight);
+    formData.set("height", this.state.height);
+    formData.set("city_id", this.state.city_id);
+    formData.set("place_id", this.state.place_id);
+    formData.append("avatar", Backend.user.profileImageFile);
+    let response = AuthenticationService.signUp(formData);
     response.then(r => {
       this.setState({ errors: r.errors });
       if (r.status) {
