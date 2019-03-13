@@ -11,7 +11,6 @@ import NomiButton from "../../components/NomiButton";
 import AuthenticationService from "../../services/AuthenticationService";
 import ServerRequest from "../../services/ServerRequest";
 import { Backend } from "../../services/Backend";
-import MainButton from "../../components/MainButton";
 import { manColor } from "../../Constants";
 
 const grey = "#585858";
@@ -104,7 +103,7 @@ class Signup extends React.Component {
     formData.set("email", this.state.email);
     formData.set("password", this.state.password);
     formData.set("referral", this.state.referral);
-    formData.set("avatar", Backend.user.profileImage);
+    formData.append("avatar", Backend.user.profileImageFile);
     let response = AuthenticationService.signUp(formData);
     response.then(r => {
       this.setState({ errors: r.errors });

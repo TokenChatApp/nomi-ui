@@ -8,15 +8,13 @@ import IconButton from "@material-ui/core/IconButton";
 import MenuIcon from "@material-ui/icons/Menu";
 import Dialog from "@material-ui/core/Dialog";
 import CloseIcon from "@material-ui/icons/Close";
-import AddBox from "@material-ui/icons/AddBox";
 import Slide from "@material-ui/core/Slide";
 import Avatar from "@material-ui/core/Avatar";
-import femaleAvatar from "../images/dummyGirl.png";
-import maleAvatar from "../images/dummyMan.png";
 import AuthenticationService from "../services/AuthenticationService";
 import classNames from "classnames";
 import { manColor, womanColor } from "../Constants";
 import MainButton from "./MainButton";
+import { Backend } from "../services/Backend";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -292,7 +290,9 @@ class Navbar extends React.Component {
   }
 
   renderLoggedInButtons() {
-    const { classes, gender, isLoggedIn } = this.props;
+    const { classes, isLoggedIn } = this.props;
+    let imgSrc = `data:image/jpeg;base64,${Backend.avatar}`;
+    console.log(imgSrc);
     if (isLoggedIn === "false") {
       return;
     }
@@ -300,13 +300,7 @@ class Navbar extends React.Component {
       <Grid item xs={4} className={classes.alignRight}>
         <Grid container alignItems="center">
           <Grid item xs={6}>
-            <Avatar
-              alt="man or girl"
-              src={
-                "https://heightline.com/wp-content/uploads/Jennie-Kim-640x403.jpg"
-              }
-              className={classes.avatar}
-            />
+            <Avatar alt="man or girl" src={imgSrc} className={classes.avatar} />
           </Grid>
           {this.renderHamburgerIcon()}
         </Grid>

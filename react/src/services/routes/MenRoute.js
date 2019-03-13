@@ -1,5 +1,4 @@
-import React, { Component } from "react";
-//import { Switch, Route, Redirect } from 'react-router';
+import React from "react";
 import { Backend } from "../Backend";
 import { Redirect, Route } from "react-router-dom";
 

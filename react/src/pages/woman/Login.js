@@ -4,17 +4,15 @@ import ServerRequest from "../../services/ServerRequest";
 import { Backend } from "../../services/Backend";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { NavLink, Redirect, Route } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
-import Navbar from "../../components/Navbar";
 import TextField from "@material-ui/core/TextField";
 import classNames from "classnames";
 import Grid from "@material-ui/core/Grid";
 import NomiButton from "../../components/NomiButton";
 import GenderSwitch from "../../components/GenderSwitch";
 import girlImg from "../../images/girl.jpg";
-import manImg from "../../images/man.png";
-import { womanColor, manColor } from "../../Constants";
+import { womanColor } from "../../Constants";
 import Button from "@material-ui/core/Button";
 
 const styles = theme => ({
@@ -221,7 +219,7 @@ class Login extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { redirect, gender, errors, errorMessage } = this.state;
+    const { redirect, gender } = this.state;
 
     return (
       <div className={classes.root}>

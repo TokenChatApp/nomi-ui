@@ -83,24 +83,6 @@ const textStyle = {
   marginTop: 10
 };
 
-const CapturePhoto = props => {
-  return (
-    <div {...props}>
-      <img style={imgStyle} src={captureSrc} alt="capture" />
-      <h6 style={textStyle}>Capture a photo</h6>
-    </div>
-  );
-};
-
-const ChoosePhoto = props => {
-  return (
-    <div {...props}>
-      <img style={imgStyle} src={chooseSrc} alt="choose" />
-      <h6 style={textStyle}>Choose file to upload</h6>
-    </div>
-  );
-};
-
 class ProfilePicUploader extends React.Component {
   state = {
     redirect: null,
@@ -130,6 +112,7 @@ class ProfilePicUploader extends React.Component {
         Backend.user.profileImage = e.target.result;
       };
       reader.readAsDataURL(event.target.files[0]);
+      Backend.user.profileImageFile = event.target.files[0];
     }
     Backend.user.profileImage = this.state.image;
   };
@@ -194,7 +177,12 @@ class ProfilePicUploader extends React.Component {
           {this.renderImageUploader()}
           <h6 style={textStyle}>Choose file to upload</h6>
           <br />
-          <img style={imgPreviewStyle} id="target" src={this.state.image} />
+          <img
+            alt=""
+            style={imgPreviewStyle}
+            id="target"
+            src={this.state.image}
+          />
           <input
             id="file-input"
             type="file"

@@ -1,17 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { NavLink, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import Grid from "@material-ui/core/Grid";
 import Typography from "@material-ui/core/Typography";
 import NomiDatePicker from "../../../components/NomiDatePicker";
-import NomiTimePicker from "../../../components/NomiTimePicker";
 import TextField from "@material-ui/core/TextField";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
-import Cancel from "@material-ui/icons/Cancel";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Backend } from "../../../services/Backend";
 import ServerRequest from "../../../services/ServerRequest";
@@ -20,7 +18,6 @@ import NomiButton from "../../../components/NomiButton";
 
 import { manColor } from "../../../Constants";
 
-import girlImg from "../../../images/male/dashboard/girl_photo_2.jpg";
 import wineImg from "../../../images/male/dashboard/wine_glass.png";
 
 const styles = theme => ({
@@ -105,20 +102,10 @@ const styles = theme => ({
   }
 });
 
-const GirlList = withStyles(styles)(props => {
-  const { classes } = props;
-  return (
-    <Grid className={classes.girlContainer}>
-      <Cancel className={classes.cancelIcon} />
-      <img className={classes.img} src={girlImg} alt="Girl" />
-    </Grid>
-  );
-});
-
 class DateDetail extends React.Component {
   state = {
     selectedDate: new Date(),
-    selectedTime: new Date(),
+    selectedTime: "10:00",
     endingTime: new Date()
       .toLocaleTimeString()
       .split(":")
@@ -135,17 +122,26 @@ class DateDetail extends React.Component {
     if (this.state.cities.length === 0) {
       let response = ServerRequest.getCities();
       response.then(r => {
-        Backend.cities = r;
         this.setState({ cities: r });
       });
     }
   }
 
   handleDateChange = date => {
-    var endDate = date;
-    endDate.setHours(date.getHours() + 4);
-    console.log(endDate);
-    this.setState({ selectedDate: date, endingTime: endDate });
+    console.log(`date = ${date}`);
+    this.setState({ selectedDate: date });
+  };
+
+  handleTimeChange = time => {
+    console.log(time);
+    // let array = time.split(":");
+    // console.log(array);
+
+    this.setState({
+      // selectedTime: time
+      // selectedDate: date,
+      // endingTime: endDate
+    });
   };
 
   handleChange = type => event => {
@@ -174,7 +170,6 @@ class DateDetail extends React.Component {
       if (city.city_name === value) {
         let response = ServerRequest.getPlaces(city.city_id);
         response.then(r => {
-          Backend.places = r;
           this.setState({ places: r });
         });
         break;
@@ -186,7 +181,6 @@ class DateDetail extends React.Component {
     let dict = { place_id: 1, request_date: Date() };
     let response = ServerRequest.getListing(dict);
     response.then(r => {
-      Backend.places = r;
       this.setState({ places: r });
     });
     Backend.selectedCity = this.state.city;
@@ -196,7 +190,7 @@ class DateDetail extends React.Component {
 
   renderCitiesMenuItems() {
     var items = [];
-    for (const [x, city] of this.state.cities.entries()) {
+    for (const city of this.state.cities) {
       const { city_id, city_name } = city;
       items.push(
         <MenuItem key={city_id} value={city_name}>
@@ -209,7 +203,7 @@ class DateDetail extends React.Component {
 
   renderPlacesMenuItems() {
     var items = [];
-    for (const [x, place] of this.state.places.entries()) {
+    for (const place of this.state.places) {
       const { place_id, place_name } = place;
       items.push(
         <MenuItem key={place_id} value={place_name}>
@@ -223,7 +217,7 @@ class DateDetail extends React.Component {
   render() {
     const { classes } = this.props;
     const { redirect } = this.state;
-    const { selectedDate, endingTime, city, place } = this.state;
+    const { selectedDate, endingTime } = this.state;
 
     return (
       <div className={classes.root}>
@@ -248,7 +242,8 @@ class DateDetail extends React.Component {
                 id="time"
                 label="STARTING TIME"
                 type="time"
-                defaultValue="07:30"
+                value={this.state.selectedTime}
+                onChange={this.handleTimeChange}
                 className={classes.textFieldTime}
                 InputLabelProps={{
                   shrink: true

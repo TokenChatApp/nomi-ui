@@ -3,13 +3,8 @@ import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
-
-import Tabs from "@material-ui/core/Tabs";
-import Tab from "@material-ui/core/Tab";
-
 import { manColor } from "../../../Constants";
 import girlImg from "../../../images/male/dashboard/girl_photo_2.jpg";
-
 import JobList from "./JobList";
 
 const styles = theme => ({
@@ -57,7 +52,7 @@ class Job extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { tab, redirect } = this.state;
+    const { redirect } = this.state;
 
     return (
       <div className={classes.root}>

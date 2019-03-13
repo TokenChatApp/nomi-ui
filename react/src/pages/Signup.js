@@ -8,7 +8,6 @@ import Grid from "@material-ui/core/Grid";
 import { manColor, womanColor } from "../Constants";
 import maleIcon from "../images/male.png";
 import femaleIcon from "../images/female.png";
-import MainButton from "../components/MainButton";
 
 const styles = theme => ({
   root: {

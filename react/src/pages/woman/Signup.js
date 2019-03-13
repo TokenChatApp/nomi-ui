@@ -12,14 +12,12 @@ import FormControl from "@material-ui/core/FormControl";
 import FormControlLabel from "@material-ui/core/FormControlLabel";
 import Checkbox from "@material-ui/core/Checkbox";
 import imgSignup from "../../images/signupWhite.png";
-import women, { ethnicityPickList, statePickList } from "../../Constants";
 import ProfilePicHolder from "../../components/ProfilePicHolder";
 import NomiButton from "../../components/NomiButton";
 import MenuItem from "@material-ui/core/MenuItem";
 import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Backend } from "../../services/Backend";
-import MainButton from "../../components/MainButton";
 import { womanColor, manColor } from "../../Constants";
 
 const grey = "#585858";
@@ -92,23 +90,6 @@ const styles = theme => ({
   }
 });
 
-const Dot = props => {
-  const filled = props.filled;
-  const size = filled ? 10 : 8;
-  const style = {
-    backgroundColor: filled ? grey : "white",
-    borderRadius: "50%",
-    border: filled ? "none" : `1px solid ${grey}`,
-    height: size,
-    width: size,
-    margin: 10,
-    marginRight: 0,
-    display: "inline-block"
-  };
-
-  return <div style={style} />;
-};
-
 class Signup extends React.Component {
   state = {
     redirect: "",
@@ -137,7 +118,6 @@ class Signup extends React.Component {
     if (this.state.cities.length === 0) {
       let response = ServerRequest.getCities();
       response.then(r => {
-        Backend.cities = r;
         this.setState({ cities: r });
       });
     }
@@ -165,7 +145,6 @@ class Signup extends React.Component {
       if (city.city_name === value) {
         let response = ServerRequest.getPlaces(city.city_id);
         response.then(r => {
-          Backend.places = r;
           this.setState({ places: r });
         });
         break;
@@ -175,7 +154,6 @@ class Signup extends React.Component {
 
   handleCheckboxClick = event => {
     const target = event.target;
-    const name = target.name;
 
     if (target.checked) {
       var newArray = this.state.spokenLanguageArray;
@@ -183,8 +161,8 @@ class Signup extends React.Component {
       this.setState({ spokenLanguageArray: newArray });
     } else {
       for (const [x, language] of this.state.spokenLanguageArray.entries()) {
-        if (language == target.value) {
-          var newArray = this.state.spokenLanguageArray;
+        if (language === target.value) {
+          newArray = this.state.spokenLanguageArray;
           newArray.splice(x, 1);
           this.setState({ spokenLanguageArray: newArray });
         }
@@ -201,7 +179,6 @@ class Signup extends React.Component {
       mobile_no: this.state.mobile_no,
       email: this.state.email,
       nationality: this.state.nationality,
-      age: this.state.age,
       weight: this.state.weight,
       height: this.state.height,
       city_id: this.state.city_id,
@@ -233,7 +210,7 @@ class Signup extends React.Component {
 
   renderFields() {
     const { classes } = this.props;
-    const { redirect, errors } = this.state;
+    const { errors } = this.state;
 
     return (
       <React.Fragment>
@@ -449,7 +426,7 @@ class Signup extends React.Component {
 
   renderCitiesMenuItems() {
     var items = [];
-    for (const [x, city] of this.state.cities.entries()) {
+    for (const city of this.state.cities) {
       const { city_id, city_name } = city;
       items.push(
         <MenuItem key={city_id} value={city_name}>
@@ -462,7 +439,7 @@ class Signup extends React.Component {
 
   renderPlacesMenuItems() {
     var items = [];
-    for (const [x, place] of this.state.places.entries()) {
+    for (const place of this.state.places) {
       const { place_id, place_name } = place;
       items.push(
         <MenuItem key={place_id} value={place_name}>
@@ -475,7 +452,7 @@ class Signup extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { redirect, errors } = this.state;
+    const { redirect } = this.state;
 
     return (
       <div className={classes.root}>

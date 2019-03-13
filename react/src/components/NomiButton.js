@@ -40,13 +40,13 @@ const styles = theme => ({
 
 class NomiButton extends React.Component {
   render() {
-    const { classes, children, gender, src } = this.props;
+    const { classes, children, gender, src, ...other } = this.props;
     const background =
       gender === "M" ? classes.manBackground : classes.womanBackground;
 
     return (
       <Button
-        {...this.props}
+        {...other}
         className={classNames(this.props.className, classes.button, background)}
         variant="contained"
       >

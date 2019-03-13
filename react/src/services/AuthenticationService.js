@@ -27,7 +27,7 @@ instance.interceptors.request.use(
 const AuthenticationService = {
   login: function(value) {
     return instance
-      .post(Backend.apiUrl + Backend.authUrl + "login", qs.stringify(value))
+      .post(Backend.apiUrl + "auth/login", qs.stringify(value))
       .then(
         res => {
           if (res.data.status) {
@@ -44,7 +44,7 @@ const AuthenticationService = {
   signUp: function(value) {
     return axios({
       method: "post",
-      url: Backend.apiUrl + Backend.authUrl + "sign-up",
+      url: Backend.apiUrl + "auth/sign-up",
       data: value,
       headers: { "Content-Type": "multipart/form-data" }
     }).then(
@@ -61,7 +61,7 @@ const AuthenticationService = {
     );
   },
   logout: function() {
-    return instance.post(Backend.apiUrl + Backend.authUrl + "logout").then(
+    return instance.post(Backend.apiUrl + "auth/logout").then(
       res => {
         Cookies.remove("nomi-token");
         Cookies.remove("nomi-profile");

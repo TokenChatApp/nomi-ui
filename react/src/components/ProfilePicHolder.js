@@ -45,6 +45,7 @@ class ProfilePicHolder extends React.Component {
     if (Backend.user.profileImage) {
       return (
         <img
+          alt=""
           className={classes.profileImage}
           id="target"
           src={Backend.user.profileImage}

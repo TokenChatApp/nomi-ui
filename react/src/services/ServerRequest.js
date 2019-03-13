@@ -58,14 +58,21 @@ const ServerRequest = {
     );
   },
   getOwnAvatar: function() {
-    return instance.get(Backend.apiUrl + "profile/show_avatar").then(
-      res => {
-        return res.data;
-      },
-      res => {
-        return res.response;
-      }
-    );
+    return instance
+      .get(Backend.apiUrl + "profile/show_avatar", {
+        responseType: "arraybuffer"
+      })
+      .then(
+        res => {
+          Backend.avatar = new Buffer(res.data, "binary").toString("base64");
+          console.log("lol1");
+          return res.data;
+        },
+        res => {
+          console.log("lol2");
+          return res.response;
+        }
+      );
   },
   getAvatar: function(value) {
     return axios
