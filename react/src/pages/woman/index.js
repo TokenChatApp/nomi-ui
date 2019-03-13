@@ -12,13 +12,16 @@ import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
 import Refresh from "@material-ui/icons/Refresh";
 import Avatar from "@material-ui/core/Avatar";
-
+import ServerRequest from "../../services/ServerRequest";
 import dummyMan from "../../images/dummyMan.png";
-import crown from "../../images/male/dashboard/crown_gold.svg";
+import crownGold from "../../images/male/dashboard/crown_gold.svg";
+import crownSilver from "../../images/male/dashboard/crown_silver.svg";
 
 import { womanColor } from "../../Constants";
 
 import NomiButton from "../../components/NomiButton";
+
+var dateFormat = require("dateformat");
 
 const styles = theme => ({
   root: {
@@ -64,9 +67,8 @@ const styles = theme => ({
     color: "#434343",
     fontSize: 12
   },
-  goldLabel: {
-    color: "#b38e34",
-    paddingLeft: 10
+  pinkLabel: {
+    color: "#ff4e77"
   },
   infoWrapper: {
     padding: 10
@@ -98,7 +100,8 @@ const styles = theme => ({
     backgroundColor: womanColor[1]
   },
   crown: {
-    width: 30
+    width: 30,
+    paddingRight: 10
   },
   refresh: {
     color: womanColor[1]
@@ -126,9 +129,17 @@ const styles = theme => ({
   },
   acceptButton: {
     fontSize: 16,
-    width: "auto",
+    width: "100px",
     margin: 0,
-    height: "auto",
+    height: "32px",
+    padding: "0 19px"
+  },
+  rejectButton: {
+    fontSize: 16,
+    width: "100px",
+    margin: 0,
+    marginTop: 10,
+    height: "32px",
     padding: "0 19px"
   },
   tag: {
@@ -180,7 +191,7 @@ const manList = [
 ];
 
 const ManList = withStyles(styles)(props => {
-  const { classes, name, pax, time, location, method } = props;
+  const { classes, name, pax, date, time, location } = props;
   return (
     <Grid container className={classes.manList}>
       <Grid item xs={4}>
@@ -191,21 +202,28 @@ const ManList = withStyles(styles)(props => {
           {name}
         </Typography>
         <Typography className={classes.label} variant="h6">
-          {pax}pax | {time}
+          {date}
+        </Typography>
+        <Typography className={classes.label} variant="h6">
+          {time}
         </Typography>
         <Typography className={classes.label} variant="h6">
           {location}
-        </Typography>
-        <Typography className={classes.tag} variant="span">
-          {method}
         </Typography>
       </Grid>
       <Grid item xs={3}>
         <NomiButton
           className={classes.acceptButton}
-          onClick={() => alert("accept")}
+          onClick={() => props.handleAccept(props.request_id)}
         >
           Accept
+        </NomiButton>
+        <NomiButton
+          className={classes.rejectButton}
+          onClick={() => props.handleReject(props.request_id)}
+          isGray="true"
+        >
+          Reject
         </NomiButton>
       </Grid>
     </Grid>
@@ -221,13 +239,79 @@ class WomanLanding extends React.Component {
     };
   }
 
+  handleAccept = request_id => {
+    let dict = { request_id: request_id, accepted: 1 };
+    let response = ServerRequest.acceptBooking(dict);
+    response.then(r => {
+      ServerRequest.getOwnBookings().then(r => {
+        Backend.bookings = r;
+        this.setState = { lol: "lol" };
+      });
+    });
+  };
+  handleReject = request_id => {
+    alert(`reject ${request_id}`);
+  };
+
   renderListing() {
     var items = [];
-    console.log(Backend.bookings);
     for (var listing of Backend.bookings.data) {
-      items.push(<ManList name={listing.display_name} />);
+      let dateString = dateFormat(listing.request_date, "dd mmm yyyy");
+      let timeString =
+        listing.request_start_time.substring(0, 5) +
+        " – " +
+        listing.request_end_time.substring(0, 5);
+
+      items.push(
+        <ManList
+          name={listing.requestor.display_name}
+          time={timeString}
+          date={dateString}
+          location={listing.place ? listing.place.place_name : ""}
+          handleAccept={this.handleAccept}
+          handleReject={this.handleReject}
+          request_id={listing.request_id}
+        />
+      );
     }
     return items;
+  }
+
+  renderContent() {
+    const { classes } = this.props;
+
+    if (Backend.bookings.data.length === 0) {
+      return (
+        <Grid item xs={12} className={classes.tinyText}>
+          There are no jobs available at this moment.
+        </Grid>
+      );
+    } else {
+      return (
+        <Grid item xs={12}>
+          {this.renderListing()}
+        </Grid>
+      );
+    }
+  }
+
+  renderCrown() {
+    const { classes } = this.props;
+    if (Backend.user.rate_level === 1) {
+      return;
+    } else if (Backend.user.rate_level === 2) {
+      return (
+        <Grid item>
+          <img className={classes.crown} src={crownSilver} alt="crown" />
+        </Grid>
+      );
+    } else {
+      return (
+        <Grid item>
+          <img className={classes.crown} src={crownGold} alt="crown" />
+        </Grid>
+      );
+    }
   }
 
   render() {
@@ -246,10 +330,10 @@ class WomanLanding extends React.Component {
           <Grid container alignItems="center">
             <Grid item xs={6} className={classes.infoWrapper}>
               <Typography className={classes.earning} variant="h6">
-                Total Earning :
+                Total Earnings:
               </Typography>
               <Typography className={classes} variant="h6">
-                2,000
+                ¥0
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.infoWrapper}>
@@ -273,20 +357,20 @@ class WomanLanding extends React.Component {
                   MY LEVEL
                 </Typography>
               </Grid>
-              <Grid item>
-                <img className={classes.crown} src={crown} alt="crown" />
-              </Grid>
+              {this.renderCrown()}
               <Grid item xs={8}>
-                <span className={classes.goldLabel}>Prestige</span>
+                <span className={classes.pinkLabel}>
+                  Level {Backend.user.rate_level}
+                </span>
               </Grid>
               <Typography className={classes.description} variant="h6">
-                20,000 / session
+                ¥{Backend.user.rate_per_session.toLocaleString()} / session
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.infoWrapper}>
               <Grid container className={classes.alignLeft}>
                 <Grid item xs={12}>
-                  <FormControl className={classes.formControl}>
+                  <FormControl className={classes.formControl} disabled>
                     <InputLabel shrink className={classes.inputLabel}>
                       MY STATUS
                     </InputLabel>
@@ -305,45 +389,7 @@ class WomanLanding extends React.Component {
             justify="space-between"
             className={classes.listContainer}
           >
-            <Grid item>
-              <Typography className={classes.title} variant="h6">
-                Today's recommended jobs
-              </Typography>
-            </Grid>
-            <Grid
-              item
-              className={classes.refresh}
-              onClick={() => alert("Refresh")}
-            >
-              <Refresh className={classes.refreshIcon} />
-              <span> Refresh</span>
-            </Grid>
-            <Grid item xs={12}>
-              {this.renderListing()}
-            </Grid>
-            <Grid item xs={12}>
-              <Typography className={classes.title} variant="h6">
-                14 Nov 2019
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              {manList.map(e => (
-                <ManList {...e} />
-              ))}
-            </Grid>
-            {/* Render this if no man found */}
-            <Grid item xs={12} className={classes.tinyText}>
-              There is no available job
-            </Grid>
-            <Grid
-              item
-              xs={12}
-              className={classNames(classes.refresh, classes.alignCenter)}
-              onClick={() => alert("Refresh")}
-            >
-              <Refresh className={classes.refreshIcon} />
-              <span> Refresh</span>
-            </Grid>
+            {this.renderContent()}
           </Grid>
         </div>
       </div>

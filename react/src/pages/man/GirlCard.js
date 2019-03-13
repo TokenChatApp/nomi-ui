@@ -21,7 +21,8 @@ const styles = theme => ({
   avatar: {
     cursor: "pointer",
     maxWidth: "90%",
-    border: `1px solid ${manColor[0]}`
+    border: `1px solid ${manColor[0]}`,
+    objectFit: "cover"
   },
   name: {
     color: "#717171",

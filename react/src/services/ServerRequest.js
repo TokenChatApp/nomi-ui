@@ -147,7 +147,7 @@ const ServerRequest = {
     );
   },
   getBookingWithId: function(value) {
-    return axios.get(Backend.apiUrl + "booking/" + value).then(
+    return instance.get(Backend.apiUrl + "booking/" + value).then(
       res => {
         return res.data;
       },
@@ -157,7 +157,7 @@ const ServerRequest = {
     );
   },
   acceptBooking: function(value) {
-    return axios
+    return instance
       .post(Backend.apiUrl + "booking/accept", qs.stringify(value))
       .then(
         res => {
@@ -169,7 +169,7 @@ const ServerRequest = {
       );
   },
   confirmBooking: function(value) {
-    return axios
+    return instance
       .post(Backend.apiUrl + "booking/confirm", qs.stringify(value))
       .then(
         res => {

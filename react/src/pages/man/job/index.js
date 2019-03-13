@@ -4,7 +4,6 @@ import { withStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
 import { manColor } from "../../../Constants";
-import girlImg from "../../../images/male/dashboard/girl_photo_2.jpg";
 import JobList from "./JobList";
 import { Backend } from "../../../services/Backend";
 
@@ -35,12 +34,6 @@ const styles = theme => ({
   }
 });
 
-// fake data
-const images4 = [girlImg, girlImg, girlImg, girlImg];
-const images3 = [girlImg, girlImg, girlImg];
-const images2 = [girlImg, girlImg];
-const images1 = [girlImg];
-
 class Job extends React.Component {
   state = {
     redirect: null,
@@ -53,15 +46,21 @@ class Job extends React.Component {
 
   renderBookings() {
     var items = [];
-    console.log(Backend.bookings.data);
     for (var booking of Backend.bookings.data) {
+      console.log(booking);
       let timeString = `${booking.request_start_time.substring(0, 5)}
       – ${booking.request_end_time.substring(0, 5)}`;
+
+      var avatarArray = [];
+      for (var user of booking.users) {
+        avatarArray.push(Backend.imgUrl + user.avatar);
+      }
       items.push(
         <JobList
           key={booking.request_id}
-          images={images4}
+          images={avatarArray}
           jobStatus={booking.status.toUpperCase()}
+          date={booking.request_date}
           time={timeString}
           location={booking.place ? booking.place.place_name : ""}
         />
@@ -78,10 +77,7 @@ class Job extends React.Component {
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
         <Navbar title="My Dates" gender="M" />
-        <div className={classes.tabWrapper}>
-          <h3 className={classes.title}>14 Nov 2019</h3>
-          {this.renderBookings()}
-        </div>
+        <div className={classes.tabWrapper}>{this.renderBookings()}</div>
       </div>
     );
   }

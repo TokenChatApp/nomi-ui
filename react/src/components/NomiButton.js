@@ -31,6 +31,9 @@ const styles = theme => ({
   womanBackground: {
     background: `linear-gradient(to left, ${womanColor[0]}, ${womanColor[1]})`
   },
+  greyBackground: {
+    background: "linear-gradient(to left, #cccccc, #999999)"
+  },
   buttonImg: {
     width: 25,
     height: 25,
@@ -40,10 +43,12 @@ const styles = theme => ({
 
 class NomiButton extends React.Component {
   render() {
-    const { classes, children, gender, src, ...other } = this.props;
-    const background =
+    const { classes, children, gender, src, isGray, ...other } = this.props;
+    var background =
       gender === "M" ? classes.manBackground : classes.womanBackground;
-
+    if (isGray === "true") {
+      background = classes.greyBackground;
+    }
     return (
       <Button
         {...other}
