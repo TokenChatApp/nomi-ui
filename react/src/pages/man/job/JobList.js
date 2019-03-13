@@ -149,12 +149,16 @@ class JobList extends React.Component {
             <h6 className={classes.des}>{location}</h6>
           </Grid>
           <Grid item xs={2} className={classes.alignLeft}>
-            <span
-              className={classes.more}
-              onClick={this.handleMore(jobStatus.redirect)}
-            >
-              ...
-            </span>
+            {jobStatus.label === "CONFIRMED" || jobStatus.label === "ENDED" ? (
+              <span
+                className={classes.more}
+                onClick={this.handleMore(jobStatus.redirect)}
+              >
+                ...
+              </span>
+            ) : (
+              <div />
+            )}
           </Grid>
         </Grid>
       </div>
