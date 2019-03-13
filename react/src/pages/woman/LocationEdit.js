@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
+import ServerRequest from "../../services/ServerRequest";
 import { Redirect } from "react-router-dom";
 import Typography from "@material-ui/core/Typography";
 import Navbar from "../../components/Navbar";
@@ -10,6 +11,7 @@ import Check from "@material-ui/icons/Check";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import Select from "@material-ui/core/Select";
+import InputLabel from "@material-ui/core/InputLabel";
 import { womanColor } from "../../Constants";
 import NomiButton from "../../components/NomiButton";
 
@@ -69,17 +71,93 @@ class LocationEdit extends React.Component {
   state = {
     redirect: "",
     city: "",
-    place: ""
+    place: "",
+    cities: [],
+    places: []
   };
+
+  componentDidMount() {
+    if (this.state.cities.length === 0) {
+      let response = ServerRequest.getCities();
+      response.then(r => {
+        this.setState({ cities: r });
+      });
+    }
+  }
 
   handleChange = type => event => {
     this.setState({ [type]: event.target.value });
   };
 
   handleConfirm = event => {
-    // send locatoin cahnge request before redirect
-    this.setState({ redirect: "/w" });
+    let dict = { city_id: this.state.city_id, place_id: this.state.place_id };
+    let request = ServerRequest.updateLocation(dict);
+    request.then(r => {
+      this.setState({ redirect: "/w" });
+    });
   };
+
+  handleInputChange = event => {
+    const target = event.target;
+    const name = target.name;
+    var value = "";
+    value = target.value;
+    this.setState({
+      [name]: value
+    });
+    if (name === "place") {
+      for (var place of this.state.places) {
+        if (place.place_name === value) {
+          this.setState({ place_id: place.place_id });
+        }
+      }
+    }
+  };
+
+  handleInputChangeCity = event => {
+    const target = event.target;
+    const name = target.name;
+    var value = "";
+    value = target.value;
+    this.setState({
+      [name]: value
+    });
+    for (var city of this.state.cities) {
+      if (city.city_name === value) {
+        let response = ServerRequest.getPlaces(city.city_id);
+        response.then(r => {
+          this.setState({ city_id: city.city_id, places: r });
+        });
+        break;
+      }
+    }
+  };
+
+  renderCitiesMenuItems() {
+    var items = [];
+    for (const city of this.state.cities) {
+      const { city_id, city_name } = city;
+      items.push(
+        <MenuItem key={city_id} value={city_name}>
+          {city_name}
+        </MenuItem>
+      );
+    }
+    return items;
+  }
+
+  renderPlacesMenuItems() {
+    var items = [];
+    for (const place of this.state.places) {
+      const { place_id, place_name } = place;
+      items.push(
+        <MenuItem key={place_id} value={place_name}>
+          {place_name}
+        </MenuItem>
+      );
+    }
+    return items;
+  }
 
   render() {
     const { classes } = this.props;
@@ -103,34 +181,39 @@ class LocationEdit extends React.Component {
 
             <Grid item xs={12}>
               <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="city-label-placeholder">City</InputLabel>
                 <Select
-                  value={city}
-                  onChange={this.handleChange("city")}
-                  displayEmpty
+                  value={this.state.city}
+                  onChange={this.handleInputChangeCity}
+                  inputProps={{
+                    name: "city",
+                    id: "city-label-placeholder"
+                  }}
+                  className={classes.selectEmpty}
                 >
-                  <MenuItem value="" disabled>
-                    City
+                  <MenuItem disabled value="">
+                    <em>None</em>
                   </MenuItem>
-                  {citySelections.map(e => (
-                    <MenuItem value={e}>{e}</MenuItem>
-                  ))}
+                  {this.renderCitiesMenuItems()}
                 </Select>
               </FormControl>
             </Grid>
-
             <Grid item xs={12}>
               <FormControl className={classes.formControl}>
+                <InputLabel htmlFor="place-label-placeholder">Place</InputLabel>
                 <Select
-                  value={place}
-                  onChange={this.handleChange("place")}
-                  displayEmpty
+                  value={this.state.place}
+                  onChange={this.handleInputChange}
+                  inputProps={{
+                    name: "place",
+                    id: "place-label-placeholder"
+                  }}
+                  className={classes.selectEmpty}
                 >
-                  <MenuItem value="" disabled>
-                    Place
+                  <MenuItem disabled value="">
+                    <em>None</em>
                   </MenuItem>
-                  {placeSelections.map(e => (
-                    <MenuItem value={e}>{e}</MenuItem>
-                  ))}
+                  {this.renderPlacesMenuItems()}
                 </Select>
               </FormControl>
             </Grid>

@@ -9,6 +9,7 @@ import Tab from "@material-ui/core/Tab";
 
 import { womanColor } from "../../../Constants";
 import manImg from "../../../images/dummyMan.png";
+import { Backend } from "../../../services/Backend";
 
 import JobList from "./JobList";
 
@@ -39,23 +40,41 @@ const styles = theme => ({
   }
 });
 
-const manList = [
-  { name: "Hanako", pax: 2, time: "10:00 - 12:00", location: "City, Place" },
-  { name: "Hanako", pax: 2, time: "10:00 - 12:00", location: "City, Place" },
-  { name: "Hanako", pax: 2, time: "10:00 - 12:00", location: "City, Place" },
-  { name: "Hanako", pax: 2, time: "10:00 - 12:00", location: "City, Place" }
-];
-
 class Job extends React.Component {
   state = {
     redirect: null,
-    tab: 0,
-    manList: manList
+    tab: 0
   };
 
   handleChange = (event, value) => {
     this.setState({ tab: value });
   };
+
+  renderListing() {
+    var array = [];
+    for (var booking of Backend.bookings.data) {
+      let timeString =
+        booking.request_start_time.substring(0, 5) +
+        " – " +
+        booking.request_end_time.substring(0, 5);
+      console.log(Backend.bookings.data);
+      if (booking.status !== "Pending") {
+        array.push(
+          <JobList
+            image={manImg}
+            jobStatus={booking.status.toUpperCase()}
+            name={booking.requestor.display_name}
+            date={booking.request_date}
+            status={booking.status}
+            pax={2}
+            time={timeString}
+            location={booking.place ? booking.place.place_name : ""}
+          />
+        );
+      }
+    }
+    return array;
+  }
 
   render() {
     const { classes } = this.props;
@@ -65,49 +84,8 @@ class Job extends React.Component {
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
         <Navbar title="My Jobs" gender="F" />
-
-        <div className={classes.tabWrapper}>
-          <JobList
-            image={manImg}
-            jobStatus="ENDED"
-            name="Hanako"
-            pax={2}
-            time="10:00 - 12:00"
-            location="City, Place"
-          />
-          <JobList
-            image={manImg}
-            jobStatus="ON GOING"
-            name="Hanako"
-            pax={2}
-            time="10:00 - 12:00"
-            location="City, Place"
-          />
-          <JobList
-            image={manImg}
-            jobStatus="CONFIRMED"
-            name="Hanako"
-            pax={2}
-            time="10:00 - 12:00"
-            location="City, Place"
-          />
-          <JobList
-            image={manImg}
-            jobStatus="PENDING"
-            name="Hanako"
-            pax={2}
-            time="10:00 - 12:00"
-            location="City, Place"
-          />
-          <JobList
-            image={manImg}
-            jobStatus="EXPIRED"
-            name="Hanako"
-            pax={2}
-            time="10:00 - 12:00"
-            location="City, Place"
-          />
-        </div>
+        {this.renderListing()}
+        <div className={classes.tabWrapper}>{this.renderListing()}</div>
       </div>
     );
   }

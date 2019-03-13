@@ -167,11 +167,11 @@ const WomanButtons = props => {
   return (
     <React.Fragment>
       <div style={wrapperStyle}>
-        <MainButton {...props} onClick={handleRedirect("/w/myRequest")}>
+        <MainButton {...props} onClick={handleRedirect("/w")}>
           My Jobs
         </MainButton>
         <Divider />
-        <MainButton {...props} onClick={handleRedirect("/w/history")}>
+        <MainButton {...props} onClick={handleRedirect("/w/locationEdit")}>
           Change Location
         </MainButton>
         <Divider />

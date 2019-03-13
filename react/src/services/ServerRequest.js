@@ -113,6 +113,18 @@ const ServerRequest = {
       }
     );
   },
+  updateLocation: function(value) {
+    return instance
+      .post(Backend.apiUrl + "profile/update", qs.stringify(value))
+      .then(
+        res => {
+          return res.data;
+        },
+        res => {
+          return res.response.data;
+        }
+      );
+  },
   getListing: function(value) {
     return axios
       .post(Backend.apiUrl + "profile/search", qs.stringify(value))

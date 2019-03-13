@@ -67,6 +67,13 @@ const styles = theme => ({
     color: "#434343",
     fontSize: 12
   },
+  bubbleLabel: {
+    color: "white",
+    borderRadius: 6,
+    padding: 4,
+    fontSize: 11,
+    fontWeight: 700
+  },
   pinkLabel: {
     color: "#ff4e77"
   },
@@ -76,6 +83,14 @@ const styles = theme => ({
   description: {
     color: "#434343",
     fontSize: 10
+  },
+  des: {
+    margin: 0,
+    marginTop: 5,
+    marginBottom: 10,
+    color: "#7d7d7d",
+    fontWeight: 400,
+    fontSize: 13
   },
   alignLeft: {
     textAlign: "left"
@@ -159,39 +174,8 @@ const styles = theme => ({
   }
 });
 
-const manList = [
-  {
-    name: "Hanako",
-    pax: 2,
-    time: "10:00 - 12:00",
-    location: "City, Place",
-    method: "BY INVITATION"
-  },
-  {
-    name: "Hanako",
-    pax: 2,
-    time: "10:00 - 12:00",
-    location: "City, Place",
-    method: "BY INVITATION"
-  },
-  {
-    name: "Hanako",
-    pax: 2,
-    time: "10:00 - 12:00",
-    location: "City, Place",
-    method: "BY INVITATION"
-  },
-  {
-    name: "Hanako",
-    pax: 2,
-    time: "10:00 - 12:00",
-    location: "City, Place",
-    method: "BY INVITATION"
-  }
-];
-
 const ManList = withStyles(styles)(props => {
-  const { classes, name, pax, date, time, location } = props;
+  const { classes, name, pax, date, time, location, isInvited } = props;
   return (
     <Grid container className={classes.manList}>
       <Grid item xs={4}>
@@ -201,6 +185,16 @@ const ManList = withStyles(styles)(props => {
         <Typography className={classes.earning} variant="h6">
           {name}
         </Typography>
+
+        <h6 className={classes.des}>
+          <span
+            className={classes.bubbleLabel}
+            style={{ backgroundColor: "#04dec2" }}
+          >
+            {isInvited ? "Invited" : "Suggested"}
+          </span>
+        </h6>
+
         <Typography className={classes.label} variant="h6">
           {date}
         </Typography>
@@ -234,8 +228,7 @@ class WomanLanding extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      redirect: null,
-      manList: manList
+      redirect: null
     };
   }
 
@@ -247,39 +240,64 @@ class WomanLanding extends React.Component {
         Backend.bookings = r;
         this.setState = { lol: "lol" };
       });
+      alert(`You have accepted this job. Please wait for the guy to confirm.`);
     });
   };
   handleReject = request_id => {
-    alert(`reject ${request_id}`);
+    let dict = { request_id: request_id, accepted: 2 };
+    let response = ServerRequest.acceptBooking(dict);
+    response.then(r => {
+      ServerRequest.getOwnBookings().then(r => {
+        Backend.bookings = r;
+        this.setState = { lol: "lol" };
+      });
+      alert(`You have rejected this job.`);
+    });
   };
 
   renderListing() {
     var items = [];
-    for (var listing of Backend.bookings.data) {
-      let dateString = dateFormat(listing.request_date, "dd mmm yyyy");
-      let timeString =
-        listing.request_start_time.substring(0, 5) +
-        " – " +
-        listing.request_end_time.substring(0, 5);
+    for (var booking of Backend.bookings.data) {
+      if (booking.status == "Pending") {
+        let dateString = dateFormat(booking.request_date, "dd mmm yyyy");
+        let timeString =
+          booking.request_start_time.substring(0, 5) +
+          " – " +
+          booking.request_end_time.substring(0, 5);
 
-      items.push(
-        <ManList
-          name={listing.requestor.display_name}
-          time={timeString}
-          date={dateString}
-          location={listing.place ? listing.place.place_name : ""}
-          handleAccept={this.handleAccept}
-          handleReject={this.handleReject}
-          request_id={listing.request_id}
-        />
-      );
+        var isInvited = false;
+        for (var user of booking.users) {
+          if (user.username === Backend.user.username) {
+            isInvited = true;
+          }
+        }
+
+        items.push(
+          <ManList
+            name={booking.requestor.display_name}
+            time={timeString}
+            date={dateString}
+            location={booking.place ? booking.place.place_name : ""}
+            handleAccept={this.handleAccept}
+            handleReject={this.handleReject}
+            request_id={booking.request_id}
+            isInvited={isInvited}
+          />
+        );
+      }
     }
     return items;
   }
 
   renderContent() {
     const { classes } = this.props;
-
+    if (Backend.bookings === null) {
+      return (
+        <Grid item xs={12} className={classes.tinyText}>
+          There are no jobs available at this moment.
+        </Grid>
+      );
+    }
     if (Backend.bookings.data.length === 0) {
       return (
         <Grid item xs={12} className={classes.tinyText}>
@@ -316,9 +334,19 @@ class WomanLanding extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { redirect, manList } = this.state;
+    const { redirect } = this.state;
 
     let welcomeString = `Hello, ${Backend.user.display_name}`;
+
+    var counter = 0;
+    for (var booking of Backend.bookings.data) {
+      if (
+        booking.status.toLowerCase() === "confirmed" ||
+        booking.status.toLowerCase() === "ongoing"
+      ) {
+        counter++;
+      }
+    }
 
     return (
       <div className={classes.root}>
@@ -341,7 +369,11 @@ class WomanLanding extends React.Component {
                 className={classes.button}
                 onClick={() => this.setState({ redirect: "/w/dates" })}
               >
-                <div className={classes.customBadge}>10</div>
+                {counter !== 0 ? (
+                  <div className={classes.customBadge}>{counter}</div>
+                ) : (
+                  <div />
+                )}
                 My Jobs
               </NomiButton>
             </Grid>
