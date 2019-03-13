@@ -9,6 +9,7 @@ import imgSignup from "../../images/signupWhite.png";
 import ProfilePicHolder from "../../components/ProfilePicHolder";
 import NomiButton from "../../components/NomiButton";
 import AuthenticationService from "../../services/AuthenticationService";
+import ServerRequest from "../../services/ServerRequest";
 import { Backend } from "../../services/Backend";
 import MainButton from "../../components/MainButton";
 import { manColor } from "../../Constants";
@@ -94,11 +95,21 @@ class Signup extends React.Component {
   };
 
   handleFormSubmit = event => {
-    let response = AuthenticationService.signUp(this.state);
+    var formData = new FormData();
+    formData.set("gender", this.state.gender);
+    formData.set("age", this.state.age);
+    formData.set("display_name", this.state.display_name);
+    formData.set("mobile_no", this.state.mobile_no);
+    formData.set("username", this.state.username);
+    formData.set("email", this.state.email);
+    formData.set("password", this.state.password);
+    formData.set("referral", this.state.referral);
+    formData.set("avatar", Backend.user.profileImage);
+    let response = AuthenticationService.signUp(formData);
     response.then(r => {
       this.setState({ errors: r.errors });
       if (r.status) {
-        AuthenticationService.profile().then(sub_r => {
+        ServerRequest.getOwnProfile().then(sub_r => {
           Backend.setProfile(sub_r);
           this.setState({
             redirect:

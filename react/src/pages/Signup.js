@@ -155,7 +155,7 @@ class Signup extends React.Component {
             />
             <Divider />
             <GirlButton
-              onClick={() => this.setState({ redirect: "/w/signup" })}
+              onClick={() => this.setState({ redirect: "/w/login" })}
             />
           </Grid>
         </Grid>

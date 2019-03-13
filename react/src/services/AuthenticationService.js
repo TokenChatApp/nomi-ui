@@ -42,30 +42,16 @@ const AuthenticationService = {
       );
   },
   signUp: function(value) {
-    return instance({
+    return axios({
       method: "post",
       url: Backend.apiUrl + Backend.authUrl + "sign-up",
-      data: qs.stringify(value),
-      config: {
-        headers: { "Content-Type": "multipart/form-data" }
-      }
+      data: value,
+      headers: { "Content-Type": "multipart/form-data" }
     }).then(
       res => {
         if (res.data.status) {
           Cookies.set("nomi-token", res.data.session);
         }
-        return res.data;
-      },
-      res => {
-        Cookies.remove("nomi-token");
-        return res.response.data;
-      }
-    );
-  },
-  profile: function() {
-    return instance.get(Backend.apiUrl + Backend.profileUrl).then(
-      res => {
-        Cookies.set("nomi-profile", JSON.stringify(res.data));
         return res.data;
       },
       res => {

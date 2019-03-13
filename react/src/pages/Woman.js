@@ -50,7 +50,7 @@ class Woman extends Component {
         <Route
           exact
           path="/w/signup/profilePicUploader"
-          render={props => <ProfilePicUploader gender="female" {...props} />}
+          render={props => <ProfilePicUploader gender="F" {...props} />}
         />
         <WomenRoute exact path="/w/locationEdit" component={LocationEdit} />
         <WomenRoute exact path="/w/dates" component={Job} />

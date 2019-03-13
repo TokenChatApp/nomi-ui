@@ -118,16 +118,16 @@ const styles = theme => ({
 });
 
 const womanList = [
-  { name: "Himiko", age: "20", rating: 3, level: 3, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 3, level: 2, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 3, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 3, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 3, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 3, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 3, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 3, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 3, level: 1, imgUrl: dummyGirl },
-  { name: "Himiko", age: "20", rating: 3, level: 1, imgUrl: dummyGirl }
+  { name: "Himiko", age: "20", rating: 5, level: 3, imgUrl: dummyGirl },
+  { name: "Himiko", age: "20", rating: 5, level: 2, imgUrl: dummyGirl },
+  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
+  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
+  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
+  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
+  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
+  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
+  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl },
+  { name: "Himiko", age: "20", rating: 5, level: 1, imgUrl: dummyGirl }
 ];
 
 class ManLanding extends React.Component {
@@ -135,7 +135,6 @@ class ManLanding extends React.Component {
     super(props);
     this.state = {
       redirect: "",
-      locationEnabled: true,
       womanList: womanList,
       user: Backend.user,
       crown: false
@@ -147,22 +146,13 @@ class ManLanding extends React.Component {
     this.setState({ crown: !crown });
   };
 
-  handleUserAcceptLocation = ret => {
-    // ret is the location object
-    this.setState({ locationEnabled: true });
-  };
-
-  handleUserDeclineLocation = err => {
-    this.setState({ locationEnabled: false });
-  };
-
   handleSendInvitationClicked = () => {
     this.setState({ redirect: "/m/booking/sent" });
   };
 
   render() {
     const { classes } = this.props;
-    const { redirect, womanList, locationEnabled } = this.state;
+    const { redirect, womanList } = this.state;
     let title = `Hello, ${Backend.user.display_name}`;
     return (
       <div className={classes.root}>
@@ -184,38 +174,27 @@ class ManLanding extends React.Component {
               SEND INVITATION
             </NomiButton>
           </Grid>
-
           <Typography variant="h4" className={classes.explore}>
             Explore the girls around {Backend.selectedPlace},{" "}
             {Backend.selectedCity}
           </Typography>
-
-          {locationEnabled ? (
-            womanList.map(e => (
-              <Grid item xs={6}>
-                <GirlCard {...e} handleToggleCrown={this.handleToggleCrown} />
-              </Grid>
-            ))
-          ) : (
-            <Typography variant="h5" className={classes.disabledText}>
-              Ops, we couldn't get any girl for you
-            </Typography>
-          )}
-
-          {locationEnabled && (
-            <Grid item xs={12}>
-              <NomiButton
-                className={classes.button}
-                gender="M"
-                onClick={() =>
-                  this.setState({ redirect: "/m/invitation/detail" })
-                }
-              >
-                <Favorite className={classes.favIcon} />
-                SEND INVITATION
-              </NomiButton>
+          {womanList.map(e => (
+            <Grid item xs={6}>
+              <GirlCard {...e} handleToggleCrown={this.handleToggleCrown} />
             </Grid>
-          )}
+          ))}
+          <Grid item xs={12}>
+            <NomiButton
+              className={classes.button}
+              gender="M"
+              onClick={() =>
+                this.setState({ redirect: "/m/invitation/detail" })
+              }
+            >
+              <Favorite className={classes.favIcon} />
+              SEND INVITATION
+            </NomiButton>
+          </Grid>
         </Grid>
         <Dialog onClose={this.handleToggleCrown} open={this.state.crown}>
           <DialogTitle className={classes.dialogTitle}>

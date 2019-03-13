@@ -8,10 +8,10 @@ const color = "#9e9e9e";
 
 const styles = theme => ({
   container: {
-    height: 130,
-    width: 130,
+    height: 120,
+    width: 120,
     margin: "auto",
-    marginTop: 40,
+    marginTop: 15,
     borderRadius: "50%",
     border: `1px solid ${color}`
   },

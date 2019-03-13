@@ -1,12 +1,11 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 import AuthenticationService from "./AuthenticationService";
+import ServerRequest from "./ServerRequest";
 
 export const Backend = {
-  // apiURL: "http://nomi-backend.tokenchatserver.com/api/v1/",
-  apiUrl: "http://192.168.131.2:8000/api/v1/",
-  // apiUrl: "http://api.nomi.gm.design/api/v0/",
-  //apiUrl: "http://playground.nomi.com/api/v0/",
+  apiUrl: "http://nomi-backend.tokenchatserver.com:8000/api/v1/",
+  // apiUrl: "http://192.168.131.2:8000/api/v1/",
   authUrl: "auth/",
   profileUrl: "profile/info",
   user: {},
@@ -14,6 +13,8 @@ export const Backend = {
   places: [],
   selectedCity: "",
   selectedPlace: "",
+  firstTimeLoginUsername: "",
+  firstTimeLoginPassword: "",
   bootstrap: async function() {
     console.log("Nomi user bootstrap");
     let token = await axios.get(this.apiUrl + this.authUrl + "csrf-token", "", {
@@ -21,7 +22,7 @@ export const Backend = {
     });
     Cookies.set("X-CSRF-Token", token.data, { expires: 7 });
     if (this.isAuthenticated()) {
-      let profile = AuthenticationService.profile().then(res => {
+      let profile = ServerRequest.getOwnProfile().then(res => {
         this.setProfile(res);
       });
       await profile;

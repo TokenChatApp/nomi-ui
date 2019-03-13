@@ -40,7 +40,7 @@ class Man extends Component {
         <Route
           exact
           path="/m/signup/profilePicUploader"
-          render={props => <ProfilePicUploader gender="male" {...props} />}
+          render={props => <ProfilePicUploader gender="M" {...props} />}
         />
         <MenRoute exact path="/m/signup/complete" component={SignupComplete} />
         <MenRoute exact path="/m/locationEdit" component={LocationEdit} />

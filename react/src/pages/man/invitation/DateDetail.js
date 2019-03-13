@@ -57,6 +57,13 @@ const styles = theme => ({
     marginTop: 15,
     marginBottom: 15
   },
+  textFieldTime: {
+    marginTop: 15,
+    marginBottom: 15,
+    marginLeft: theme.spacing.unit,
+    marginRight: theme.spacing.unit,
+    width: 200
+  },
   alignLeft: {
     textAlign: "left",
     color: "rgba(0, 0, 0, 0.54)",
@@ -176,6 +183,12 @@ class DateDetail extends React.Component {
   };
 
   handleConfirm = () => {
+    let dict = { place_id: 1, request_date: Date() };
+    let response = ServerRequest.getListing(dict);
+    response.then(r => {
+      Backend.places = r;
+      this.setState({ places: r });
+    });
     Backend.selectedCity = this.state.city;
     Backend.selectedPlace = this.state.place;
     this.setState({ redirect: "/m/listings" });
@@ -231,11 +244,18 @@ class DateDetail extends React.Component {
             </Grid>
 
             <Grid item xs={6}>
-              <NomiTimePicker
+              <TextField
+                id="time"
                 label="STARTING TIME"
-                selectedDate={selectedDate}
-                handleDateChange={this.handleDateChange}
-                helperText="* 2 hours per date"
+                type="time"
+                defaultValue="07:30"
+                className={classes.textFieldTime}
+                InputLabelProps={{
+                  shrink: true
+                }}
+                inputProps={{
+                  step: 900
+                }}
               />
             </Grid>
 

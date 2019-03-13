@@ -5,7 +5,8 @@ import { RedirectRoute } from "./services/routes/RedirectRoute";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
 
-import Login from "./pages/Login";
+import LoginMan from "./pages/man/Login";
+import LoginWoman from "./pages/woman/Login";
 import Landing from "./pages/Landing";
 import Signup from "./pages/Signup";
 
@@ -31,7 +32,8 @@ class App extends Component {
         <div style={styles}>
           <Switch>
             <RedirectRoute exact path="/" component={Landing} />
-            <AuthRoute exact path="/login" component={Login} />
+            <AuthRoute exact path="/m/login" component={LoginMan} />
+            <AuthRoute exact path="/w/login" component={LoginWoman} />
             <AuthRoute exact path="/signup" component={Signup} />
             <Route path="/m" component={Man} />
             <Route path="/w" component={Woman} />

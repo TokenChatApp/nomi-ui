@@ -1,19 +1,18 @@
-import 'date-fns';
-import React from 'react';
-import PropTypes from 'prop-types';
-import Grid from '@material-ui/core/Grid';
-import { withStyles } from '@material-ui/core/styles';
-import DateFnsUtils from '@date-io/date-fns';
-import { MuiPickersUtilsProvider, DatePicker } from 'material-ui-pickers';
+import "date-fns";
+import React from "react";
+import PropTypes from "prop-types";
+import Grid from "@material-ui/core/Grid";
+import { withStyles } from "@material-ui/core/styles";
+import DateFnsUtils from "@date-io/date-fns";
+import { MuiPickersUtilsProvider, DatePicker } from "material-ui-pickers";
 
 const styles = {
-  fullWidth : {
-    width : '100%'
+  fullWidth: {
+    width: "100%"
   }
 };
 
 class NomiDatePicker extends React.Component {
-
   render() {
     const { classes, label, selectedDate, handleDateChange } = this.props;
 
@@ -27,6 +26,7 @@ class NomiDatePicker extends React.Component {
             value={selectedDate}
             className={classes.fullWidth}
             onChange={handleDateChange}
+            minDate={Date()}
           />
         </Grid>
       </MuiPickersUtilsProvider>
@@ -35,8 +35,7 @@ class NomiDatePicker extends React.Component {
 }
 
 NomiDatePicker.propTypes = {
-  classes: PropTypes.object.isRequired,
+  classes: PropTypes.object.isRequired
 };
 
 export default withStyles(styles)(NomiDatePicker);
-

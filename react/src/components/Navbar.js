@@ -14,9 +14,7 @@ import Avatar from "@material-ui/core/Avatar";
 import femaleAvatar from "../images/dummyGirl.png";
 import maleAvatar from "../images/dummyMan.png";
 import AuthenticationService from "../services/AuthenticationService";
-
 import classNames from "classnames";
-
 import { manColor, womanColor } from "../Constants";
 import MainButton from "./MainButton";
 
@@ -232,7 +230,7 @@ class Navbar extends React.Component {
   handleLogout = () => {
     let that = this;
     AuthenticationService.logout().then(function() {
-      that.setState({ redirect: "/login" });
+      that.setState({ redirect: "/" });
     });
   };
 
@@ -304,7 +302,9 @@ class Navbar extends React.Component {
           <Grid item xs={6}>
             <Avatar
               alt="man or girl"
-              src={gender === "M" ? maleAvatar : femaleAvatar}
+              src={
+                "https://heightline.com/wp-content/uploads/Jennie-Kim-640x403.jpg"
+              }
               className={classes.avatar}
             />
           </Grid>

@@ -61,11 +61,6 @@ const styles = theme => ({
   alignLeft: {
     textAlign: "left"
   },
-  stepButton: {
-    cursor: "pointer",
-    margin: 8,
-    textAlign: "right"
-  },
   formControl: {
     margin: 8,
     width: "100%"
@@ -117,17 +112,15 @@ const Dot = props => {
 class Signup extends React.Component {
   state = {
     redirect: "",
-    step: "1",
     gender: "F",
     age: null,
     avatar: null,
-    mobile_no: null,
     username: null,
-    displayName: null,
-    emailAddress: null,
     password: null,
+    mobile_no: null,
+    display_name: null,
+    email: null,
     place: null,
-    postalCode: null,
     city: null,
     height: null,
     weight: null,
@@ -201,19 +194,36 @@ class Signup extends React.Component {
 
   handleFormSubmit = event => {
     let string = this.state.spokenLanguageArray.toString();
-    this.setState({
-      language: string,
-      avatar: Backend.user.profileImage
-    });
-    let response = AuthenticationService.signUp(this.state);
+    var dict = {
+      gender: this.state.gender,
+      display_name: this.state.display_name,
+      age: this.state.age,
+      mobile_no: this.state.mobile_no,
+      email: this.state.email,
+      nationality: this.state.nationality,
+      age: this.state.age,
+      weight: this.state.weight,
+      height: this.state.height,
+      city_id: this.state.city_id,
+      avatar: Backend.user.profileImage,
+      username: Backend.firstTimeLoginUsername,
+      password: Backend.firstTimeLoginPassword,
+      language: string
+    };
+    let response = AuthenticationService.signUp(dict);
     response.then(r => {
       this.setState({ errors: r.errors });
       if (r.status) {
-        AuthenticationService.profile().then(sub_r => {
+        ServerRequest.getOwnProfile().then(sub_r => {
           Backend.setProfile(sub_r);
-          this.setState({
-            redirect:
-              sub_r.gender === "M" ? "/m/signup/complete" : "/w/signup/complete"
+          ServerRequest.getOwnAvatar().then(res => {
+            Backend.avatar = res;
+            this.setState({
+              redirect:
+                sub_r.gender === "M"
+                  ? "/m/signup/complete"
+                  : "/w/signup/complete"
+            });
           });
         });
       }
@@ -223,282 +233,218 @@ class Signup extends React.Component {
 
   renderFields() {
     const { classes } = this.props;
-    const { redirect, step, errors } = this.state;
+    const { redirect, errors } = this.state;
 
-    if (step === "1") {
-      return (
-        <React.Fragment>
-          {/* Render first page */}
-          <Grid item xs={12}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Username"
-              style={{ margin: 8 }}
-              placeholder="username"
-              margin="normal"
-              value={this.state.username}
-              onChange={this.handleInputChange}
-              name="username"
-              error={errors.hasOwnProperty("username")}
-              helperText={
-                errors.hasOwnProperty("username") && errors["username"]
-              }
-              InputLabelProps={{ shrink: true, className: classes.label }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Display Name"
-              style={{ margin: 8 }}
-              placeholder="Display Name"
-              margin="normal"
-              value={this.state.display_name}
-              onChange={this.handleInputChange}
-              name="display_name"
-              error={errors.hasOwnProperty("display_name")}
-              helperText={
-                errors.hasOwnProperty("display_name") && errors["display_name"]
-              }
-              InputLabelProps={{ shrink: true, className: classes.label }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Email Address"
-              style={{ margin: 8 }}
-              placeholder="Email Address"
-              margin="normal"
-              value={this.state.email}
-              name="email"
-              onChange={this.handleInputChange}
-              error={errors.hasOwnProperty("email")}
-              helperText={errors.hasOwnProperty("email") && errors["email"]}
-              InputLabelProps={{ shrink: true, className: classes.label }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Mobile Number"
-              style={{ margin: 8 }}
-              placeholder="Mobile no."
-              margin="normal"
-              value={this.state.mobile_no}
-              onChange={this.handleInputChange}
-              name="mobile_no"
-              error={errors.hasOwnProperty("mobile_no")}
-              helperText={
-                errors.hasOwnProperty("mobile_no") && errors["mobile_no"]
-              }
-              InputLabelProps={{ shrink: true, className: classes.label }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Create password"
-              style={{ margin: 8 }}
-              placeholder="Create password"
-              type="password"
-              margin="normal"
-              value={this.state.password}
-              onChange={this.handleInputChange}
-              name="password"
-              error={errors.hasOwnProperty("password")}
-              helperText={
-                errors.hasOwnProperty("password") && errors["password"]
-              }
-              InputLabelProps={{ shrink: true, className: classes.label }}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Referral Code"
-              style={{ margin: 8 }}
-              placeholder="Referral Code"
-              margin="normal"
-              value={this.state.referral}
-              name="referral"
-              onChange={this.handleInputChange}
-              InputLabelProps={{ shrink: true, className: classes.label }}
-              error={errors.hasOwnProperty("referral")}
-              helperText={
-                errors.hasOwnProperty("referral") && errors["referral"]
-              }
-            />
-          </Grid>
-        </React.Fragment>
-      );
-    } else {
-      return (
-        <React.Fragment>
-          {/* Render second page */}
-          <Grid item xs={12}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Nationality"
-              style={{ margin: 8 }}
-              placeholder="Nationality"
-              type="text"
-              margin="normal"
-              value={this.state.nationality}
-              onChange={this.handleInputChange}
-              name="nationality"
-              error={errors.hasOwnProperty("nationality")}
-              helperText={
-                errors.hasOwnProperty("nationality") && errors["nationality"]
-              }
-              InputLabelProps={{ shrink: true, className: classes.label }}
-            />
-          </Grid>
-          <Grid item xs={12} className={classes.alignLeft}>
-            <h6 className={classes.label} style={{ margin: 8 }}>
-              Spoken Languages
-            </h6>
-            <Grid container className={classes.formControl}>
-              <Grid item xs={6}>
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="Japanese"
-                  name="spokenLanguageArray"
-                  value="Japanese"
-                  onChange={this.handleCheckboxClick}
-                />
-              </Grid>
-              <Grid item xs={6}>
-                <FormControlLabel
-                  control={<Checkbox />}
-                  label="English"
-                  name="spokenLanguageArray"
-                  value="English"
-                  onChange={this.handleCheckboxClick}
-                />
-              </Grid>
-              <Grid item xs={12}>
-                {errors.hasOwnProperty("spokenLanguageArray") &&
-                  errors["spokenLanguageArray"]}
-              </Grid>
+    return (
+      <React.Fragment>
+        <Grid item xs={12}>
+          <TextField
+            className={classes.textField}
+            fullWidth
+            label="Display Name"
+            style={{ margin: 8 }}
+            placeholder="Display Name"
+            margin="normal"
+            value={this.state.display_name}
+            onChange={this.handleInputChange}
+            name="display_name"
+            error={errors.hasOwnProperty("display_name")}
+            helperText={
+              errors.hasOwnProperty("display_name") && errors["display_name"]
+            }
+            InputLabelProps={{ shrink: true, className: classes.label }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            className={classes.textField}
+            fullWidth
+            label="Email Address"
+            style={{ margin: 8 }}
+            placeholder="Email Address"
+            margin="normal"
+            value={this.state.email}
+            name="email"
+            onChange={this.handleInputChange}
+            error={errors.hasOwnProperty("email")}
+            helperText={errors.hasOwnProperty("email") && errors["email"]}
+            InputLabelProps={{ shrink: true, className: classes.label }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            className={classes.textField}
+            fullWidth
+            label="Mobile Number"
+            style={{ margin: 8 }}
+            placeholder="Mobile no."
+            margin="normal"
+            value={this.state.mobile_no}
+            onChange={this.handleInputChange}
+            name="mobile_no"
+            error={errors.hasOwnProperty("mobile_no")}
+            helperText={
+              errors.hasOwnProperty("mobile_no") && errors["mobile_no"]
+            }
+            InputLabelProps={{ shrink: true, className: classes.label }}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            className={classes.textField}
+            fullWidth
+            label="Referral Code"
+            style={{ margin: 8 }}
+            placeholder="Referral Code"
+            margin="normal"
+            value={this.state.referral}
+            name="referral"
+            onChange={this.handleInputChange}
+            InputLabelProps={{ shrink: true, className: classes.label }}
+            error={errors.hasOwnProperty("referral")}
+            helperText={errors.hasOwnProperty("referral") && errors["referral"]}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <TextField
+            className={classes.textField}
+            fullWidth
+            label="Nationality"
+            style={{ margin: 8 }}
+            placeholder="Nationality"
+            type="text"
+            margin="normal"
+            value={this.state.nationality}
+            onChange={this.handleInputChange}
+            name="nationality"
+            error={errors.hasOwnProperty("nationality")}
+            helperText={
+              errors.hasOwnProperty("nationality") && errors["nationality"]
+            }
+            InputLabelProps={{ shrink: true, className: classes.label }}
+          />
+        </Grid>
+        <Grid item xs={12} className={classes.alignLeft}>
+          <h6 className={classes.label} style={{ margin: 8 }}>
+            Spoken Languages
+          </h6>
+          <Grid container className={classes.formControl}>
+            <Grid item xs={6}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="Japanese"
+                name="spokenLanguageArray"
+                value="Japanese"
+                onChange={this.handleCheckboxClick}
+              />
+            </Grid>
+            <Grid item xs={6}>
+              <FormControlLabel
+                control={<Checkbox />}
+                label="English"
+                name="spokenLanguageArray"
+                value="English"
+                onChange={this.handleCheckboxClick}
+              />
+            </Grid>
+            <Grid item xs={12}>
+              {errors.hasOwnProperty("spokenLanguageArray") &&
+                errors["spokenLanguageArray"]}
             </Grid>
           </Grid>
-          <Grid item xs={12}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Your age"
-              style={{ margin: 8 }}
-              placeholder="Age"
-              margin="normal"
-              value={this.state.age}
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            className={classes.textField}
+            fullWidth
+            label="Your age"
+            style={{ margin: 8 }}
+            placeholder="years"
+            margin="normal"
+            value={this.state.age}
+            onChange={this.handleInputChange}
+            name="age"
+            InputLabelProps={{ shrink: true, className: classes.label }}
+            error={errors.hasOwnProperty("age")}
+            helperText={errors.hasOwnProperty("age") && errors["age"]}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            className={classes.textField}
+            fullWidth
+            label="Your height"
+            style={{ margin: 8 }}
+            placeholder="cm"
+            margin="normal"
+            value={this.state.height}
+            onChange={this.handleInputChange}
+            name="height"
+            InputLabelProps={{ shrink: true, className: classes.label }}
+            error={errors.hasOwnProperty("height")}
+            helperText={errors.hasOwnProperty("height") && errors["height"]}
+          />
+        </Grid>
+        <Grid item xs={4}>
+          <TextField
+            className={classes.textField}
+            fullWidth
+            label="Your weight"
+            style={{ margin: 8 }}
+            placeholder="kg"
+            margin="normal"
+            value={this.state.weight}
+            onChange={this.handleInputChange}
+            name="weight"
+            InputLabelProps={{ shrink: true, className: classes.label }}
+            error={errors.hasOwnProperty("weight")}
+            helperText={errors.hasOwnProperty("weight") && errors["weight"]}
+          />
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="city-label-placeholder">City</InputLabel>
+            <Select
+              value={this.state.city}
+              onChange={this.handleInputChangeCity}
+              inputProps={{
+                name: "city",
+                id: "city-label-placeholder"
+              }}
+              className={classes.selectEmpty}
+              error={errors.hasOwnProperty("city")}
+              helperText={errors.hasOwnProperty("city") && errors["city"]}
+            >
+              <MenuItem disabled value="">
+                <em>None</em>
+              </MenuItem>
+              {this.renderCitiesMenuItems()}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={12}>
+          <FormControl className={classes.formControl}>
+            <InputLabel htmlFor="place-label-placeholder">Place</InputLabel>
+            <Select
+              value={this.state.place}
               onChange={this.handleInputChange}
-              name="age"
-              InputLabelProps={{ shrink: true, className: classes.label }}
-              error={errors.hasOwnProperty("age")}
-              helperText={errors.hasOwnProperty("age") && errors["age"]}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Your weight"
-              style={{ margin: 8 }}
-              placeholder="weight"
-              margin="normal"
-              value={this.state.weight}
-              onChange={this.handleInputChange}
-              name="weight"
-              InputLabelProps={{ shrink: true, className: classes.label }}
-              error={errors.hasOwnProperty("weight")}
-              helperText={errors.hasOwnProperty("weight") && errors["weight"]}
-            />
-          </Grid>
-          <Grid item xs={6}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              label="Your height"
-              style={{ margin: 8 }}
-              placeholder="height"
-              margin="normal"
-              value={this.state.height}
-              onChange={this.handleInputChange}
-              name="height"
-              InputLabelProps={{ shrink: true, className: classes.label }}
-              error={errors.hasOwnProperty("height")}
-              helperText={errors.hasOwnProperty("height") && errors["height"]}
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="city-label-placeholder">City</InputLabel>
-              <Select
-                value={this.state.city}
-                onChange={this.handleInputChangeCity}
-                inputProps={{
-                  name: "city",
-                  id: "city-label-placeholder"
-                }}
-                className={classes.selectEmpty}
-                error={errors.hasOwnProperty("city")}
-                helperText={errors.hasOwnProperty("city") && errors["city"]}
-              >
-                <MenuItem disabled value="">
-                  <em>None</em>
-                </MenuItem>
-                {this.renderCitiesMenuItems()}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <FormControl className={classes.formControl}>
-              <InputLabel htmlFor="place-label-placeholder">Place</InputLabel>
-              <Select
-                value={this.state.place}
-                onChange={this.handleInputChange}
-                inputProps={{
-                  name: "place",
-                  id: "place-label-placeholder"
-                }}
-                className={classes.selectEmpty}
-                error={errors.hasOwnProperty("place")}
-                helperText={errors.hasOwnProperty("place") && errors["place"]}
-              >
-                <MenuItem disabled value="">
-                  <em>None</em>
-                </MenuItem>
-                {this.renderPlacesMenuItems()}
-              </Select>
-            </FormControl>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              className={classes.textField}
-              fullWidth
-              style={{ margin: 8 }}
-              placeholder="Postal code"
-              margin="normal"
-              value={this.state.PostalCode}
-              onChange={this.handleInputChange}
-              name="PostalCode"
-              error={errors.hasOwnProperty("PostalCode")}
-              helperText={
-                errors.hasOwnProperty("PostalCode") && errors["PostalCode"]
-              }
-            />
-          </Grid>
-        </React.Fragment>
-      );
-    }
+              inputProps={{
+                name: "place",
+                id: "place-label-placeholder"
+              }}
+              className={classes.selectEmpty}
+              error={errors.hasOwnProperty("place")}
+              helperText={errors.hasOwnProperty("place") && errors["place"]}
+            >
+              <MenuItem disabled value="">
+                <em>None</em>
+              </MenuItem>
+              {this.renderPlacesMenuItems()}
+            </Select>
+          </FormControl>
+        </Grid>
+      </React.Fragment>
+    );
   }
 
   renderCitiesMenuItems() {
@@ -529,7 +475,7 @@ class Signup extends React.Component {
 
   render() {
     const { classes } = this.props;
-    const { redirect, step, errors } = this.state;
+    const { redirect, errors } = this.state;
 
     return (
       <div className={classes.root}>
@@ -542,48 +488,16 @@ class Signup extends React.Component {
         </div>
         <form onSubmit={this.handleFormSubmit}>
           <Typography className={classes.title} variant="h5">
-            {step === "1" ? "User Information" : "Personal Particulars"}
+            Sign Up
           </Typography>
-          {step === "1" && (
-            <ProfilePicHolder
-              onClick={() =>
-                this.setState({ redirect: "/w/signup/profilePicUploader" })
-              }
-            />
-          )}
+          <ProfilePicHolder
+            onClick={() =>
+              this.setState({ redirect: "/w/signup/profilePicUploader" })
+            }
+          />
 
           <Grid container className={classes.container} spacing={8}>
             {this.renderFields()}
-            <Grid item xs={6} className={classes.alignLeft}>
-              {step === "1" ? (
-                <React.Fragment>
-                  <Dot filled={true} />
-                  <Dot filled={false} />
-                </React.Fragment>
-              ) : (
-                <React.Fragment>
-                  <Dot filled={false} />
-                  <Dot filled={true} />
-                </React.Fragment>
-              )}
-            </Grid>
-            <Grid item xs={6}>
-              {step === "1" ? (
-                <h5
-                  className={classes.stepButton}
-                  onClick={() => this.setState({ step: "2" })}
-                >
-                  {"Next > "}
-                </h5>
-              ) : (
-                <h5
-                  className={classes.stepButton}
-                  onClick={() => this.setState({ step: "1" })}
-                >
-                  {" < Back"}
-                </h5>
-              )}
-            </Grid>
             <Grid item xs={12}>
               <NomiButton
                 className={classes.button}

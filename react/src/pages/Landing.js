@@ -139,7 +139,7 @@ const styles = theme => ({
 
 class Landing extends React.Component {
   state = {
-    gender: "F",
+    gender: "M",
     redirect: null,
     email: "",
     mobile: "",
@@ -214,7 +214,13 @@ class Landing extends React.Component {
           <Grid item xs={12}>
             <MainButton
               className={classNames(classes.userButton, classes.maxWidthButton)}
-              onClick={() => this.setState({ redirect: "/login" })}
+              onClick={() => {
+                if (man) {
+                  this.setState({ redirect: "/m/login" });
+                } else {
+                  this.setState({ redirect: "/w/login" });
+                }
+              }}
             >
               <img className={classes.buttonImg} src={login} alt="login" />
               Login
