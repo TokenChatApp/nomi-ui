@@ -117,7 +117,13 @@ class GirlProfile extends React.Component {
 
   handleToggle = event => {
     let { checked } = this.state;
-    Backend.listings[Backend.selectedListing].isSelected = !checked;
+    if (Backend.cameFromPendingPage) {
+      Backend.bookings.data[Backend.selectedBooking].users[
+        Backend.selectedListing
+      ].isSelectedForCheckout = !checked;
+    } else {
+      Backend.listings[Backend.selectedListing].isSelected = !checked;
+    }
     this.setState({ checked: !checked });
   };
 
@@ -125,19 +131,32 @@ class GirlProfile extends React.Component {
     const { classes } = this.props;
     const { redirect, checked } = this.state;
 
-    let girl = Backend.listings[Backend.selectedListing];
+    var girl = Backend.listings[Backend.selectedListing];
 
-    if (Backend.listings.length === 0) {
-      return <Redirect to={"/m"} />;
+    if (Backend.cameFromPendingPage) {
+      girl =
+        Backend.bookings.data[Backend.selectedBooking].users[
+          Backend.selectedListing
+        ];
+
+      if (Backend.bookings.data.length === 0) {
+        return <Redirect to={"/m/dates"} />;
+      }
+    } else {
+      if (Backend.listings.length === 0) {
+        return <Redirect to={"/m"} />;
+      }
     }
-
-    console.log(girl);
 
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
         <div className={classes.fixedNav}>
-          <Navbar title="" backTo="/m/listings" />
+          {Backend.cameFromPendingPage ? (
+            <Navbar title="" backTo="/m/dates/pending" />
+          ) : (
+            <Navbar title="" backTo="/m/listings" />
+          )}
         </div>
         <div style={{ paddingBottom: 30 }}>
           <img

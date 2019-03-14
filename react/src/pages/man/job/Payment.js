@@ -17,9 +17,12 @@ import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
 import dummyGirl from "../../../images/dummyGirl.png";
-
+import ServerRequest from "../../../services/ServerRequest";
 import NomiButton from "../../../components/NomiButton";
 import { Backend } from "../../../services/Backend";
+import StripeCheckout from "react-stripe-checkout";
+
+var dateFormat = require("dateformat");
 
 const styles = theme => ({
   root: {
@@ -30,7 +33,7 @@ const styles = theme => ({
   container: {
     color: "#8a8a8a",
     fontWeight: 300,
-    marginTop: 30,
+    marginTop: 20,
     paddingLeft: "5%",
     paddingRight: "5%"
   },
@@ -138,25 +141,36 @@ const womanList = [
 ];
 
 const PaymentList = withStyles(styles)(props => {
-  const { classes, name, age, imgUrl, rate, hr, handleDelete } = props;
+  const {
+    classes,
+    display_name,
+    age,
+    avatar,
+    rate_per_session,
+    hr,
+    handleDelete
+  } = props;
   return (
     <Grid container alignItems="center" className={classes.girlList}>
       <Grid item xs={2}>
-        <img src={imgUrl} alt="girl" className={classes.avatar} />
+        <img
+          src={Backend.imgUrl + avatar}
+          alt="girl"
+          className={classes.avatar}
+        />
       </Grid>
-      <Grid item xs={3}>
-        <h6 className={classes.name}>{name}</h6>
+      <Grid item xs={6}>
+        <h6 className={classes.name}>{display_name}</h6>
         <h6 className={classes.description}>{age} years old</h6>
-        <h6 className={classes.description}>Rate :{rate}/hr</h6>
+        <h6 className={classes.description}>
+          Rate :{rate_per_session.toLocaleString()}/session
+        </h6>
       </Grid>
       <Grid item xs={3}>
-        {hr} hr
-      </Grid>
-      <Grid item xs={3}>
-        {rate}
+        {rate_per_session.toLocaleString()}
       </Grid>
       <Grid item xs={1}>
-        <Clear onClick={handleDelete(name)} />
+        <Clear onClick={handleDelete(display_name)} />
       </Grid>
     </Grid>
   );
@@ -182,95 +196,102 @@ class Payment extends React.Component {
 
   handleClose = () => this.setState({ dialog: false });
 
+  onToken = token => {
+    let booking = Backend.bookings.data[Backend.selectedBooking];
+    var profileIds = [];
+    for (var girl of booking.users) {
+      profileIds.push(girl.user_id);
+    }
+    let dict = {
+      request_id: booking.request_id,
+      profile_ids: profileIds.toString(),
+      stripe_token: token.id
+    };
+
+    console.log(dict);
+
+    let response = ServerRequest.confirmBooking(dict);
+    response.then(res => {
+      this.handlePaymentDone();
+    });
+  };
+
+  handlePaymentDone() {
+    this.setState({ redirect: "/m/paymentDone" });
+  }
+
   render() {
     const { classes } = this.props;
     const { redirect, womanList, dialog } = this.state;
+
+    let booking = Backend.bookings.data[Backend.selectedBooking];
+    if (!booking || booking === null) {
+      return <Redirect to={"/m/dates"} />;
+    }
+
+    let timeString = `${booking.request_start_time.substring(0, 5)}
+      – ${booking.request_end_time.substring(0, 5)}`;
+    let grandTotal = booking.users.reduce((a, v) => a + v.rate_per_session, 0);
 
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
         <Navbar title="Summary" gender="M" />
         <div className={classes.navWrapper}>
-          <NavLink to="/m/listings" className={classes.navText}>
+          <NavLink to="/m/dates/pending" className={classes.navText}>
             {"< Back"}
           </NavLink>
         </div>
         <Grid container className={classes.container}>
           <Grid item xs={12} className={classes.detailTitle}>
-            Date Detail
+            Review your booking
           </Grid>
-          <Grid item xs={6} className={classes.alignLeft}>
-            Invitation
+          <Grid item xs={12} className={classes.alignLeft}>
+            {dateFormat(booking.request_date, "dd mmm yyyy")}
           </Grid>
-          <Grid item xs={6} className={classes.alignRight}>
-            12 Nov 2019
+          <Grid item xs={12} className={classes.alignLeft}>
+            {timeString}
           </Grid>
-          <Grid item xs={6} className={classes.alignLeft}>
-            市区町村 都道府県
-          </Grid>
-          <Grid item xs={6} className={classes.alignRight}>
-            10:00 - 12:00
-          </Grid>
-        </Grid>
-        <Divider className={classes.divider} variant="middle" />
-        <Grid container alignItems="center" className={classes.container}>
-          <Grid item xs={6} className={classes.detailTitle}>
-            Order Detail
+          <Grid item xs={12} className={classes.alignLeft}>
+            {booking.place ? booking.place.place_name : ""}
           </Grid>
         </Grid>
 
         <Grid container alignItems="center" className={classes.container}>
-          <Grid item xs={5} />
+          <Grid item xs={8} />
           <Grid item xs={3} className={classes.head}>
             {" "}
-            Duration{" "}
-          </Grid>
-          <Grid item xs={3} className={classes.head}>
-            {" "}
-            Credit{" "}
+            Price{" (¥)"}
           </Grid>
           <Grid item xs={1} />
-          {womanList.map(e => (
+          {booking.users.map(e => (
             <Grid item xs={12}>
               <PaymentList {...e} handleDelete={this.handleDelete} />
             </Grid>
           ))}
           <Grid className={classes.total} item xs={12}>
-            Total : {womanList.reduce((a, v) => a + v.rate, 0)}
+            Total :{" ¥"}
+            {grandTotal.toLocaleString()}
           </Grid>
         </Grid>
 
-        <Typography variant="p" className={classes.text}>
-          Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras tempus
-          ac ex id bibendum. Proin in nunc nec ex blandit laoreet. Duis
-          dignissim tellus ex, a consequat velit scelerisque ac. Maecenas id
-          nibh aliquet, blandit diam ac, rutrum nisi. Praesent ac mi quis quam
-          finibus posuere a a diam. Aliquam mattis est non magna mollis, ut
-          pretium nisl hendrerit. Suspendisse potenti. Pellentesque habitant
-          morbi tristique senectus et netus et malesuada fames ac turpis
-          egestas. Ut vulputate quis dolor ut tempus. In ut consectetur ante.
-          Maecenas condimentum non nibh nec placerat. Integer faucibus ex
-          posuere, molestie mauris ut, tristique quam.
-        </Typography>
-
-        <Typography variant="h6" className={classes.themeText}>
-          Your credit balance : 100
-        </Typography>
-
         <Grid container alignItems="center" className={classes.container}>
           <Grid item xs={12}>
-            <NomiButton
-              className={classes.button}
-              gender="M"
-              onClick={() => this.setState({ redirect: "/m/paymentDone" })}
+            <StripeCheckout
+              email={""}
+              name="Nomi Booking" // the pop-in header title
+              description="Pay to secure your date!" // the pop-in header subtitle
+              ComponentClass="div"
+              panelLabel="Booking Cost:" // prepended to the amount in the bottom pay button
+              amount={grandTotal} // cents
+              currency={"JPY"}
+              stripeKey="pk_test_CdF5wQIrKPDYGUBKmq9BBRHQ"
+              locale="en"
+              token={token => this.onToken(token)} // submit callback
+              reconfigureOnUpdate={false}
             >
-              Pay now
-            </NomiButton>
-            <h5>
-              <NavLink className={classes.nav} to="/m/dates">
-                + Top up credit
-              </NavLink>
-            </h5>
+              <button className="btn btn-primary">Book Now</button>
+            </StripeCheckout>
           </Grid>
         </Grid>
 

@@ -14,6 +14,7 @@ export const Backend = {
   selectedPlaceId: 0,
   selectedListing: 0,
   selectedBooking: 0,
+  cameFromPendingPage: false,
   selectedDate: Date(),
   firstTimeLoginUsername: "",
   firstTimeLoginPassword: "",

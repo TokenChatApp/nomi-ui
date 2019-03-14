@@ -7,6 +7,8 @@ import { manColor } from "../../../Constants";
 import JobList from "./JobList";
 import { Backend } from "../../../services/Backend";
 
+var dateFormat = require("dateformat");
+
 const styles = theme => ({
   root: {
     flexGrow: 1
@@ -64,7 +66,7 @@ class Job extends React.Component {
           bookingIndex={i}
           images={avatarArray}
           jobStatus={booking.status.toUpperCase()}
-          date={booking.request_date}
+          date={dateFormat(booking.request_date, "dd mmm yyyy")}
           time={timeString}
           location={booking.place ? booking.place.place_name : ""}
           numberOfAccepted={numberOfAccepted}

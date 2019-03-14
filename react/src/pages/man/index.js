@@ -204,6 +204,7 @@ class ManLanding extends React.Component {
                 {...e}
                 handleToggleCrown={this.handleToggleCrown}
                 username={e.username}
+                cameFromPendingPage={false}
               />
             </Grid>
           ))}

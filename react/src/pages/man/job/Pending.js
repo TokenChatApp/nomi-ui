@@ -55,6 +55,16 @@ const styles = theme => ({
   crownTitle: {
     paddingLeft: 10
   },
+  navWrapper: {
+    textAlign: "left",
+    paddingTop: "15px",
+    paddingLeft: "5%",
+    paddingRight: "10%"
+  },
+  navText: {
+    color: manColor[1],
+    textDecoration: "none"
+  },
   nav: {
     fontWeight: 400,
     color: manColor[1],
@@ -101,7 +111,12 @@ class Pending extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="" backTo="/m/dates" gender="M" />
+        <Navbar title="Manage Date" gender="M" />
+        <div className={classes.navWrapper}>
+          <NavLink to="/m/dates" className={classes.navText}>
+            {"< Back"}
+          </NavLink>
+        </div>
         <Grid container className={classes.container}>
           <Typography variant="h4" className={classes.pendingText}>
             {acceptedGirls.length} girls have accepted your request! Select the
@@ -109,7 +124,12 @@ class Pending extends React.Component {
           </Typography>
           {acceptedGirls.map(e => (
             <Grid item xs={6}>
-              <GirlCard {...e} handleToggleCrown={this.handleToggleCrown} />
+              <GirlCard
+                {...e}
+                handleToggleCrown={this.handleToggleCrown}
+                cameFromPendingPage
+                username={e.username}
+              />
             </Grid>
           ))}
 
@@ -132,7 +152,11 @@ class Pending extends React.Component {
 
             {pendingGirls.map(e => (
               <Grid item xs={6}>
-                <GirlCard {...e} handleToggleCrown={this.handleToggleCrown} />
+                <GirlCard
+                  {...e}
+                  handleToggleCrown={this.handleToggleCrown}
+                  username={e.username}
+                />
               </Grid>
             ))}
 

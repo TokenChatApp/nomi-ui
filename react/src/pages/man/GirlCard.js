@@ -97,10 +97,20 @@ class GirlCard extends React.Component {
   };
 
   componentDidMount() {
-    for (var girl of Backend.listings) {
-      if (girl.username === this.props.username) {
-        if (girl.isSelected) {
-          this.setState({ checked: true });
+    if (this.props.cameFromPendingPage) {
+      for (var girl of Backend.bookings.data[Backend.selectedBooking].users) {
+        if (girl.username === this.props.username) {
+          if (girl.isSelectedForCheckout) {
+            this.setState({ checked: true });
+          }
+        }
+      }
+    } else {
+      for (var girl of Backend.listings) {
+        if (girl.username === this.props.username) {
+          if (girl.isSelected) {
+            this.setState({ checked: true });
+          }
         }
       }
     }
@@ -110,7 +120,11 @@ class GirlCard extends React.Component {
     let isChecked = this.state.checked;
     for (var [i, listing] of Backend.listings.entries()) {
       if (listing.username === this.props.username) {
-        Backend.listings[i].isSelected = !isChecked;
+        if (this.props.cameFromPendingPage) {
+          Backend.listings[i].isSelectedForCheckout = !isChecked;
+        } else {
+          Backend.listings[i].isSelected = !isChecked;
+        }
       }
     }
     this.setState({ checked: !isChecked });
@@ -121,11 +135,22 @@ class GirlCard extends React.Component {
   };
 
   handleRedirect = event => {
-    for (var [i, listing] of Backend.listings.entries()) {
-      if (listing.username === this.props.username) {
-        Backend.selectedListing = i;
+    if (this.props.cameFromPendingPage) {
+      for (var [i, girl] of Backend.bookings.data[
+        Backend.selectedBooking
+      ].users.entries()) {
+        if (girl.username === this.props.username) {
+          Backend.selectedListing = i;
+        }
+      }
+    } else {
+      for (var [i, girl] of Backend.listings.entries()) {
+        if (girl.username === this.props.username) {
+          Backend.selectedListing = i;
+        }
       }
     }
+    Backend.cameFromPendingPage = this.props.cameFromPendingPage;
     this.setState({ redirect: "/m/girlProfile" });
   };
 
