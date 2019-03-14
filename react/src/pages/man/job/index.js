@@ -46,23 +46,28 @@ class Job extends React.Component {
 
   renderBookings() {
     var items = [];
-    for (var booking of Backend.bookings.data) {
-      console.log(booking);
+    for (var [i, booking] of Backend.bookings.data.entries()) {
       let timeString = `${booking.request_start_time.substring(0, 5)}
       – ${booking.request_end_time.substring(0, 5)}`;
 
       var avatarArray = [];
+      var numberOfAccepted = 0;
       for (var user of booking.users) {
         avatarArray.push(Backend.imgUrl + user.avatar);
+        if (user.is_accepted) {
+          numberOfAccepted++;
+        }
       }
       items.push(
         <JobList
           key={booking.request_id}
+          bookingIndex={i}
           images={avatarArray}
           jobStatus={booking.status.toUpperCase()}
           date={booking.request_date}
           time={timeString}
           location={booking.place ? booking.place.place_name : ""}
+          numberOfAccepted={numberOfAccepted}
         />
       );
     }

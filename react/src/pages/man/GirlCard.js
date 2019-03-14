@@ -155,11 +155,15 @@ class GirlCard extends React.Component {
             className={classes.crownContainer}
             onClick={this.handleCrownClick}
           >
-            <img
-              className={classes.crown}
-              src={level === 3 ? crownGold : crownSilver}
-              alt="crown"
-            />
+            {level === 0 || !level ? (
+              <div />
+            ) : (
+              <img
+                className={classes.crown}
+                src={level === 3 ? crownGold : crownSilver}
+                alt="crown"
+              />
+            )}
           </div>
         )}
         <Grid item xs={12}>
@@ -174,6 +178,7 @@ class GirlCard extends React.Component {
           <Typography variant="h6">
             <span className={classes.name}>{display_name} </span>{" "}
             <span className={classes.age}>{age}years old</span>
+            <br />
             <span className={classes.starWrapper}>
               <GenerateStars rating={rating} />
             </span>

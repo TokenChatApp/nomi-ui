@@ -88,16 +88,26 @@ class Pending extends React.Component {
   render() {
     const { classes } = this.props;
     const { redirect, womanList } = this.state;
-
+    let girls = Backend.bookings.data[Backend.selectedBooking].users;
+    var acceptedGirls = [];
+    var pendingGirls = [];
+    for (var girl of girls) {
+      if (girl.is_accepted) {
+        acceptedGirls.push(girl);
+      } else {
+        pendingGirls.push(girl);
+      }
+    }
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
         <Navbar title="" backTo="/m/dates" gender="M" />
         <Grid container className={classes.container}>
           <Typography variant="h4" className={classes.pendingText}>
-            4 responses received, select the girl you like
+            {acceptedGirls.length} girls have accepted your request! Select the
+            girl you like and checkout.
           </Typography>
-          {womanList.map(e => (
+          {acceptedGirls.map(e => (
             <Grid item xs={6}>
               <GirlCard {...e} handleToggleCrown={this.handleToggleCrown} />
             </Grid>
@@ -111,6 +121,21 @@ class Pending extends React.Component {
             >
               Checkout
             </NomiButton>
+
+            {pendingGirls.length > 0 ? (
+              <Typography variant="h4" className={classes.pendingText}>
+                {pendingGirls.length} girls who are still pending:
+              </Typography>
+            ) : (
+              <div />
+            )}
+
+            {pendingGirls.map(e => (
+              <Grid item xs={6}>
+                <GirlCard {...e} handleToggleCrown={this.handleToggleCrown} />
+              </Grid>
+            ))}
+
             <h5>
               <NavLink className={classes.nav} to="/m/dates">
                 x Cancel date

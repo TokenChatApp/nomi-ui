@@ -13,6 +13,7 @@ export const Backend = {
   selectedPlace: "",
   selectedPlaceId: 0,
   selectedListing: 0,
+  selectedBooking: 0,
   selectedDate: Date(),
   firstTimeLoginUsername: "",
   firstTimeLoginPassword: "",

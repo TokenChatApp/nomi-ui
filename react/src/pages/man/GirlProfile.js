@@ -13,6 +13,7 @@ import girlPhoto from "../../images/dummyGirl.png";
 import SimpleSlider from "./SimpleSlider";
 
 import crownGold from "../../images/male/dashboard/crown_gold.svg";
+import crownSilver from "../../images/male/dashboard/crown_silver.svg";
 
 const styles = theme => ({
   root: {
@@ -126,6 +127,12 @@ class GirlProfile extends React.Component {
 
     let girl = Backend.listings[Backend.selectedListing];
 
+    if (Backend.listings.length === 0) {
+      return <Redirect to={"/m"} />;
+    }
+
+    console.log(girl);
+
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
@@ -141,7 +148,14 @@ class GirlProfile extends React.Component {
         </div>
         <Grid container alignItems="center" className={classes.container}>
           <Grid item xs={6} className={classes.detailContainer}>
-            <img className={classes.crown} alt="crown" src={crownGold} />
+            {girl.level === 1 || !girl.level ? (
+              <div />
+            ) : girl.level === 2 ? (
+              <img className={classes.crown} alt="crown" src={crownSilver} />
+            ) : (
+              <img className={classes.crown} alt="crown" src={crownGold} />
+            )}
+
             <h2 className={classes.girlName}>{girl.display_name}</h2>
             <GenerateStars rating={3} />
           </Grid>
