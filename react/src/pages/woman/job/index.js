@@ -8,7 +8,7 @@ import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
 
 import { womanColor } from "../../../Constants";
-import manImg from "../../../images/dummyMan.png";
+import manPicPlaceholder from "./man-profile-placeholder.png";
 import { Backend } from "../../../services/Backend";
 
 import JobList from "./JobList";
@@ -57,7 +57,12 @@ class Job extends React.Component {
         booking.request_start_time.substring(0, 5) +
         " – " +
         booking.request_end_time.substring(0, 5);
-      console.log(Backend.bookings.data);
+
+      var manImg = Backend.imgUrl + booking.requestor.avatar;
+      if (booking.requestor.avatar == null || !booking.requestor.avatar) {
+        manImg = manPicPlaceholder;
+      }
+
       if (booking.status !== "Pending") {
         array.push(
           <JobList
@@ -83,7 +88,7 @@ class Job extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="My Jobs" gender="F" />
+        <Navbar title="マイジョブページ" gender="F" />
         {this.renderListing()}
         <div className={classes.tabWrapper}>{this.renderListing()}</div>
       </div>

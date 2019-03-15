@@ -125,11 +125,11 @@ const ManButtons = props => {
     <React.Fragment>
       <div style={wrapperStyle}>
         <MainButton {...props} onClick={handleRedirect("/m/dates")}>
-          My Dates
+          マイデート
         </MainButton>
         <Divider />
         <MainButton {...props} onClick={handleRedirect("/m/locationEdit")}>
-          Change Location
+          場所変更
         </MainButton>
         <Divider />
         <MainButton {...props} onClick={handleRedirect("/m")}>
@@ -137,25 +137,25 @@ const ManButtons = props => {
         </MainButton>
         <Divider />
         <MainButton {...props} onClick={handleRedirect("/m")}>
-          Help Center
+          問い合わせ
         </MainButton>
         <Divider />
         <MainButton {...props} onClick={handleRedirect("/m")}>
-          Launch my Lolchat
+          lol chatを起動する
         </MainButton>
         <Divider />
       </div>
       <Divider height={30} />
       <div style={wrapperStyle}>
         <MainButton {...props} onClick={handleLogout}>
-          Sign Out
+          ログアウト
         </MainButton>
         <Divider />
         <button {...props} style={helpStyle} onClick={handleRedirect("/m")}>
-          Emergency contact
+          緊急連絡
         </button>
       </div>
-      <h1 style={privacyText}>Privacy Policy</h1>
+      <h1 style={privacyText}>プライバシーポリシー</h1>
     </React.Fragment>
   );
 };
@@ -168,11 +168,11 @@ const WomanButtons = props => {
     <React.Fragment>
       <div style={wrapperStyle}>
         <MainButton {...props} onClick={handleRedirect("/w")}>
-          My Jobs
+          マイジョブ
         </MainButton>
         <Divider />
         <MainButton {...props} onClick={handleRedirect("/w/locationEdit")}>
-          Change Location
+          場所を変更
         </MainButton>
         <Divider />
         <MainButton {...props} onClick={handleRedirect("/w/helpCenter")}>
@@ -180,18 +180,18 @@ const WomanButtons = props => {
         </MainButton>
         <Divider />
         <MainButton {...props} onClick={handleRedirect("/w")}>
-          Help Center
+          問い合わせ
         </MainButton>
         <Divider />
         <MainButton {...props} onClick={handleRedirect("/w")}>
-          Launch my lol chat
+          lol chatを起動する
         </MainButton>
         <Divider />
       </div>
       <Divider height={30} />
       <div style={wrapperStyle}>
         <MainButton {...props} onClick={handleLogout}>
-          Sign Out
+          ログアウト
         </MainButton>
         <Divider />
         <button
@@ -199,10 +199,10 @@ const WomanButtons = props => {
           style={helpStyle}
           onClick={handleRedirect("/w/liveHelp")}
         >
-          Emergency contact
+          緊急連絡
         </button>
       </div>
-      <h1 style={privacyText}>Privacy Policy</h1>
+      <h1 style={privacyText}>プライバシーポリシー</h1>
     </React.Fragment>
   );
 };
@@ -355,14 +355,14 @@ class Navbar extends React.Component {
         <Grid container alignItems="center">
           <Grid item xs={8}>
             <a href="/" className={classes.title}>
-              NOMI
+              TIPS
             </a>
           </Grid>
           {this.renderLoggedInButtons()}
           <Grid item xs={8}>
             {backTo && (
               <NavLink className={classes.backButton} to={backTo}>
-                {"< Back"}
+                {"< 戻る"}
               </NavLink>
             )}
             {title && (

@@ -10,26 +10,31 @@ import { manColor } from "../../../Constants";
 
 const statusList = [
   {
+    labelJap: "進行中",
     label: "ON GOING",
     color: "#7ae43a",
     redirect: "/m/dates/ongoing"
   },
   {
+    labelJap: "期限切れ",
     label: "EXPIRED",
     color: "#c3c3c3",
     redirect: "/m/dates/expired"
   },
   {
+    labelJap: "ペンディング",
     label: "PENDING",
     color: "#ffc800",
     redirect: "/m/dates/pending"
   },
   {
+    labelJap: "確認済み",
     label: "CONFIRMED",
     color: "#04dec2",
     redirect: "/m/dates/confirmed"
   },
   {
+    labelJap: "終了",
     label: "ENDED",
     color: "#e66060",
     redirect: "/m/dates/ended"
@@ -176,7 +181,7 @@ class JobList extends React.Component {
             className={classes.label}
             style={{ backgroundColor: "#04dec2" }}
           >
-            {numberOfAccepted} Accepted!
+            {numberOfAccepted} 人受け取った!
           </span>
         </h6>
       );
@@ -187,7 +192,7 @@ class JobList extends React.Component {
           className={classes.label}
           style={{ backgroundColor: jobStatus.color }}
         >
-          {jobStatus.label}
+          {jobStatus.labelJap}
         </span>
       </h6>
     );

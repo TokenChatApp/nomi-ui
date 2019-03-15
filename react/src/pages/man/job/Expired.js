@@ -94,7 +94,7 @@ class Expired extends React.Component {
         <Navbar title="" backTo="/m/dates" gender="M" />
         <Grid container className={classes.container}>
           <Typography variant="h4" className={classes.expiredText}>
-            EXPIRED
+            EXPIRED 期限切れ
           </Typography>
           {womanList.map(e => (
             <Grid item xs={6}>

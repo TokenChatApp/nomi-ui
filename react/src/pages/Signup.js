@@ -79,7 +79,8 @@ const ManButton = props => {
   return (
     <div {...props}>
       <GenderButton gender={1} />
-      <div>Man</div>
+      <br />
+      <div>男性</div>
     </div>
   );
 };
@@ -88,7 +89,8 @@ const GirlButton = props => {
   return (
     <div {...props}>
       <GenderButton gender={0} />
-      <div>Woman</div>
+      <br />
+      <div>女性</div>
     </div>
   );
 };
@@ -137,15 +139,15 @@ class Signup extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="SIGN UP" gender="F" isLoggedIn="false" />
+        <Navbar title="サインアップ" gender="F" isLoggedIn="false" />
         <div className={classes.navWrapper}>
           <NavLink to="/" className={classes.navText}>
-            {"< Back"}
+            {"< 戻る"}
           </NavLink>
         </div>
-        <Typography className={classes.label}>Hi there!</Typography>
+        <Typography className={classes.label}>こんにちは！</Typography>
         <Typography className={classes.description}>
-          Select your gender
+          あなたは男性ですか女性ですか？
         </Typography>
         <Grid container className={classes.container}>
           <Grid item xs={12}>
@@ -158,6 +160,10 @@ class Signup extends React.Component {
             />
           </Grid>
         </Grid>
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     );
   }

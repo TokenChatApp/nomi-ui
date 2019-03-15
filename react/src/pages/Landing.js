@@ -8,8 +8,8 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import login from "../images/login.svg";
 import signup from "../images/sign_up.svg";
-import girlImg from "../images/girl.jpg";
-import manImg from "../images/man.png";
+import girlImg from "../images/new-girl.jpeg";
+import manImg from "../images/new-guy.jpeg";
 import partyImg from "../images/party.jpg";
 import dummyGirl from "../images/dummyGirl.png";
 import stepsIcon from "../images/steps.svg";
@@ -184,7 +184,7 @@ class Landing extends React.Component {
                 color="inherit"
                 noWrap
               >
-                NOMI
+                TIPS
               </Typography>
             </Grid>
           </Grid>
@@ -223,7 +223,7 @@ class Landing extends React.Component {
               }}
             >
               <img className={classes.buttonImg} src={login} alt="login" />
-              Login
+              ログイン
             </MainButton>
           </Grid>
           <Grid item xs={12}>
@@ -244,7 +244,7 @@ class Landing extends React.Component {
               onClick={() => this.setState({ redirect: "/signup" })}
             >
               <img className={classes.buttonImg} src={signup} alt="signup" />
-              Sign Up
+              サインアップ
             </MainButton>
           </Grid>
         </Grid>

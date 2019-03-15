@@ -14,7 +14,7 @@ const styles = theme => ({
     cursor: "pointer",
     fontWeight: 700,
     width: "auto",
-    maxWidth: 200,
+    maxWidth: 160,
     padding: 4,
     borderRadius: 25,
     fontSize: 14,
@@ -69,7 +69,7 @@ const GenderSwitch = props => {
         </Grid>
       )}
       <Grid item className={classes.genderText}>
-        Switch to {man ? "Girl" : "Man"} user
+        {man ? "女性" : "男性"} はこちら
       </Grid>
       {!man && (
         <Grid item>

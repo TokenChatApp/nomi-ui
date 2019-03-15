@@ -226,9 +226,9 @@ class Signup extends React.Component {
           <TextField
             className={classes.textField}
             fullWidth
-            label="Display Name"
+            label="ニックネーム"
             style={{ margin: 8 }}
-            placeholder="Display Name"
+            placeholder="ニックネーム"
             margin="normal"
             value={this.state.display_name}
             onChange={this.handleInputChange}
@@ -244,9 +244,9 @@ class Signup extends React.Component {
           <TextField
             className={classes.textField}
             fullWidth
-            label="Email Address"
+            label="メールアドレス"
             style={{ margin: 8 }}
-            placeholder="Email Address"
+            placeholder="メールアドレス"
             margin="normal"
             value={this.state.email}
             name="email"
@@ -260,9 +260,9 @@ class Signup extends React.Component {
           <TextField
             className={classes.textField}
             fullWidth
-            label="Mobile Number"
+            label="携帯番号"
             style={{ margin: 8 }}
-            placeholder="Mobile no."
+            placeholder="携帯番号"
             margin="normal"
             value={this.state.mobile_no}
             onChange={this.handleInputChange}
@@ -278,9 +278,9 @@ class Signup extends React.Component {
           <TextField
             className={classes.textField}
             fullWidth
-            label="Referral Code"
+            label="紹介コード"
             style={{ margin: 8 }}
-            placeholder="Referral Code"
+            placeholder="紹介コード"
             margin="normal"
             value={this.state.referral}
             name="referral"
@@ -294,9 +294,9 @@ class Signup extends React.Component {
           <TextField
             className={classes.textField}
             fullWidth
-            label="Nationality"
+            label="国籍"
             style={{ margin: 8 }}
-            placeholder="Nationality"
+            placeholder="国籍"
             type="text"
             margin="normal"
             value={this.state.nationality}
@@ -311,13 +311,13 @@ class Signup extends React.Component {
         </Grid>
         <Grid item xs={12} className={classes.alignLeft}>
           <h6 className={classes.label} style={{ margin: 8 }}>
-            Spoken Languages
+            言語
           </h6>
           <Grid container className={classes.formControl}>
             <Grid item xs={6}>
               <FormControlLabel
                 control={<Checkbox />}
-                label="Japanese"
+                label="日本語"
                 name="spokenLanguageArray"
                 value="Japanese"
                 onChange={this.handleCheckboxClick}
@@ -326,7 +326,7 @@ class Signup extends React.Component {
             <Grid item xs={6}>
               <FormControlLabel
                 control={<Checkbox />}
-                label="English"
+                label="英語"
                 name="spokenLanguageArray"
                 value="English"
                 onChange={this.handleCheckboxClick}
@@ -342,9 +342,9 @@ class Signup extends React.Component {
           <TextField
             className={classes.textField}
             fullWidth
-            label="Your age"
+            label="年齢"
             style={{ margin: 8 }}
-            placeholder="years"
+            placeholder="年齢"
             margin="normal"
             value={this.state.age}
             onChange={this.handleInputChange}
@@ -358,7 +358,7 @@ class Signup extends React.Component {
           <TextField
             className={classes.textField}
             fullWidth
-            label="Your height"
+            label="身長"
             style={{ margin: 8 }}
             placeholder="cm"
             margin="normal"
@@ -374,7 +374,7 @@ class Signup extends React.Component {
           <TextField
             className={classes.textField}
             fullWidth
-            label="Your weight"
+            label="体重"
             style={{ margin: 8 }}
             placeholder="kg"
             margin="normal"
@@ -388,7 +388,7 @@ class Signup extends React.Component {
         </Grid>
         <Grid item xs={12}>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="city-label-placeholder">City</InputLabel>
+            <InputLabel htmlFor="city-label-placeholder">都市</InputLabel>
             <Select
               value={this.state.city}
               onChange={this.handleInputChangeCity}
@@ -409,7 +409,7 @@ class Signup extends React.Component {
         </Grid>
         <Grid item xs={12}>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="place-label-placeholder">Place</InputLabel>
+            <InputLabel htmlFor="place-label-placeholder">エリア</InputLabel>
             <Select
               value={this.state.place}
               onChange={this.handleInputChange}
@@ -465,15 +465,15 @@ class Signup extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="SIGN UP" gender="F" isLoggedIn="false" />
+        <Navbar title="サインアップ" gender="F" isLoggedIn="false" />
         <div className={classes.navWrapper}>
           <NavLink to="/signup" className={classes.navText}>
-            {"< Back"}
+            {"< 戻る"}
           </NavLink>
         </div>
         <form onSubmit={this.handleFormSubmit}>
           <Typography className={classes.title} variant="h5">
-            Sign Up
+            サインアップ
           </Typography>
           <ProfilePicHolder
             onClick={() =>
@@ -490,7 +490,7 @@ class Signup extends React.Component {
                 src={imgSignup}
                 type="submit"
               >
-                Sign Up
+                サインアップ
               </NomiButton>
             </Grid>
           </Grid>

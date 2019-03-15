@@ -7,6 +7,7 @@ import Navbar from "../../../components/Navbar";
 import clockImg from "../../../images/clock.png";
 import { manColor } from "../../../Constants";
 import DateDetail from "./DateDetail";
+import { Backend } from "../../../services/Backend";
 
 const styles = theme => ({
   root: {
@@ -49,6 +50,16 @@ class Confirmed extends React.Component {
   render() {
     const { classes } = this.props;
     const { redirect } = this.state;
+
+    // let selectedBooking = Backend.bookings.data[Backend.selectedBooking];
+    // var date1 = new Date();
+    // var date2 = Date(
+    //   selectedBooking.request_date + "T" + selectedBooking.request_start_time
+    // );
+    // console.log(date2);
+    // var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    // var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
@@ -60,10 +71,10 @@ class Confirmed extends React.Component {
 
         <img className={classes.img} src={clockImg} alt="clock" />
         <Typography className={classes.remaining} variant="h6">
-          Time remaining to your date:
+          飲み会がスタートするまで：
         </Typography>
         <Typography className={classes.timer} variant="h6">
-          01:25:00
+          2日、2時、1分
         </Typography>
       </div>
     );

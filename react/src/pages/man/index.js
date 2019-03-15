@@ -170,11 +170,7 @@ class ManLanding extends React.Component {
     if (Backend.listings.length === 0) {
       return (
         <div>
-          <br />
-          No girls available at this time.
-          <br />
-          <br />
-          Refine your search on the previous page.
+          <Redirect to={"/m"} />
         </div>
       );
     } else {
@@ -195,7 +191,7 @@ class ManLanding extends React.Component {
             )}
           </Grid>
           <span style={{ marginTop: 15 }}>
-            Girls available at {Backend.selectedPlace}, {Backend.selectedCity}{" "}
+            空いてる女性リスト：{Backend.selectedPlace}, {Backend.selectedCity}{" "}
             at {dateString}
           </span>
           {Backend.listings.map(e => (
@@ -215,7 +211,7 @@ class ManLanding extends React.Component {
               onClick={this.handleSendInvitationClicked}
             >
               <Favorite className={classes.favIcon} />
-              SEND INVITATION
+              誘う！
             </NomiButton>
           </Grid>
         </Grid>
@@ -226,7 +222,7 @@ class ManLanding extends React.Component {
   render() {
     const { classes } = this.props;
     const { redirect } = this.state;
-    let title = `Hello, ${Backend.user.display_name}`;
+    let title = `${Backend.user.display_name}、こんにちは`;
     let dateString = dateFormat(Backend.selectedDate, "dd mmm, HH:MM");
 
     return (
@@ -235,7 +231,7 @@ class ManLanding extends React.Component {
         <Navbar title={title} gender="M" />
         <div className={classes.navWrapper}>
           <NavLink to="/m" className={classes.navText}>
-            {"< Back"}
+            {"< 戻る"}
           </NavLink>
         </div>
         {this.renderContent()}

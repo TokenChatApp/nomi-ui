@@ -37,7 +37,7 @@ const styles = theme => ({
     paddingRight: "10%"
   },
   button: {
-    color: manColor[0],
+    color: "white",
     maxWidth: 200,
     display: "block",
     margin: "auto",
@@ -127,10 +127,10 @@ class Signup extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="SIGN UP" gender="M" isLoggedIn="false" />
+        <Navbar title="サインアップ" gender="M" isLoggedIn="false" />
         <div className={classes.navWrapper}>
           <NavLink to="/signup" className={classes.navText}>
-            {"< Back"}
+            {"< 戻る"}
           </NavLink>
         </div>
         <br />
@@ -146,7 +146,7 @@ class Signup extends React.Component {
               <TextField
                 className={classes.textField}
                 fullWidth
-                label="Username"
+                label="ユーザー名"
                 style={{ margin: 8 }}
                 placeholder="username"
                 margin="normal"
@@ -164,9 +164,9 @@ class Signup extends React.Component {
               <TextField
                 className={classes.textField}
                 fullWidth
-                label="Display Name"
+                label="ニックネーム"
                 style={{ margin: 8 }}
-                placeholder="Display Name"
+                placeholder="ニックネーム"
                 margin="normal"
                 value={this.state.display_name}
                 onChange={this.handleInputChange}
@@ -183,9 +183,9 @@ class Signup extends React.Component {
               <TextField
                 className={classes.textField}
                 fullWidth
-                label="Your age"
+                label="年齢"
                 style={{ margin: 8 }}
-                placeholder="Age"
+                placeholder="年齢"
                 margin="normal"
                 value={this.state.age}
                 name="age"
@@ -199,9 +199,9 @@ class Signup extends React.Component {
               <TextField
                 className={classes.textField}
                 fullWidth
-                label="Mobile number"
+                label="携帯番号"
                 style={{ margin: 8 }}
-                placeholder="Mobile no."
+                placeholder="携帯番号"
                 margin="normal"
                 value={this.state.mobile_no}
                 name="mobile_no"
@@ -217,9 +217,9 @@ class Signup extends React.Component {
               <TextField
                 className={classes.textField}
                 fullWidth
-                label="Email Address"
+                label="メールアドレス"
                 style={{ margin: 8 }}
-                placeholder="Email Address"
+                placeholder="メールアドレス"
                 margin="normal"
                 value={this.state.email}
                 name="email"
@@ -233,9 +233,9 @@ class Signup extends React.Component {
               <TextField
                 className={classes.textField}
                 fullWidth
-                label="Create password"
+                label="パスワード"
                 style={{ margin: 8 }}
-                placeholder="Create password"
+                placeholder="パスワード"
                 type="password"
                 margin="normal"
                 value={this.state.password}
@@ -252,9 +252,9 @@ class Signup extends React.Component {
               <TextField
                 className={classes.textField}
                 fullWidth
-                label="Referral Code"
+                label="紹介コード"
                 style={{ margin: 8 }}
-                placeholder="Referral Code"
+                placeholder="紹介コード"
                 margin="normal"
                 value={this.state.referral}
                 name="referral"
@@ -273,7 +273,7 @@ class Signup extends React.Component {
                 src={imgSignup}
                 type="submit"
               >
-                Sign Up
+                サインアップ
               </NomiButton>
             </Grid>
           </Grid>

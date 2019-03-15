@@ -77,11 +77,11 @@ class BookingSent extends React.Component {
             className={classes.button}
             onClick={() => this.setState({ redirect: "/m/dates" })}
           >
-            Go to My Dates
+            マイデートページまで
           </MainButton>
           <div style={{ marginTop: 30 }}>
             <NavLink to="/m" className={classes.backHome}>
-              {"< Back to home"}
+              {"< ホームページに戻る"}
             </NavLink>
           </div>
         </div>

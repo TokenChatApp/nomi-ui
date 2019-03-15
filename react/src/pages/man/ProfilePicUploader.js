@@ -115,7 +115,7 @@ class ProfilePicUploader extends React.Component {
             className={classes.button}
             onClick={() => this.setState({ redirect: "/m/signup" })}
           >
-            Back
+            戻る
           </MainButton>
         </div>
         <br />

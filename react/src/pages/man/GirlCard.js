@@ -12,6 +12,7 @@ import { manColor } from "../../Constants";
 import crownGold from "../../images/male/dashboard/crown_gold.svg";
 import crownSilver from "../../images/male/dashboard/crown_silver.svg";
 import { Backend } from "../../services/Backend";
+import womanPicPlaceholder from "./woman-profile-placeholder.png";
 
 const styles = theme => ({
   root: {
@@ -20,7 +21,8 @@ const styles = theme => ({
   },
   avatar: {
     cursor: "pointer",
-    maxWidth: "90%",
+    width: "150px",
+    height: "150px",
     border: `1px solid ${manColor[0]}`,
     objectFit: "cover"
   },
@@ -192,17 +194,27 @@ class GirlCard extends React.Component {
           </div>
         )}
         <Grid item xs={12}>
-          <img
-            className={classes.avatar}
-            src={Backend.imgUrl + avatar}
-            alt="girl avatar"
-            onClick={this.handleRedirect}
-          />
+          {avatar === null || !avatar ? (
+            <img
+              className={classes.avatar}
+              src={womanPicPlaceholder}
+              alt="girl avatar"
+              onClick={this.handleRedirect}
+            />
+          ) : (
+            <img
+              className={classes.avatar}
+              src={Backend.imgUrl + avatar}
+              alt="girl avatar"
+              onClick={this.handleRedirect}
+            />
+          )}
         </Grid>
         <Grid item xs={disabled ? 12 : 9} className={classes.wrapper}>
           <Typography variant="h6">
-            <span className={classes.name}>{display_name} </span>{" "}
-            <span className={classes.age}>{age}years old</span>
+            <span className={classes.name}>{display_name}</span>
+            {", "}
+            <span className={classes.name}>{age}歳</span>
             <br />
             <span className={classes.starWrapper}>
               <GenerateStars rating={rating} />

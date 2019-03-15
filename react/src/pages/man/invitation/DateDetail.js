@@ -313,16 +313,16 @@ class DateDetail extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="Girls around you" gender="M" />
+        <Navbar title="飲みに行こう！" gender="M" />
         <div className={classes.wrapper}>
           <Typography className={classes.title} align="left">
-            Pick a time and place!
+            場所と時間を選んでください。
           </Typography>
 
           <Grid container className={classes.container}>
             <Grid item xs={4}>
               <NomiDatePicker
-                label="DATE"
+                label="日にち"
                 selectedDate={selectedDate}
                 handleDateChange={this.handleDateChange}
               />
@@ -330,7 +330,7 @@ class DateDetail extends React.Component {
 
             <Grid item xs={3} className={classes.endWrapper}>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="hour-label-placeholder">HOUR</InputLabel>
+                <InputLabel htmlFor="hour-label-placeholder">時</InputLabel>
                 <Select
                   value={this.state.selectedHour}
                   onChange={this.handleTimeChange}
@@ -346,7 +346,7 @@ class DateDetail extends React.Component {
             </Grid>
             <Grid item xs={3} className={classes.endWrapper}>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="minute-label-placeholder">MIN</InputLabel>
+                <InputLabel htmlFor="minute-label-placeholder">分</InputLabel>
                 <Select
                   value={this.state.selectedMinute}
                   onChange={this.handleTimeChange}
@@ -362,13 +362,13 @@ class DateDetail extends React.Component {
             </Grid>
             <Grid item xs={12} style={{ marginTop: 10, textAlign: "left" }}>
               <span style={{ fontSize: "15px" }}>
-                This session will end at {this.state.endHour}:
-                {this.state.selectedMinute}.
+                飲み会は {this.state.endHour}:{this.state.selectedMinute}{" "}
+                までです。
               </span>
             </Grid>
             <Grid item xs={5}>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="city-label-placeholder">City</InputLabel>
+                <InputLabel htmlFor="city-label-placeholder">都市</InputLabel>
                 <Select
                   value={this.state.city}
                   onChange={this.handleInputChangeCity}
@@ -384,7 +384,9 @@ class DateDetail extends React.Component {
             </Grid>
             <Grid item xs={6} className={classes.endWrapper}>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="place-label-placeholder">Place</InputLabel>
+                <InputLabel htmlFor="place-label-placeholder">
+                  エリア
+                </InputLabel>
                 <Select
                   value={this.state.place}
                   onChange={this.handleInputChange}
@@ -412,7 +414,7 @@ class DateDetail extends React.Component {
               alt="glass"
               style={{ width: 15, paddingRight: 10 }}
             />
-            Show me the Zhabors
+            すぐ検索する！
           </NomiButton>
         </div>
       </div>

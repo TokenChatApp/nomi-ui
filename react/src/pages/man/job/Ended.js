@@ -66,17 +66,18 @@ class Ended extends React.Component {
         <DateDetail />
 
         <Typography className={classes.title} variant="h6">
-          You have finished your date
+          飲み会が終了しました！
         </Typography>
         <img className={classes.img} src={starsImg} alt="stars" />
         <Typography className={classes.description} variant="h6">
-          How is your date?
+          どうでしたか？
         </Typography>
         <MainButton
           className={classes.button}
           onClick={() => this.setState({ redirect: "/m/dates/rating" })}
+          disabled
         >
-          Rate the girls
+          女性を評定する
         </MainButton>
       </div>
     );

@@ -9,7 +9,7 @@ import MainButton from "../../components/MainButton";
 import StarRate from "@material-ui/icons/StarRate";
 import classNames from "classnames";
 import { Backend } from "../../services/Backend";
-import girlPhoto from "../../images/dummyGirl.png";
+import girlPhoto from "./woman-profile-placeholder.png";
 import SimpleSlider from "./SimpleSlider";
 
 import crownGold from "../../images/male/dashboard/crown_gold.svg";
@@ -117,14 +117,16 @@ class GirlProfile extends React.Component {
 
   handleToggle = event => {
     let { checked } = this.state;
+    var url = "/m/listings";
     if (Backend.cameFromPendingPage) {
+      url = "/m/dates/pending";
       Backend.bookings.data[Backend.selectedBooking].users[
         Backend.selectedListing
       ].isSelectedForCheckout = !checked;
     } else {
       Backend.listings[Backend.selectedListing].isSelected = !checked;
     }
-    this.setState({ checked: !checked });
+    this.setState({ checked: !checked, redirect: url });
   };
 
   render() {
@@ -159,11 +161,15 @@ class GirlProfile extends React.Component {
           )}
         </div>
         <div style={{ paddingBottom: 30 }}>
-          <img
-            style={{ width: "100%" }}
-            src={Backend.imgUrl + girl.avatar}
-            alt="girl"
-          />
+          {girl.avatar === null || !girl.avatar ? (
+            <img style={{ width: "100%" }} src={girlPhoto} alt="girl" />
+          ) : (
+            <img
+              style={{ width: "100%" }}
+              src={Backend.imgUrl + girl.avatar}
+              alt="girl"
+            />
+          )}
         </div>
         <Grid container alignItems="center" className={classes.container}>
           <Grid item xs={6} className={classes.detailContainer}>
@@ -191,7 +197,7 @@ class GirlProfile extends React.Component {
                 className={classes.button}
                 onClick={this.handleToggle}
               >
-                SELECT
+                選ぶ
               </MainButton>
             )}
           </Grid>
@@ -204,24 +210,24 @@ class GirlProfile extends React.Component {
           className={classes.container}
         >
           <Grid item xs={6} className={classes.detailContainer}>
-            <Detail title="AGE" value={girl.age} />
+            <Detail title="年齢" value={girl.age} />
           </Grid>
           <Grid item xs={3} className={classes.detailContainer}>
-            <Detail title="WEIGHT" value={girl.weight + "kg"} />
+            <Detail title="体重" value={girl.weight + "kg"} />
           </Grid>
           <Grid item xs={3} className={classes.detailContainer}>
-            <Detail title="HEIGHT" value={girl.height + "cm"} />
+            <Detail title="身長" value={girl.height + "cm"} />
           </Grid>
           <Grid item xs={6} className={classes.detailContainer}>
-            <Detail title="NATIONALITY" value={girl.nationality} />
+            <Detail title="国籍" value={girl.nationality} />
           </Grid>
           <Grid item xs={6} className={classes.detailContainer}>
-            <Detail title="SPOKEN LANGUAGES" value={girl.language} />
+            <Detail title="言語" value={girl.language} />
           </Grid>
           <Grid item xs={6} className={classes.detailContainer}>
             <Detail
-              title="RATE"
-              value={"¥" + girl.rate_per_session.toLocaleString() + "/session"}
+              title="レート"
+              value={"¥" + girl.rate_per_session.toLocaleString()}
             />
           </Grid>
         </Grid>

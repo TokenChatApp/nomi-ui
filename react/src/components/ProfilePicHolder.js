@@ -57,9 +57,9 @@ class ProfilePicHolder extends React.Component {
         <div className={classes.container} onClick={this.props.onClick}>
           <AddIcon className={classes.plus} />
           <p className={classes.description}>
-            Add your
+            プロフィール写真
             <br />
-            profile picture
+            をアップする
           </p>
         </div>
       );

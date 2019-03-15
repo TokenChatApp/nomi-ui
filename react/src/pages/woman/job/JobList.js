@@ -9,39 +9,52 @@ import { womanColor } from "../../../Constants";
 
 const statusList = [
   {
-    status: "ongoing",
+    labelJap: "進行中",
+    label: "ON GOING",
     color: "#7ae43a",
     redirect: "/m/dates/ongoing"
   },
   {
-    status: "expired",
+    labelJap: "期限切れ",
+    label: "EXPIRED",
     color: "#c3c3c3",
     redirect: "/m/dates/expired"
   },
   {
-    status: "accepted",
+    labelJap: "ペンディング",
+    label: "PENDING",
     color: "#ffc800",
-    redirect: "/m/dates/accepted"
+    redirect: "/m/dates/pending"
   },
   {
-    status: "confirmed",
+    labelJap: "確認済み",
+    label: "CONFIRMED",
     color: "#04dec2",
     redirect: "/m/dates/confirmed"
   },
   {
-    status: "cancelled",
-    color: "#c3c3c3",
-    redirect: "/m/dates/expired"
-  },
-  {
-    status: "rejected",
-    color: "#c3c3c3",
-    redirect: "/m/dates/expired"
-  },
-  {
-    status: "completed",
+    labelJap: "終了",
+    label: "ENDED",
     color: "#e66060",
-    redirect: "/m/dates/confirmed"
+    redirect: "/m/dates/ended"
+  },
+  {
+    labelJap: "受け取った",
+    label: "ACCEPTED",
+    color: "#e66060",
+    redirect: "/m/dates/ended"
+  },
+  {
+    labelJap: "拒否",
+    label: "REJECTED",
+    color: "#e66060",
+    redirect: "/m/dates/ended"
+  },
+  {
+    labelJap: "キャンセル",
+    label: "CANCELLED",
+    color: "#e66060",
+    redirect: "/m/dates/ended"
   }
 ];
 
@@ -107,6 +120,7 @@ class JobList extends React.Component {
 
   componentDidMount() {
     let { jobStatus } = this.props;
+    console.log(jobStatus);
     let stateIndex = statusList.map(e => e.label).indexOf(jobStatus);
     this.setState({ stateIndex });
   }
@@ -151,9 +165,9 @@ class JobList extends React.Component {
             <h6 className={classes.des}>
               <span
                 className={classes.label}
-                style={{ backgroundColor: backgroundColor }}
+                style={{ backgroundColor: jobStatus.color }}
               >
-                {status}
+                {jobStatus.labelJap}
               </span>
             </h6>
           </Grid>

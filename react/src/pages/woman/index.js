@@ -210,14 +210,14 @@ const ManList = withStyles(styles)(props => {
           className={classes.acceptButton}
           onClick={() => props.handleAccept(props.request_id)}
         >
-          Accept
+          受け取る
         </NomiButton>
         <NomiButton
           className={classes.rejectButton}
           onClick={() => props.handleReject(props.request_id)}
           isGray="true"
         >
-          Reject
+          否定する
         </NomiButton>
       </Grid>
     </Grid>
@@ -338,7 +338,7 @@ class WomanLanding extends React.Component {
     const { classes } = this.props;
     const { redirect } = this.state;
 
-    let welcomeString = `Hello, ${Backend.user.display_name}`;
+    let welcomeString = `${Backend.user.display_name}, こんにちは`;
 
     var counter = 0;
     for (var booking of Backend.bookings.data) {
@@ -360,7 +360,7 @@ class WomanLanding extends React.Component {
           <Grid container alignItems="center">
             <Grid item xs={6} className={classes.infoWrapper}>
               <Typography className={classes.earning} variant="h6">
-                Total Earnings:
+                集めたポイント:
               </Typography>
               <Typography className={classes} variant="h6">
                 ¥0
@@ -376,7 +376,7 @@ class WomanLanding extends React.Component {
                 ) : (
                   <div />
                 )}
-                My Jobs
+                マイジョブ
               </NomiButton>
             </Grid>
             <Grid
@@ -388,17 +388,17 @@ class WomanLanding extends React.Component {
             >
               <Grid item xs={12}>
                 <Typography className={classes.label} variant="h6">
-                  MY LEVEL
+                  マイランク
                 </Typography>
               </Grid>
               {this.renderCrown()}
               <Grid item xs={8}>
                 <span className={classes.pinkLabel}>
-                  Level {Backend.user.rate_level}
+                  レベル {Backend.user.rate_level}
                 </span>
               </Grid>
               <Typography className={classes.description} variant="h6">
-                ¥{Backend.user.rate_per_session.toLocaleString()} / session
+                レート： ¥{Backend.user.rate_per_session.toLocaleString()}
               </Typography>
             </Grid>
             <Grid item xs={6} className={classes.infoWrapper}>
@@ -406,11 +406,11 @@ class WomanLanding extends React.Component {
                 <Grid item xs={12}>
                   <FormControl className={classes.formControl} disabled>
                     <InputLabel shrink className={classes.inputLabel}>
-                      MY STATUS
+                      状態
                     </InputLabel>
                     <Select native label="age" className={classes.select}>
-                      <option value={0}>Available</option>
-                      <option value={1}>Not-Available</option>
+                      <option value={0}>オンライン</option> // Available
+                      <option value={1}>オフライン</option> // Offline
                     </Select>
                   </FormControl>
                 </Grid>

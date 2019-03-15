@@ -37,7 +37,7 @@ const styles = theme => ({
   },
   pendingText: {
     color: manColor[0],
-    fontSize: 22,
+    fontSize: 18,
     width: "100%",
     margin: 15
   },
@@ -111,16 +111,17 @@ class Pending extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="Manage Date" gender="M" />
+        <Navbar title="女性を確認するページ" gender="M" />
         <div className={classes.navWrapper}>
           <NavLink to="/m/dates" className={classes.navText}>
-            {"< Back"}
+            {"< 戻る"}
           </NavLink>
         </div>
         <Grid container className={classes.container}>
           <Typography variant="h4" className={classes.pendingText}>
-            {acceptedGirls.length} girls have accepted your request! Select the
-            girl you like and checkout.
+            {acceptedGirls.length} 人があなたのリクエストに返事した！
+            <br />
+            好きな女の子を選んでください。
           </Typography>
           {acceptedGirls.map(e => (
             <Grid item xs={6}>
@@ -139,12 +140,12 @@ class Pending extends React.Component {
               gender="M"
               onClick={() => this.setState({ redirect: "/m/payment" })}
             >
-              Checkout
+              支払いページまで
             </NomiButton>
 
             {pendingGirls.length > 0 ? (
               <Typography variant="h4" className={classes.pendingText}>
-                {pendingGirls.length} girls who are still pending:
+                {pendingGirls.length} 人がまだ返事していないません:
               </Typography>
             ) : (
               <div />
@@ -156,13 +157,15 @@ class Pending extends React.Component {
                   {...e}
                   handleToggleCrown={this.handleToggleCrown}
                   username={e.username}
+                  cameFromPendingPage
+                  disabled
                 />
               </Grid>
             ))}
-
+            <br />
             <h5>
               <NavLink className={classes.nav} to="/m/dates">
-                x Cancel date
+                x キャンセル
               </NavLink>
             </h5>
           </Grid>

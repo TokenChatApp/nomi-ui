@@ -12,7 +12,7 @@ import Grid from "@material-ui/core/Grid";
 import NomiButton from "../../components/NomiButton";
 import GenderSwitch from "../../components/GenderSwitch";
 import girlImg from "../../images/girl.jpg";
-import manImg from "../../images/man.png";
+import manImg from "../../images/new-guy.jpeg";
 import { manColor } from "../../Constants";
 
 const styles = theme => ({
@@ -143,7 +143,7 @@ class Login extends React.Component {
             <Grid container className={classes.form} alignContent="center">
               <Grid item xs={12}>
                 <TextField
-                  label="username"
+                  label="ユーザー名"
                   className={classes.textField}
                   fullWidth
                   margin="normal"
@@ -164,7 +164,7 @@ class Login extends React.Component {
               </Grid>
               <Grid item xs={12}>
                 <TextField
-                  label="password"
+                  label="パスワード"
                   type="password"
                   className={classes.textField}
                   fullWidth
@@ -188,11 +188,13 @@ class Login extends React.Component {
           </Grid>
           {errorMessage}
           <Grid item xs={6}>
-            <Typography className={classes.label}>Forget Password</Typography>
+            <Typography className={classes.label}>
+              パスワードレセット
+            </Typography>
           </Grid>
           <Grid item xs={6} className={classes.alignRight}>
             <NomiButton className={classes.button} gender="M" type="submit">
-              GO
+              ログイン
             </NomiButton>
           </Grid>
         </Grid>
@@ -225,7 +227,7 @@ class Login extends React.Component {
               color="inherit"
               noWrap
             >
-              NOMI
+              TIPS
             </Typography>
           </Grid>
         </Grid>

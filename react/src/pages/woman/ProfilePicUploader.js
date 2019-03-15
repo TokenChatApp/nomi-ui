@@ -147,12 +147,12 @@ class ProfilePicUploader extends React.Component {
       >
         {this.state.redirect && <Redirect to={this.state.redirect} />}
         <div className={classes.fixedNav}>
-          <Navbar title="SIGN UP" isLoggedIn="false" />
+          <Navbar title="サインアップ" isLoggedIn="false" />
           <MainButton
             className={classes.button}
             onClick={() => this.setState({ redirect: redirectString })}
           >
-            Back
+            戻る
           </MainButton>
         </div>
         <br />
@@ -164,7 +164,7 @@ class ProfilePicUploader extends React.Component {
             alt="capture"
             onClick={() => this.setState({ isUploadingImage: true })}
           />
-          <h6 style={textStyle}>Capture a photo</h6>
+          <h6 style={textStyle}>写真を撮る</h6>
         </div>
         <Divider />
         <div>
@@ -175,7 +175,7 @@ class ProfilePicUploader extends React.Component {
             onClick={this.handleUploadClicked}
           />
           {this.renderImageUploader()}
-          <h6 style={textStyle}>Choose file to upload</h6>
+          <h6 style={textStyle}>写真をアップする</h6>
           <br />
           <img
             alt=""

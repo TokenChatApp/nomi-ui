@@ -83,7 +83,8 @@ const styles = theme => ({
     paddingLeft: 10,
     textAlign: "left",
     margin: 0,
-    fontWeight: 300
+    marginTop: 2,
+    fontSize: 12
   },
   avatar: {
     width: 40,
@@ -94,7 +95,8 @@ const styles = theme => ({
     minHeight: 90
   },
   head: {
-    paddingBottom: 10
+    paddingBottom: 10,
+    fontSize: 12
   },
   name: {
     paddingLeft: 10,
@@ -161,9 +163,9 @@ const PaymentList = withStyles(styles)(props => {
       </Grid>
       <Grid item xs={6}>
         <h6 className={classes.name}>{display_name}</h6>
-        <h6 className={classes.description}>{age} years old</h6>
+        <h6 className={classes.description}>{age} 歳</h6>
         <h6 className={classes.description}>
-          Rate :{rate_per_session.toLocaleString()}/session
+          レート：¥{rate_per_session.toLocaleString()}
         </h6>
       </Grid>
       <Grid item xs={3}>
@@ -236,15 +238,15 @@ class Payment extends React.Component {
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="Summary" gender="M" />
+        <Navbar title="予約概要" gender="M" />
         <div className={classes.navWrapper}>
           <NavLink to="/m/dates/pending" className={classes.navText}>
-            {"< Back"}
+            {"< 戻る"}
           </NavLink>
         </div>
         <Grid container className={classes.container}>
           <Grid item xs={12} className={classes.detailTitle}>
-            Review your booking
+            飲み会の詳細を確かめてください。
           </Grid>
           <Grid item xs={12} className={classes.alignLeft}>
             {dateFormat(booking.request_date, "dd mmm yyyy")}
@@ -261,7 +263,7 @@ class Payment extends React.Component {
           <Grid item xs={8} />
           <Grid item xs={3} className={classes.head}>
             {" "}
-            Price{" (¥)"}
+            レート（日本円)
           </Grid>
           <Grid item xs={1} />
           {booking.users.map(e => (
@@ -270,7 +272,7 @@ class Payment extends React.Component {
             </Grid>
           ))}
           <Grid className={classes.total} item xs={12}>
-            Total :{" ¥"}
+            合計：{" ¥"}
             {grandTotal.toLocaleString()}
           </Grid>
         </Grid>
@@ -278,19 +280,24 @@ class Payment extends React.Component {
         <Grid container alignItems="center" className={classes.container}>
           <Grid item xs={12}>
             <StripeCheckout
-              email={""}
-              name="Nomi Booking" // the pop-in header title
-              description="Pay to secure your date!" // the pop-in header subtitle
+              email={Backend.user.email}
+              name="TIPS支払いページ" // the pop-in header title
+              description="クレジットカードで支払い" // the pop-in header subtitle
               ComponentClass="div"
-              panelLabel="Booking Cost:" // prepended to the amount in the bottom pay button
+              panelLabel="合計：" // prepended to the amount in the bottom pay button
               amount={grandTotal} // cents
               currency={"JPY"}
               stripeKey="pk_test_CdF5wQIrKPDYGUBKmq9BBRHQ"
-              locale="en"
+              locale="ja"
               token={token => this.onToken(token)} // submit callback
               reconfigureOnUpdate={false}
             >
-              <button className="btn btn-primary">Book Now</button>
+              <NomiButton
+                className={classNames(classes.button, classes.mAuto)}
+                gender="M"
+              >
+                支払いページまで
+              </NomiButton>
             </StripeCheckout>
           </Grid>
         </Grid>
