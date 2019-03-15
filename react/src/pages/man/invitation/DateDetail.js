@@ -215,7 +215,7 @@ class DateDetail extends React.Component {
       if (city.city_name === value) {
         let response = ServerRequest.getPlaces(city.city_id);
         response.then(r => {
-          this.setState({ places: r });
+          this.setState({ selectedCityId: city.city_id, places: r });
         });
         break;
       }
@@ -227,18 +227,21 @@ class DateDetail extends React.Component {
       selectedDate,
       selectedHour,
       selectedMinute,
+      selectedCityId,
       selectedPlaceId
     } = this.state;
 
     var finalDate = selectedDate;
     finalDate.setHours(selectedHour);
     finalDate.setMinutes(selectedMinute);
-    let dict = { place_id: selectedPlaceId, request_date: finalDate };
-    console.log(dict);
+    let dict = {
+      city_id: selectedCityId,
+      place_id: selectedPlaceId,
+      request_date: finalDate
+    };
     let response = ServerRequest.getListing(dict);
     response.then(r => {
       Backend.listings = r;
-      console.log(Backend.listings);
       Backend.selectedCity = this.state.city;
       Backend.selectedPlace = this.state.place;
       Backend.selectedPlaceId = selectedPlaceId;
