@@ -236,15 +236,6 @@ class Signup extends React.Component {
       if (r.status) {
         ServerRequest.getOwnProfile().then(sub_r => {
           Backend.setProfile(sub_r);
-          ServerRequest.getOwnAvatar().then(res => {
-            Backend.avatar = res;
-            this.setState({
-              redirect:
-                sub_r.gender === "M"
-                  ? "/m/signup/complete"
-                  : "/w/signup/complete"
-            });
-          });
         });
       }
     });

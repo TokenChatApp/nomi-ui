@@ -57,21 +57,6 @@ const ServerRequest = {
       }
     );
   },
-  getOwnAvatar: function() {
-    return instance
-      .get(Backend.apiUrl + "profile/show_avatar", {
-        responseType: "arraybuffer"
-      })
-      .then(
-        res => {
-          Backend.avatar = new Buffer(res.data, "binary").toString("base64");
-          return res.data;
-        },
-        res => {
-          return res.response;
-        }
-      );
-  },
   getAvatar: function(value) {
     return axios
       .post(Backend.apiUrl + "profile/fetch_avatar", qs.stringify(value))

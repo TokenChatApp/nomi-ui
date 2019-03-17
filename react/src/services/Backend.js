@@ -18,7 +18,6 @@ export const Backend = {
   selectedDate: Date(),
   firstTimeLoginUsername: "",
   firstTimeLoginPassword: "",
-  avatar: null,
   listings: [],
   bookings: [],
   bootstrap: async function() {
@@ -30,10 +29,8 @@ export const Backend = {
       let profile = ServerRequest.getOwnProfile().then(res => {
         this.setProfile(res);
       });
-      let avatar = ServerRequest.getOwnAvatar();
       let bookings = ServerRequest.getOwnBookings();
       await profile;
-      await avatar;
       await bookings;
     }
     return token;

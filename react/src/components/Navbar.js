@@ -292,7 +292,7 @@ class Navbar extends React.Component {
 
   renderLoggedInButtons() {
     const { classes, isLoggedIn } = this.props;
-    let imgSrc = `data:image/jpeg;base64,${Backend.avatar}`;
+
     if (isLoggedIn === "false") {
       return;
     }
@@ -310,16 +310,23 @@ class Navbar extends React.Component {
 
   renderAvatar() {
     const { classes } = this.props;
-    if (Backend.avatar !== null && Backend.avatar !== "") {
-      let imgSrc = `data:image/jpeg;base64,${Backend.avatar}`;
+    if (
+      !Backend.user.avatar ||
+      Backend.user.avatar === null ||
+      Backend.user.avatar === ""
+    ) {
       return (
-        <Avatar alt="man or girl" src={imgSrc} className={classes.avatar} />
+        <Avatar
+          alt="man or girl"
+          src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+          className={classes.avatar}
+        />
       );
     } else {
       return (
         <Avatar
           alt="man or girl"
-          src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
+          src={Backend.imgUrl + Backend.user.avatar}
           className={classes.avatar}
         />
       );
