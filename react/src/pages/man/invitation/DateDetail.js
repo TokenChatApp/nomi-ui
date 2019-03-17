@@ -231,6 +231,15 @@ class DateDetail extends React.Component {
       selectedPlaceId
     } = this.state;
 
+    if (
+      this.state.city === null ||
+      this.state.city === "" ||
+      this.state.place === null ||
+      this.state.place === ""
+    ) {
+      return;
+    }
+
     var finalDate = selectedDate;
     finalDate.setHours(selectedHour);
     finalDate.setMinutes(selectedMinute);

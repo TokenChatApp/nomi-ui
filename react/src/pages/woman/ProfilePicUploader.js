@@ -7,8 +7,9 @@ import captureSrc from "../../images/camera.png";
 import chooseSrc from "../../images/upload.png";
 import { womanColor, manColor } from "../../Constants";
 import MainButton from "../../components/MainButton";
-import ImageUploader from "react-images-upload";
 import { Backend } from "../../services/Backend";
+import Camera, { FACING_MODES } from "react-html5-camera-photo";
+import "react-html5-camera-photo/build/css/index.css";
 
 const styles = theme => ({
   rootMan: {
@@ -86,12 +87,22 @@ const textStyle = {
 class ProfilePicUploader extends React.Component {
   state = {
     redirect: null,
-    isUploadingImage: false
+    cameraIsOn: false
   };
 
   constructor(props) {
     super(props);
     this.handleUploadClicked = this.handleUploadClicked.bind(this);
+  }
+
+  onTakePhoto(dataUri) {
+    Backend.user.profileImage = dataUri;
+
+    var redirectString = "/w/signup";
+    if (this.props.gender === "M") {
+      redirectString = "/m/signup";
+    }
+    this.setState({ redirect: redirectString });
   }
 
   onDrop(picture) {
@@ -115,23 +126,13 @@ class ProfilePicUploader extends React.Component {
       Backend.user.profileImageFile = event.target.files[0];
     }
     Backend.user.profileImage = this.state.image;
-  };
 
-  renderImageUploader() {
-    if (this.state.isUploadingImage) {
-      return (
-        <ImageUploader
-          withIcon={true}
-          buttonText="Choose images"
-          onChange={this.onDrop}
-          imgExtension={[".jpg", ".gif", ".png", ".gif"]}
-          maxFileSize={5242880}
-        />
-      );
-    } else {
-      return;
+    var redirectString = "/w/signup";
+    if (this.props.gender === "M") {
+      redirectString = "/m/signup";
     }
-  }
+    this.setState({ redirect: redirectString });
+  };
 
   render() {
     const { classes } = this.props;
@@ -158,13 +159,26 @@ class ProfilePicUploader extends React.Component {
         <br />
         <br />
         <div>
-          <img
-            style={imgStyle}
-            src={captureSrc}
-            alt="capture"
-            onClick={() => this.setState({ isUploadingImage: true })}
-          />
-          <h6 style={textStyle}>写真を撮る</h6>
+          {this.state.cameraIsOn ? (
+            <Camera
+              style={{ width: 200 }}
+              onTakePhoto={dataUri => {
+                this.onTakePhoto(dataUri);
+              }}
+              idealFacingMode={FACING_MODES.USER}
+              isFullScreen={true}
+            />
+          ) : (
+            <div>
+              <img
+                style={imgStyle}
+                src={captureSrc}
+                alt="capture"
+                onClick={() => this.setState({ cameraIsOn: true })}
+              />
+              <h6 style={textStyle}>写真を撮る</h6>
+            </div>
+          )}
         </div>
         <Divider />
         <div>
@@ -174,7 +188,6 @@ class ProfilePicUploader extends React.Component {
             alt="choose"
             onClick={this.handleUploadClicked}
           />
-          {this.renderImageUploader()}
           <h6 style={textStyle}>写真をアップする</h6>
           <br />
           <img
