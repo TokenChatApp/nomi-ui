@@ -161,7 +161,7 @@ const PaymentList = withStyles(styles)(props => {
           className={classes.avatar}
         />
       </Grid>
-      <Grid item xs={6}>
+      <Grid item xs={7}>
         <h6 className={classes.name}>{display_name}</h6>
         <h6 className={classes.description}>{age} 歳</h6>
         <h6 className={classes.description}>
@@ -170,9 +170,6 @@ const PaymentList = withStyles(styles)(props => {
       </Grid>
       <Grid item xs={3}>
         {rate_per_session.toLocaleString()}
-      </Grid>
-      <Grid item xs={1}>
-        <Clear onClick={handleDelete(display_name)} />
       </Grid>
     </Grid>
   );
@@ -233,7 +230,12 @@ class Payment extends React.Component {
 
     let timeString = `${booking.request_start_time.substring(0, 5)}
       – ${booking.request_end_time.substring(0, 5)}`;
-    let grandTotal = booking.users.reduce((a, v) => a + v.rate_per_session, 0);
+    var grandTotal = 0;
+    for (var user of booking.users) {
+      if (user.isSelectedForCheckout) {
+        grandTotal += user.rate_per_session;
+      }
+    }
 
     return (
       <div className={classes.root}>
@@ -260,17 +262,21 @@ class Payment extends React.Component {
         </Grid>
 
         <Grid container alignItems="center" className={classes.container}>
-          <Grid item xs={8} />
+          <Grid item xs={9} />
           <Grid item xs={3} className={classes.head}>
             {" "}
             レート（日本円)
           </Grid>
-          <Grid item xs={1} />
-          {booking.users.map(e => (
-            <Grid item xs={12}>
-              <PaymentList {...e} handleDelete={this.handleDelete} />
-            </Grid>
-          ))}
+          {booking.users.map(e => {
+            console.log(booking.users);
+            if (e.isSelectedForCheckout) {
+              return (
+                <Grid item xs={12}>
+                  <PaymentList {...e} handleDelete={this.handleDelete} />
+                </Grid>
+              );
+            }
+          })}
           <Grid className={classes.total} item xs={12}>
             合計：{" ¥"}
             {grandTotal.toLocaleString()}
@@ -299,6 +305,8 @@ class Payment extends React.Component {
                 支払いページまで
               </NomiButton>
             </StripeCheckout>
+            <br />
+            <br />
           </Grid>
         </Grid>
 

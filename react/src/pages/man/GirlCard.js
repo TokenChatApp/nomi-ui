@@ -120,11 +120,20 @@ class GirlCard extends React.Component {
 
   handleClick = event => {
     let isChecked = this.state.checked;
-    for (var [i, listing] of Backend.listings.entries()) {
-      if (listing.username === this.props.username) {
-        if (this.props.cameFromPendingPage) {
-          Backend.listings[i].isSelectedForCheckout = !isChecked;
-        } else {
+
+    if (this.props.cameFromPendingPage) {
+      for (var [i, user] of Backend.bookings.data[
+        Backend.selectedBooking
+      ].users.entries()) {
+        if (user.username === this.props.username) {
+          Backend.bookings.data[Backend.selectedBooking].users[
+            i
+          ].isSelectedForCheckout = !isChecked;
+        }
+      }
+    } else {
+      for (var [i, listing] of Backend.listings.entries()) {
+        if (listing.username === this.props.username) {
           Backend.listings[i].isSelected = !isChecked;
         }
       }
