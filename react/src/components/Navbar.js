@@ -296,7 +296,6 @@ class Navbar extends React.Component {
     if (isLoggedIn === "false") {
       return;
     }
-    this.setState({ switch: !this.state.switch });
     return (
       <Grid item xs={4} className={classes.alignRight}>
         <Grid container alignItems="center">
