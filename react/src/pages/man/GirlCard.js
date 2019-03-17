@@ -29,7 +29,7 @@ const styles = theme => ({
   name: {
     color: "#717171",
     fontWeight: 500,
-    fontSize: 17
+    fontSize: 15
   },
   age: {
     color: "#a9a9a9",
@@ -212,9 +212,11 @@ class GirlCard extends React.Component {
         </Grid>
         <Grid item xs={disabled ? 12 : 9} className={classes.wrapper}>
           <Typography variant="h6">
-            <span className={classes.name}>{display_name}</span>
-            {", "}
-            <span className={classes.name}>{age}歳</span>
+            <span className={classes.name}>
+              {display_name}
+              {", "}
+              {age}歳
+            </span>
             <br />
             <span className={classes.starWrapper}>
               <GenerateStars rating={rating} />

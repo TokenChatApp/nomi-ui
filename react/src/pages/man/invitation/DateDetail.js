@@ -108,8 +108,8 @@ class DateDetail extends React.Component {
     selectedHour: "18",
     endHour: "20",
     selectedMinute: "00",
-    city: "",
-    place: "",
+    place: "恵比寿",
+    city: "東京",
     redirect: null,
     cities: [],
     places: [],
@@ -152,7 +152,24 @@ class DateDetail extends React.Component {
     if (this.state.cities.length === 0) {
       let response = ServerRequest.getCities();
       response.then(r => {
-        this.setState({ cities: r });
+        for (var city of r) {
+          if (city.city_name === "東京") {
+            let response = ServerRequest.getPlaces(city.city_id);
+            response.then(res => {
+              for (var place of res) {
+                if (place.place_name === "恵比寿") {
+                  this.setState({
+                    selectedCityId: city.city_id,
+                    selectedPlaceId: place.place_id,
+                    places: res,
+                    cities: r
+                  });
+                }
+              }
+            });
+            break;
+          }
+        }
       });
     }
   }
@@ -248,6 +265,8 @@ class DateDetail extends React.Component {
       place_id: selectedPlaceId,
       request_date: finalDate
     };
+    console.log(dict);
+    console.log(this.state);
     let response = ServerRequest.getListing(dict);
     response.then(r => {
       Backend.listings = r;
@@ -337,7 +356,7 @@ class DateDetail extends React.Component {
               />
             </Grid>
 
-            <Grid item xs={3} className={classes.endWrapper}>
+            <Grid item xs={4} className={classes.endWrapper}>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="hour-label-placeholder">時</InputLabel>
                 <Select
@@ -353,7 +372,7 @@ class DateDetail extends React.Component {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={3} className={classes.endWrapper}>
+            <Grid item xs={4} className={classes.endWrapper}>
               <FormControl className={classes.formControl}>
                 <InputLabel htmlFor="minute-label-placeholder">分</InputLabel>
                 <Select
@@ -371,7 +390,7 @@ class DateDetail extends React.Component {
             </Grid>
             <Grid item xs={12} style={{ marginTop: 10, textAlign: "left" }}>
               <span style={{ fontSize: "15px" }}>
-                飲み会は {this.state.endHour}:{this.state.selectedMinute}{" "}
+                飲み会は {this.state.endHour}時{this.state.selectedMinute}分{" "}
                 までです。
               </span>
             </Grid>

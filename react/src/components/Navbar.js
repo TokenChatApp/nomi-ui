@@ -210,7 +210,8 @@ const WomanButtons = props => {
 class Navbar extends React.Component {
   state = {
     open: false,
-    redirect: null
+    redirect: null,
+    switch: false
   };
 
   handleClickOpen = () => {
@@ -323,6 +324,7 @@ class Navbar extends React.Component {
         />
       );
     }
+    this.setState({ switch: !this.state.switch });
   }
 
   render() {

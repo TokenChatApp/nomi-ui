@@ -66,7 +66,7 @@ class Job extends React.Component {
           bookingIndex={i}
           images={avatarArray}
           jobStatus={booking.status.toUpperCase()}
-          date={dateFormat(booking.request_date, "dd mmm yyyy")}
+          date={dateFormat(booking.request_date, "yyyy年mm月dd日, HH時MM分")}
           time={timeString}
           location={booking.place ? booking.place.place_name : ""}
           numberOfAccepted={numberOfAccepted}

@@ -101,8 +101,8 @@ class Signup extends React.Component {
     mobile_no: null,
     display_name: null,
     email: null,
-    place: null,
-    city: null,
+    place: "恵比寿",
+    city: "東京",
     height: null,
     weight: null,
     referral: null,
@@ -111,16 +111,50 @@ class Signup extends React.Component {
     nationality: null,
     errors: {},
     cities: [],
-    places: []
+    places: [],
+    ages: [],
+    height: [],
+    weights: []
   };
 
-  componentDidMount() {
+  componentWillMount() {
     if (this.state.cities.length === 0) {
       let response = ServerRequest.getCities();
       response.then(r => {
-        this.setState({ cities: r });
+        for (var city of r) {
+          if (city.city_name === "東京") {
+            let response = ServerRequest.getPlaces(city.city_id);
+            response.then(res => {
+              for (var place of res) {
+                if (place.place_name === "恵比寿") {
+                  this.setState({
+                    city_id: city.city_id,
+                    place_id: place.place_id,
+                    places: res,
+                    cities: r
+                  });
+                }
+              }
+            });
+            break;
+          }
+        }
       });
     }
+    var ages = [];
+    var heights = [];
+    var weights = [];
+    for (var i = 18; i < 81; i++) {
+      console.log(i);
+      ages.push(i);
+    }
+    for (i = 140; i < 201; i++) {
+      heights.push(i.toString());
+    }
+    for (i = 35; i < 81; i++) {
+      weights.push(i);
+    }
+    this.setState({ ages: ages, heights: heights, weights: weights });
   }
 
   handleInputChange = event => {
@@ -194,6 +228,7 @@ class Signup extends React.Component {
     formData.set("height", this.state.height);
     formData.set("city_id", this.state.city_id);
     formData.set("place_id", this.state.place_id);
+    formData.set("intro", this.state.intro);
     formData.append("avatar", Backend.user.profileImageFile);
     let response = AuthenticationService.signUp(formData);
     response.then(r => {
@@ -338,57 +373,65 @@ class Signup extends React.Component {
             </Grid>
           </Grid>
         </Grid>
+
         <Grid item xs={4}>
-          <TextField
-            className={classes.textField}
-            fullWidth
-            label="年齢"
-            style={{ margin: 8 }}
-            placeholder="年齢"
-            margin="normal"
-            value={this.state.age}
-            onChange={this.handleInputChange}
-            name="age"
-            InputLabelProps={{ shrink: true, className: classes.label }}
-            error={errors.hasOwnProperty("age")}
-            helperText={errors.hasOwnProperty("age") && errors["age"]}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            className={classes.textField}
-            fullWidth
-            label="身長"
-            style={{ margin: 8 }}
-            placeholder="cm"
-            margin="normal"
-            value={this.state.height}
-            onChange={this.handleInputChange}
-            name="height"
-            InputLabelProps={{ shrink: true, className: classes.label }}
-            error={errors.hasOwnProperty("height")}
-            helperText={errors.hasOwnProperty("height") && errors["height"]}
-          />
-        </Grid>
-        <Grid item xs={4}>
-          <TextField
-            className={classes.textField}
-            fullWidth
-            label="体重"
-            style={{ margin: 8 }}
-            placeholder="kg"
-            margin="normal"
-            value={this.state.weight}
-            onChange={this.handleInputChange}
-            name="weight"
-            InputLabelProps={{ shrink: true, className: classes.label }}
-            error={errors.hasOwnProperty("weight")}
-            helperText={errors.hasOwnProperty("weight") && errors["weight"]}
-          />
-        </Grid>
-        <Grid item xs={12}>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="city-label-placeholder">都市</InputLabel>
+            <InputLabel>年齢</InputLabel>
+            <Select
+              value={this.state.age}
+              onChange={this.handleInputChange}
+              inputProps={{
+                name: "age",
+                id: "age-label-placeholder"
+              }}
+              className={classes.selectEmpty}
+              error={errors.hasOwnProperty("age")}
+              helperText={errors.hasOwnProperty("age") && errors["age"]}
+            >
+              {this.renderAgeMenuItems()}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={4}>
+          <FormControl className={classes.formControl}>
+            <InputLabel>身長</InputLabel>
+            <Select
+              value={this.state.height}
+              onChange={this.handleInputChange}
+              inputProps={{
+                name: "height",
+                id: "height-label-placeholder"
+              }}
+              className={classes.selectEmpty}
+              error={errors.hasOwnProperty("height")}
+              helperText={errors.hasOwnProperty("height") && errors["height"]}
+            >
+              {this.renderHeightMenuItems()}
+            </Select>
+          </FormControl>
+        </Grid>
+        <Grid item xs={4}>
+          <FormControl className={classes.formControl}>
+            <InputLabel>体重</InputLabel>
+            <Select
+              value={this.state.weight}
+              onChange={this.handleInputChange}
+              inputProps={{
+                name: "weight",
+                id: "weight-label-placeholder"
+              }}
+              className={classes.selectEmpty}
+              error={errors.hasOwnProperty("weight")}
+              helperText={errors.hasOwnProperty("weight") && errors["weight"]}
+            >
+              {this.renderWeightMenuItems()}
+            </Select>
+          </FormControl>
+        </Grid>
+
+        <Grid item xs={6}>
+          <FormControl className={classes.formControl}>
+            <InputLabel>都市</InputLabel>
             <Select
               value={this.state.city}
               onChange={this.handleInputChangeCity}
@@ -400,16 +443,13 @@ class Signup extends React.Component {
               error={errors.hasOwnProperty("city")}
               helperText={errors.hasOwnProperty("city") && errors["city"]}
             >
-              <MenuItem disabled value="">
-                <em>None</em>
-              </MenuItem>
               {this.renderCitiesMenuItems()}
             </Select>
           </FormControl>
         </Grid>
-        <Grid item xs={12}>
+        <Grid item xs={6}>
           <FormControl className={classes.formControl}>
-            <InputLabel htmlFor="place-label-placeholder">エリア</InputLabel>
+            <InputLabel>エリア</InputLabel>
             <Select
               value={this.state.place}
               onChange={this.handleInputChange}
@@ -421,12 +461,28 @@ class Signup extends React.Component {
               error={errors.hasOwnProperty("place")}
               helperText={errors.hasOwnProperty("place") && errors["place"]}
             >
-              <MenuItem disabled value="">
-                <em>None</em>
-              </MenuItem>
               {this.renderPlacesMenuItems()}
             </Select>
           </FormControl>
+        </Grid>
+
+        <Grid item xs={12}>
+          <TextField
+            className={classes.textField}
+            fullWidth
+            multiline
+            rows={5}
+            label="自己紹介"
+            style={{ margin: 8 }}
+            placeholder="自己紹介"
+            margin="normal"
+            value={this.state.intro}
+            onChange={this.handleInputChange}
+            name="intro"
+            InputLabelProps={{ shrink: true, className: classes.label }}
+            error={errors.hasOwnProperty("intro")}
+            helperText={errors.hasOwnProperty("intro") && errors["intro"]}
+          />
         </Grid>
       </React.Fragment>
     );
@@ -452,6 +508,42 @@ class Signup extends React.Component {
       items.push(
         <MenuItem key={place_id} value={place_name}>
           {place_name}
+        </MenuItem>
+      );
+    }
+    return items;
+  }
+
+  renderAgeMenuItems() {
+    var items = [];
+    for (const age of this.state.ages) {
+      items.push(
+        <MenuItem key={age} value={age}>
+          {age}
+        </MenuItem>
+      );
+    }
+    return items;
+  }
+
+  renderHeightMenuItems() {
+    var items = [];
+    for (const height of this.state.heights) {
+      items.push(
+        <MenuItem key={height} value={height}>
+          {height}
+        </MenuItem>
+      );
+    }
+    return items;
+  }
+
+  renderWeightMenuItems() {
+    var items = [];
+    for (const weight of this.state.weights) {
+      items.push(
+        <MenuItem key={weight} value={weight}>
+          {weight}
         </MenuItem>
       );
     }

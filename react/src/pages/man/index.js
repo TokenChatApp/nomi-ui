@@ -165,7 +165,10 @@ class ManLanding extends React.Component {
 
   renderContent() {
     const { classes } = this.props;
-    let dateString = dateFormat(Backend.selectedDate, "dd mmm, HH:MM");
+    let dateString = dateFormat(
+      Backend.selectedDate,
+      "yyyy年mm月dd日, HH時MM分"
+    );
 
     if (Backend.listings.length === 0) {
       return (
@@ -190,7 +193,7 @@ class ManLanding extends React.Component {
               <div />
             )}
           </Grid>
-          <span style={{ marginTop: 15 }}>
+          <span style={{ marginTop: 15, marginBottom: 15 }}>
             空いてる女性リスト：{Backend.selectedPlace}, {Backend.selectedCity}{" "}
             at {dateString}
           </span>
@@ -223,7 +226,6 @@ class ManLanding extends React.Component {
     const { classes } = this.props;
     const { redirect } = this.state;
     let title = `${Backend.user.display_name}、こんにちは`;
-    let dateString = dateFormat(Backend.selectedDate, "dd mmm, HH:MM");
 
     return (
       <div className={classes.root}>

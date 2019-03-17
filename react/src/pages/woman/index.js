@@ -261,7 +261,7 @@ class WomanLanding extends React.Component {
     var items = [];
     for (var booking of Backend.bookings.data) {
       if (booking.status == "Pending") {
-        let dateString = dateFormat(booking.request_date, "dd mmm yyyy");
+        let dateString = dateFormat(booking.request_date, "yyyy年mm月dd日");
         let timeString =
           booking.request_start_time.substring(0, 5) +
           " – " +

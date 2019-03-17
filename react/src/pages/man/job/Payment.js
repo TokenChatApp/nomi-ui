@@ -249,7 +249,7 @@ class Payment extends React.Component {
             飲み会の詳細を確かめてください。
           </Grid>
           <Grid item xs={12} className={classes.alignLeft}>
-            {dateFormat(booking.request_date, "dd mmm yyyy")}
+            {dateFormat(booking.request_date, "yyyy年mm月dd日")}
           </Grid>
           <Grid item xs={12} className={classes.alignLeft}>
             {timeString}
