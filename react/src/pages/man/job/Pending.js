@@ -118,11 +118,16 @@ class Pending extends React.Component {
           </NavLink>
         </div>
         <Grid container className={classes.container}>
-          <Typography variant="h4" className={classes.pendingText}>
-            {acceptedGirls.length} 人があなたのリクエストに返事した！
-            <br />
-            好きな女の子を選んでください。
-          </Typography>
+          {acceptedGirls.length > 0 ? (
+            <Typography variant="h4" className={classes.pendingText}>
+              {acceptedGirls.length} 人があなたのリクエストに返事した！
+              <br />
+              好きな女の子を選んでください。
+            </Typography>
+          ) : (
+            <div />
+          )}
+
           {acceptedGirls.map(e => (
             <Grid item xs={6}>
               <GirlCard
@@ -134,41 +139,40 @@ class Pending extends React.Component {
             </Grid>
           ))}
 
-          <Grid item xs={12}>
-            <NomiButton
-              className={classes.button}
-              gender="M"
-              onClick={() => this.setState({ redirect: "/m/payment" })}
-            >
-              支払いページまで
-            </NomiButton>
+          {acceptedGirls.length > 0 ? (
+            <Grid item xs={12}>
+              <NomiButton
+                className={classes.button}
+                gender="M"
+                onClick={() => this.setState({ redirect: "/m/payment" })}
+              >
+                支払いページまで
+              </NomiButton>
+            </Grid>
+          ) : (
+            <div />
+          )}
 
-            {pendingGirls.length > 0 ? (
-              <Typography variant="h4" className={classes.pendingText}>
-                {pendingGirls.length} 人がまだ返事していないません:
-              </Typography>
-            ) : (
-              <div />
-            )}
+          {pendingGirls.length > 0 ? (
+            <Typography variant="h4" className={classes.pendingText}>
+              {pendingGirls.length} 人がまだ返事していないません:
+            </Typography>
+          ) : (
+            <div />
+          )}
 
-            {pendingGirls.map(e => (
-              <Grid item xs={6}>
-                <GirlCard
-                  {...e}
-                  handleToggleCrown={this.handleToggleCrown}
-                  username={e.username}
-                  cameFromPendingPage
-                  disabled
-                />
-              </Grid>
-            ))}
-            <br />
-            <h5>
-              <NavLink className={classes.nav} to="/m/dates">
-                x キャンセル
-              </NavLink>
-            </h5>
-          </Grid>
+          {pendingGirls.map(e => (
+            <Grid item xs={6}>
+              <GirlCard
+                {...e}
+                handleToggleCrown={this.handleToggleCrown}
+                username={e.username}
+                cameFromPendingPage
+                disabled
+              />
+            </Grid>
+          ))}
+          <br />
         </Grid>
 
         <Dialog onClose={this.handleToggleCrown} open={this.state.crown}>

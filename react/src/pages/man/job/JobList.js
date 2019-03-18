@@ -153,7 +153,7 @@ class JobList extends React.Component {
     if (
       jobStatus.label === "PENDING" ||
       jobStatus.label === "CONFIRMED" ||
-      jobStatus.label === "ENDED"
+      jobStatus.label === "COMPLETED"
     ) {
       Backend.selectedBooking = this.props.bookingIndex;
       return (
