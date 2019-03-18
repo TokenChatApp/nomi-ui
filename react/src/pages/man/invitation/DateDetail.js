@@ -31,7 +31,7 @@ const styles = theme => ({
   title: {
     marginTop: 20,
     marginBottom: 10,
-    fontSize: "1.2rem",
+    fontSize: 16,
     color: "#888"
   },
   img: {
@@ -394,7 +394,7 @@ class DateDetail extends React.Component {
                 </Select>
               </FormControl>
             </Grid>
-            <Grid item xs={12} style={{ marginTop: 10, textAlign: "left" }}>
+            <Grid item xs={12} style={{ marginBottom: 10, textAlign: "left" }}>
               <span style={{ fontSize: "15px" }}>
                 飲み会は {this.state.endHour}時{this.state.selectedMinute}分{" "}
                 までです。
