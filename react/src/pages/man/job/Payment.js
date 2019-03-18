@@ -88,7 +88,9 @@ const styles = theme => ({
   },
   avatar: {
     width: 40,
-    borderRadius: "50%"
+    height: 40,
+    borderRadius: "50%",
+    objectFit: "cover"
   },
   girlList: {
     border: "1px solid #e0e0e0",

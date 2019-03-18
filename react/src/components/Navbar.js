@@ -139,8 +139,8 @@ const ManButtons = props => {
         <Divider />
         <MainButton
           {...props}
-          style={{ fontSize: 15 }}
-          onClick={handleRedirect("/m")}
+          style={{ fontSize: 15, textAlign: "center", paddingTop: 9 }}
+          href="http://bit.ly/lolchat-android"
         >
           lol chatをダウンロード
         </MainButton>

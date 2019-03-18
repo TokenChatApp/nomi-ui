@@ -179,7 +179,11 @@ const ManList = withStyles(styles)(props => {
   return (
     <Grid container className={classes.manList}>
       <Grid item xs={4}>
-        <Avatar alt="M" src={dummyMan} className={classes.avatar} />
+        <Avatar
+          alt="M"
+          src={"https://react.semantic-ui.com/images/avatar/large/matthew.png"}
+          className={classes.avatar}
+        />
       </Grid>
       <Grid item xs={5}>
         <Typography className={classes.earning} variant="h6">
@@ -239,9 +243,7 @@ class WomanLanding extends React.Component {
       ServerRequest.getOwnBookings().then(r => {
         Backend.bookings = r;
         window.location.reload();
-        alert(
-          `You have accepted this job. Please wait for the guy to confirm.`
-        );
+        alert(`この飲み会を受け取った！男性の確認の待ちです。`);
       });
     });
   };
