@@ -114,7 +114,8 @@ class Signup extends React.Component {
     places: [],
     ages: [],
     height: [],
-    weights: []
+    weights: [],
+    noProfilePicError: false
   };
 
   componentWillMount() {
@@ -145,7 +146,6 @@ class Signup extends React.Component {
     var heights = [];
     var weights = [];
     for (var i = 18; i < 81; i++) {
-      console.log(i);
       ages.push(i);
     }
     for (i = 140; i < 201; i++) {
@@ -154,7 +154,13 @@ class Signup extends React.Component {
     for (i = 35; i < 81; i++) {
       weights.push(i);
     }
-    this.setState({ ages: ages, heights: heights, weights: weights });
+    this.setState({
+      ages: ages,
+      heights: heights,
+      weights: weights,
+      noProfilePicError: false,
+      nationalities: ["日本人", "シンガポール人"]
+    });
   }
 
   handleInputChange = event => {
@@ -212,6 +218,11 @@ class Signup extends React.Component {
   };
 
   handleFormSubmit = event => {
+    if (!Backend.user.profileImage || Backend.user.profileImage === null) {
+      this.setState({ noProfilePicError: true });
+      event.preventDefault();
+      return;
+    }
     var formData = new FormData();
     let string = this.state.spokenLanguageArray.toString();
     formData.set("gender", this.state.gender);
@@ -232,7 +243,7 @@ class Signup extends React.Component {
     formData.append("avatar", Backend.user.profileImageFile);
     let response = AuthenticationService.signUp(formData);
     response.then(r => {
-      this.setState({ errors: r.errors });
+      this.setState({ errors: r.errors, noProfilePicError: false });
       if (r.status) {
         ServerRequest.getOwnProfile().then(sub_r => {
           Backend.setProfile(sub_r);
@@ -316,25 +327,28 @@ class Signup extends React.Component {
             helperText={errors.hasOwnProperty("referral") && errors["referral"]}
           />
         </Grid>
+
         <Grid item xs={12}>
-          <TextField
-            className={classes.textField}
-            fullWidth
-            label="国籍"
-            style={{ margin: 8 }}
-            placeholder="国籍"
-            type="text"
-            margin="normal"
-            value={this.state.nationality}
-            onChange={this.handleInputChange}
-            name="nationality"
-            error={errors.hasOwnProperty("nationality")}
-            helperText={
-              errors.hasOwnProperty("nationality") && errors["nationality"]
-            }
-            InputLabelProps={{ shrink: true, className: classes.label }}
-          />
+          <FormControl className={classes.formControl}>
+            <InputLabel>国籍</InputLabel>
+            <Select
+              value={this.state.nationality}
+              onChange={this.handleInputChange}
+              inputProps={{
+                name: "nationality",
+                id: "nationality-label-placeholder"
+              }}
+              className={classes.selectEmpty}
+              error={errors.hasOwnProperty("nationality")}
+              helperText={
+                errors.hasOwnProperty("nationality") && errors["nationality"]
+              }
+            >
+              {this.renderNationalityMenuItems()}
+            </Select>
+          </FormControl>
         </Grid>
+
         <Grid item xs={12} className={classes.alignLeft}>
           <h6 className={classes.label} style={{ margin: 8 }}>
             言語
@@ -505,6 +519,18 @@ class Signup extends React.Component {
     return items;
   }
 
+  renderNationalityMenuItems() {
+    var items = [];
+    for (const nationality of this.state.nationalities) {
+      items.push(
+        <MenuItem key={nationality} value={nationality}>
+          {nationality}
+        </MenuItem>
+      );
+    }
+    return items;
+  }
+
   renderAgeMenuItems() {
     var items = [];
     for (const age of this.state.ages) {
@@ -566,6 +592,16 @@ class Signup extends React.Component {
 
           <Grid container className={classes.container} spacing={8}>
             {this.renderFields()}
+            {this.state.noProfilePicError ? (
+              <span style={{ color: "red" }}>
+                <br />
+                Please upload a profile picture
+                <br />
+                <br />
+              </span>
+            ) : (
+              <div />
+            )}
             <Grid item xs={12}>
               <NomiButton
                 className={classes.button}
