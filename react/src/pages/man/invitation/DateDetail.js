@@ -136,12 +136,14 @@ class DateDetail extends React.Component {
     var hourString = currentHour.toString();
     if (hourString.length === 1) {
       hourString = "0" + hourString;
+    } else if (hourString === "24") {
+      hourString = "23";
     }
     var minuteString = currentMinute.toString();
     if (minuteString.length === 1) {
       minuteString = "0" + minuteString;
     }
-    var endHourString = ((Number(hourString) + 2) % 24).toString();
+    var endHourString = ((Number(hourString) + 2) % 23).toString();
     if (endHourString.length === 1) {
       endHourString = "0" + endHourString;
     }

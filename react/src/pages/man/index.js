@@ -216,6 +216,9 @@ class ManLanding extends React.Component {
               <Favorite className={classes.favIcon} />
               誘う！
             </NomiButton>
+            <br />
+            <br />
+            <br />
           </Grid>
         </Grid>
       );
