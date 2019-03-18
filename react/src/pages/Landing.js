@@ -202,14 +202,6 @@ class Landing extends React.Component {
                 ? "今日は可愛い女性と飲みませんか？"
                 : "お金持ちの紳士と飲んで稼ぎましょう!"}
             </Typography>
-            <Typography
-              className={classNames(
-                classes.userButtonLabel,
-                classes.description
-              )}
-            >
-              {man && "Browse the available ladies today!"}
-            </Typography>
           </Grid>
           <Grid item xs={12}>
             <MainButton
