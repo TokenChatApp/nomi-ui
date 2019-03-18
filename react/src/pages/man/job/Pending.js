@@ -25,7 +25,7 @@ const styles = theme => ({
     position: "relative"
   },
   container: {
-    marginTop: 30,
+    marginTop: 10,
     paddingLeft: "5%",
     paddingRight: "5%"
   },
@@ -33,13 +33,21 @@ const styles = theme => ({
     height: 56,
     borderRadius: 30,
     fontWeight: 500,
+    fontSize: 18,
     maxWidth: 250
   },
   pendingText: {
     color: manColor[0],
-    fontSize: 18,
+    fontSize: 16,
     width: "100%",
     margin: 15
+  },
+  pendingText2: {
+    color: manColor[0],
+    fontSize: 16,
+    width: "100%",
+    margin: 15,
+    marginTop: 30
   },
   dialog: {
     padding: 20,
@@ -154,7 +162,7 @@ class Pending extends React.Component {
           )}
 
           {pendingGirls.length > 0 ? (
-            <Typography variant="h4" className={classes.pendingText}>
+            <Typography variant="h4" className={classes.pendingText2}>
               {pendingGirls.length} 人がまだ返事していないません:
             </Typography>
           ) : (
@@ -172,8 +180,9 @@ class Pending extends React.Component {
               />
             </Grid>
           ))}
-          <br />
         </Grid>
+        <br />
+        <br />
 
         <Dialog onClose={this.handleToggleCrown} open={this.state.crown}>
           <DialogTitle className={classes.dialogTitle}>

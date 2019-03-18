@@ -146,6 +146,9 @@ class GirlCard extends React.Component {
   };
 
   handleRedirect = event => {
+    if (this.props.disabled) {
+      return;
+    }
     if (this.props.cameFromPendingPage) {
       for (var [i, girl] of Backend.bookings.data[
         Backend.selectedBooking
