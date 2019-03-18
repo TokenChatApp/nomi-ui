@@ -78,6 +78,9 @@ class Job extends React.Component {
         );
       }
     }
+    if (array.length === 0) {
+      return <span>No jobs available at this moment.</span>;
+    }
     return array;
   }
 

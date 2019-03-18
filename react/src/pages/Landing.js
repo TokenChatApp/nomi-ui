@@ -246,56 +246,9 @@ class Landing extends React.Component {
               <img className={classes.buttonImg} src={signup} alt="signup" />
               サインアップ
             </MainButton>
-          </Grid>
-        </Grid>
-
-        <Grid
-          container
-          className={classNames(
-            classes.contentContainer,
-            classes.questionContainer
-          )}
-        >
-          <Grid item xs={12}>
-            <Typography variant="h5" className={classes.questionTitle}>
-              Question? Let us know!
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              value={email}
-              onChange={this.handleChange("email")}
-              fullWidth
-              label="Email address"
-              margin="dense"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              value={mobile}
-              onChange={this.handleChange("mobile")}
-              fullWidth
-              label="Mobile No."
-              margin="dense"
-            />
-          </Grid>
-          <Grid item xs={12}>
-            <TextField
-              value={message}
-              classes={{ notchedOutline: classes.messageField }}
-              onChange={this.handleChange("message")}
-              fullWidth
-              label="Type your message"
-              variant="outlined"
-              multiline
-              rows={4}
-              margin="dense"
-            />
-          </Grid>
-          <Grid item xs={12} className={classes.alignRight}>
-            <NomiButton gender="M" className={classes.maxWidthButton}>
-              Send
-            </NomiButton>
+            <br />
+            <br />
+            <br />
           </Grid>
         </Grid>
       </div>

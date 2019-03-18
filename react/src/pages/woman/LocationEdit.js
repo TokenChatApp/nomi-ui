@@ -14,6 +14,7 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { womanColor } from "../../Constants";
 import NomiButton from "../../components/NomiButton";
+import { Backend } from "../../services/Backend";
 
 const styles = theme => ({
   root: {
@@ -162,11 +163,12 @@ class LocationEdit extends React.Component {
   render() {
     const { classes } = this.props;
     const { redirect, city, place } = this.state;
+    let navTitleString = `${Backend.user.display_name}、こんにちは`;
 
     return (
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
-        <Navbar title="Hello, Username" gender="F" />
+        <Navbar title={navTitleString} gender="F" />
 
         <div className={classes.wrapper}>
           <Grid container className={classes.container}>
@@ -175,13 +177,13 @@ class LocationEdit extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <Typography variant="h3" className={classes.label}>
-                Select your current location
+                場所を変更する
               </Typography>
             </Grid>
 
             <Grid item xs={12}>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="city-label-placeholder">City</InputLabel>
+                <InputLabel htmlFor="city-label-placeholder">都市</InputLabel>
                 <Select
                   value={this.state.city}
                   onChange={this.handleInputChangeCity}
@@ -200,7 +202,7 @@ class LocationEdit extends React.Component {
             </Grid>
             <Grid item xs={12}>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="place-label-placeholder">Place</InputLabel>
+                <InputLabel htmlFor="place-label-placeholder">場所</InputLabel>
                 <Select
                   value={this.state.place}
                   onChange={this.handleInputChange}
@@ -225,7 +227,7 @@ class LocationEdit extends React.Component {
                 onClick={this.handleConfirm}
               >
                 <Check className={classes.checkIcon} />
-                Confirm
+                送信
               </NomiButton>
             </Grid>
           </Grid>
