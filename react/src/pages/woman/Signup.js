@@ -247,6 +247,7 @@ class Signup extends React.Component {
       if (r.status) {
         ServerRequest.getOwnProfile().then(sub_r => {
           Backend.setProfile(sub_r);
+          this.setState({ redirect: "/w" });
         });
       }
     });
