@@ -224,7 +224,11 @@ class Navbar extends React.Component {
   };
 
   handleRedirect = url => () => {
-    this.setState({ redirect: url });
+    if (window.location.pathname === url) {
+      this.setState({ open: false });
+    } else {
+      this.setState({ redirect: url });
+    }
   };
 
   handleLogout = () => {
