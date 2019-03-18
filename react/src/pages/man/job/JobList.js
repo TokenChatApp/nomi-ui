@@ -35,7 +35,7 @@ const statusList = [
   },
   {
     labelJap: "終了",
-    label: "ENDED",
+    label: "COMPLETED",
     color: "#e66060",
     redirect: "/m/dates/ended"
   }

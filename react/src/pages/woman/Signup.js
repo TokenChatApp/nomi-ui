@@ -331,7 +331,7 @@ class Signup extends React.Component {
 
         <Grid item xs={12}>
           <FormControl className={classes.formControl}>
-            <InputLabel>国籍</InputLabel>
+            <InputLabel shrink="false">国籍</InputLabel>
             <Select
               value={this.state.nationality}
               onChange={this.handleInputChange}
@@ -382,7 +382,7 @@ class Signup extends React.Component {
 
         <Grid item xs={4}>
           <FormControl className={classes.formControl}>
-            <InputLabel>年齢</InputLabel>
+            <InputLabel shrink="false">年齢</InputLabel>
             <Select
               value={this.state.age}
               onChange={this.handleInputChange}
@@ -400,7 +400,7 @@ class Signup extends React.Component {
         </Grid>
         <Grid item xs={4}>
           <FormControl className={classes.formControl}>
-            <InputLabel>身長</InputLabel>
+            <InputLabel shrink="false">身長</InputLabel>
             <Select
               value={this.state.height}
               onChange={this.handleInputChange}
@@ -418,7 +418,7 @@ class Signup extends React.Component {
         </Grid>
         <Grid item xs={4}>
           <FormControl className={classes.formControl}>
-            <InputLabel>体重</InputLabel>
+            <InputLabel shrink="false">体重</InputLabel>
             <Select
               value={this.state.weight}
               onChange={this.handleInputChange}
@@ -437,7 +437,7 @@ class Signup extends React.Component {
 
         <Grid item xs={6}>
           <FormControl className={classes.formControl}>
-            <InputLabel>都市</InputLabel>
+            <InputLabel shrink="false">都市</InputLabel>
             <Select
               value={this.state.city}
               onChange={this.handleInputChangeCity}
@@ -455,7 +455,7 @@ class Signup extends React.Component {
         </Grid>
         <Grid item xs={6}>
           <FormControl className={classes.formControl}>
-            <InputLabel>エリア</InputLabel>
+            <InputLabel shrink="false">エリア</InputLabel>
             <Select
               value={this.state.place}
               onChange={this.handleInputChange}
