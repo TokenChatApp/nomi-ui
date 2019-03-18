@@ -70,7 +70,8 @@ const styles = theme => ({
   },
   userButton: {
     color: "#727272",
-    margin: "10px 0"
+    margin: "0",
+    fontSize: 16
   },
   maxWidthButton: {
     maxWidth: 180
@@ -80,7 +81,7 @@ const styles = theme => ({
   },
   description: {
     marginTop: 20,
-    marginBottom: 20,
+    marginBottom: 0,
     paddingLeft: 30,
     paddingRight: 30,
     color: "white"
@@ -197,7 +198,11 @@ class Landing extends React.Component {
           )}
         >
           <Grid item xs={12}>
-            <Typography className={classes.description} variant="h5">
+            <Typography
+              className={classes.description}
+              style={{ marginTop: 35, fontSize: 18, marginBottom: 0 }}
+              variant="h5"
+            >
               {man
                 ? "今日は可愛い女性と飲みませんか？"
                 : "お金持ちの紳士と飲んで稼ぎましょう!"}
@@ -224,6 +229,7 @@ class Landing extends React.Component {
                 classes.userButtonLabel,
                 classes.description
               )}
+              style={{ fontSize: 16 }}
             >
               {man
                 ? "まだ登録してない方はこちら:"
