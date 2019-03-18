@@ -15,6 +15,7 @@ import classNames from "classnames";
 import { manColor, womanColor } from "../Constants";
 import MainButton from "./MainButton";
 import { Backend } from "../services/Backend";
+import Button from "@material-ui/core/Button";
 
 function Transition(props) {
   return <Slide direction="up" {...props} />;
@@ -128,11 +129,7 @@ const ManButtons = props => {
           マイデート
         </MainButton>
         <Divider />
-        <MainButton {...props} onClick={handleRedirect("/m/locationEdit")}>
-          場所変更
-        </MainButton>
-        <Divider />
-        <MainButton {...props} onClick={handleRedirect("/m")}>
+        <MainButton {...props} onClick={handleRedirect("/m/faq")}>
           FAQ
         </MainButton>
         <Divider />
@@ -140,8 +137,12 @@ const ManButtons = props => {
           問い合わせ
         </MainButton>
         <Divider />
-        <MainButton {...props} onClick={handleRedirect("/m")}>
-          lol chatを起動する
+        <MainButton
+          {...props}
+          style={{ fontSize: 15 }}
+          onClick={handleRedirect("/m")}
+        >
+          lol chatをダウンロード
         </MainButton>
         <Divider />
       </div>
@@ -155,7 +156,9 @@ const ManButtons = props => {
           緊急連絡
         </button>
       </div>
-      <h1 style={privacyText}>プライバシーポリシー</h1>
+      <Button style={privacyText} onClick={handleRedirect("/m/privacyPolicy")}>
+        プライバシーポリシー
+      </Button>
     </React.Fragment>
   );
 };
@@ -183,10 +186,6 @@ const WomanButtons = props => {
           問い合わせ
         </MainButton>
         <Divider />
-        <MainButton {...props} onClick={handleRedirect("/w")}>
-          lol chatを起動する
-        </MainButton>
-        <Divider />
       </div>
       <Divider height={30} />
       <div style={wrapperStyle}>
@@ -202,7 +201,9 @@ const WomanButtons = props => {
           緊急連絡
         </button>
       </div>
-      <h1 style={privacyText}>プライバシーポリシー</h1>
+      <Button style={privacyText} onClick={handleRedirect("/w/privacyPolicy")}>
+        プライバシーポリシー
+      </Button>
     </React.Fragment>
   );
 };

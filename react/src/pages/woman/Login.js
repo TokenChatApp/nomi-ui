@@ -142,7 +142,9 @@ class Login extends React.Component {
           <Grid item xs={12}>
             <Grid container className={classes.form} alignContent="center">
               <br />
-              lol chatでログインする
+              <span style={{ marginTop: 30, marginBottom: 5 }}>
+                lol chatでログインする:
+              </span>
               <Grid item xs={12}>
                 <TextField
                   label="lol chatユーザー名"
@@ -189,29 +191,34 @@ class Login extends React.Component {
             </Grid>
           </Grid>
           {errorMessage}
-          <Grid item xs={6}>
-            <Typography className={classes.label}>
-              パスワードレセット
-            </Typography>
-          </Grid>
-          <Grid item xs={6} className={classes.alignRight}>
-            <NomiButton className={classes.button} gender="M" type="submit">
+          <Grid item xs={4} />
+          <Grid item xs={8} className={classes.alignRight}>
+            <NomiButton
+              className={classes.button}
+              style={{ fontSize: 16 }}
+              gender="F"
+              type="submit"
+            >
               ログイン
             </NomiButton>
           </Grid>
         </Grid>
         <br />
+        <br />
         <Grid container>
           <Grid item xs={12} className={classes.install}>
-            Not a lol chat user? <br />
-            <Button
-              style={{ marginTop: "20px" }}
+            lol chatをまだダウンロード方はこちら:
+            <NomiButton
+              className={classes.button}
+              style={{ marginTop: "15px", fontSize: 13 }}
               href="http://bit.ly/lolchat-ios"
             >
-              Install lol chat
-            </Button>
+              lol chatをダウンロードする
+            </NomiButton>
           </Grid>
         </Grid>
+        <br />
+        <br />
         <br />
         <br />
       </form>

@@ -148,7 +148,7 @@ class Signup extends React.Component {
                 fullWidth
                 label="ユーザー名"
                 style={{ margin: 8 }}
-                placeholder="username"
+                placeholder="ユーザー名"
                 margin="normal"
                 value={this.state.username}
                 name="username"

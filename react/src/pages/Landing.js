@@ -199,8 +199,8 @@ class Landing extends React.Component {
           <Grid item xs={12}>
             <Typography className={classes.description} variant="h5">
               {man
-                ? "Drink with beautiful ladies"
-                : "Make extra income by having fun with rich smart guy"}
+                ? "今日は可愛い女性と飲みませんか？"
+                : "お金持ちの紳士と飲んで稼ぎましょう!"}
             </Typography>
             <Typography
               className={classNames(
@@ -234,8 +234,8 @@ class Landing extends React.Component {
               )}
             >
               {man
-                ? "Not a member? Sign up now to see the ladies!"
-                : "Not a member? Sign up now start earning!"}
+                ? "まだ登録してない方はこちら:"
+                : "まだ登録してない方はこちら:"}
             </Typography>
           </Grid>
           <Grid item xs={12}>

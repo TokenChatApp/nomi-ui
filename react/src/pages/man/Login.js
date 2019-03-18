@@ -185,13 +185,14 @@ class Login extends React.Component {
             </Grid>
           </Grid>
           {errorMessage}
-          <Grid item xs={6}>
-            <Typography className={classes.label}>
-              パスワードレセット
-            </Typography>
-          </Grid>
-          <Grid item xs={6} className={classes.alignRight}>
-            <NomiButton className={classes.button} gender="M" type="submit">
+          <Grid item xs={4} />
+          <Grid item xs={8} className={classes.alignRight}>
+            <NomiButton
+              className={classes.button}
+              style={{ fontSize: 16 }}
+              gender="M"
+              type="submit"
+            >
               ログイン
             </NomiButton>
           </Grid>
