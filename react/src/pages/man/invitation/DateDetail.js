@@ -113,7 +113,8 @@ class DateDetail extends React.Component {
     redirect: null,
     cities: [],
     places: [],
-    selectedPlaceId: 1
+    selectedPlaceId: 1,
+    noGirlsFound: false
   };
 
   componentDidMount() {
@@ -147,7 +148,8 @@ class DateDetail extends React.Component {
     this.setState({
       selectedHour: hourString,
       selectedMinute: minuteString,
-      endHour: endHourString
+      endHour: endHourString,
+      noGirlsFound: false
     });
     if (this.state.cities.length === 0) {
       let response = ServerRequest.getCities();
@@ -265,8 +267,6 @@ class DateDetail extends React.Component {
       place_id: selectedPlaceId,
       request_date: finalDate
     };
-    console.log(dict);
-    console.log(this.state);
     let response = ServerRequest.getListing(dict);
     response.then(r => {
       Backend.listings = r;
@@ -274,7 +274,11 @@ class DateDetail extends React.Component {
       Backend.selectedPlace = this.state.place;
       Backend.selectedPlaceId = selectedPlaceId;
       Backend.selectedDate = finalDate;
-      this.setState({ redirect: "/m/listings" });
+      if (r.length === 0) {
+        this.setState({ noGirlsFound: true });
+      } else {
+        this.setState({ redirect: "/m/listings", noGirlsFound: false });
+      }
     });
   };
 
@@ -432,6 +436,15 @@ class DateDetail extends React.Component {
               </FormControl>
             </Grid>
           </Grid>
+          {this.state.noGirlsFound ? (
+            <span>
+              No girls found. Please refine your search.
+              <br />
+              <br />
+            </span>
+          ) : (
+            <div />
+          )}
           <NomiButton
             className={classes.button}
             gender="M"

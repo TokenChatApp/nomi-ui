@@ -120,11 +120,9 @@ class Login extends React.Component {
       if (r.status) {
         ServerRequest.getOwnProfile().then(sub_r => {
           Backend.setProfile(sub_r);
-          ServerRequest.getOwnAvatar().then(res => {
-            ServerRequest.getOwnBookings().then(res2 => {
-              this.setState({
-                redirect: sub_r.gender === "M" ? "/m" : "/w"
-              });
+          ServerRequest.getOwnBookings().then(res2 => {
+            this.setState({
+              redirect: sub_r.gender === "M" ? "/m" : "/w"
             });
           });
         });

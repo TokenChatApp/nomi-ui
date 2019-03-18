@@ -94,6 +94,7 @@ class Signup extends React.Component {
   };
 
   handleFormSubmit = event => {
+    // if ()
     var formData = new FormData();
     formData.set("gender", this.state.gender);
     formData.set("age", this.state.age);
@@ -277,6 +278,8 @@ class Signup extends React.Component {
               </NomiButton>
             </Grid>
           </Grid>
+          <br />
+          <br />
         </form>
       </div>
     );

@@ -73,7 +73,7 @@ const styles = theme => ({
     margin: "10px 0"
   },
   maxWidthButton: {
-    maxWidth: 150
+    maxWidth: 180
   },
   alignRight: {
     textAlign: "right"
@@ -249,109 +249,6 @@ class Landing extends React.Component {
           </Grid>
         </Grid>
 
-        <Grid
-          container
-          alignItems="center"
-          className={classes.contentContainer}
-        >
-          <Grid item xs={12}>
-            <Typography variant="h5" className={classes.text}>
-              {man
-                ? "Over 1000 model graded girls for your choice!"
-                : "Over 1000 Jobs to start right away!"}
-            </Typography>
-          </Grid>
-          <Grid item xs={4} className={classes.paddingY}>
-            <img className={classes.img} src={usersIcon} alt="800+ users" />
-          </Grid>
-          <Grid item xs={4} className={classes.paddingY}>
-            <img
-              className={classes.img}
-              src={matchesIcon}
-              alt="200+ matches "
-            />
-          </Grid>
-          <Grid item xs={4} className={classes.paddingY}>
-            <img className={classes.img} src={stepsIcon} alt="3 Steps " />
-          </Grid>
-          {man ? (
-            // Man Section
-            <React.Fragment>
-              {womanList.map(e => (
-                <Grid item xs={4}>
-                  <GirlCard
-                    {...e}
-                    disabled
-                    noPadding
-                    handleToggleCrown={this.handleToggleCrown}
-                  />
-                </Grid>
-              ))}
-              <Grid item xs={12}>
-                <NomiButton gender="M" className={classes.maxWidthButton}>
-                  Sign up now
-                </NomiButton>
-              </Grid>
-            </React.Fragment>
-          ) : (
-            // Girl Section
-            <React.Fragment>
-              <Grid item xs={12} className={classes.jobTextContainer}>
-                <Typography variant="h5" className={classes.jobText}>
-                  東京 恵比寿
-                </Typography>
-                <Typography variant="h5" className={classes.jobText}>
-                  300 jobs available now
-                </Typography>
-              </Grid>
-              <Grid item xs={12} className={classes.jobTextContainer}>
-                <Typography variant="h5" className={classes.jobText}>
-                  東京 渋谷
-                </Typography>
-                <Typography variant="h5" className={classes.jobText}>
-                  50 jobs available now
-                </Typography>
-              </Grid>
-              <Grid item xs={12} className={classes.jobTextContainer}>
-                <Typography variant="h5" className={classes.jobText}>
-                  東京 渋谷
-                </Typography>
-                <Typography variant="h5" className={classes.jobText}>
-                  50 jobs available now
-                </Typography>
-              </Grid>
-            </React.Fragment>
-          )}
-        </Grid>
-        {!man && (
-          <Grid
-            container
-            alignItems="center"
-            className={classNames(classes.heroContainer, classes.subContainer)}
-          >
-            <Grid item xs={12}>
-              <Typography
-                variant="h5"
-                className={classNames(
-                  classes.contentContainer,
-                  classes.whiteText
-                )}
-              >
-                Earn up to ¥1000 every 2 hours
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <MainButton
-                className={classNames(
-                  classes.maxWidthButton,
-                  classes.colorWomen
-                )}
-              >
-                Sign up now
-              </MainButton>
-            </Grid>
-          </Grid>
-        )}
         <Grid
           container
           className={classNames(
