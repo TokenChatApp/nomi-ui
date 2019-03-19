@@ -4,9 +4,8 @@ import AuthenticationService from "./AuthenticationService";
 import ServerRequest from "./ServerRequest";
 
 export const Backend = {
-  apiUrl: "http://nomi-backend.tokenchatserver.com:8000/api/v1/",
-  imgUrl: "http://nomi-backend.tokenchatserver.com:8000/storage/",
-  // apiUrl: "http://192.168.131.2:8000/api/v1/",
+  apiUrl: "https://api.nomitime.com/",
+  imgUrl: "https://api.nomitime.com/",
   profileUrl: "profile/info",
   user: {},
   selectedCity: "",
