@@ -4,7 +4,7 @@ import AuthenticationService from "./AuthenticationService";
 import ServerRequest from "./ServerRequest";
 
 export const Backend = {
-  apiUrl: "https://api.nomitime.com/",
+  apiUrl: "https://api.nomitime.com/v1/",
   imgUrl: "https://api.nomitime.com/",
   profileUrl: "profile/info",
   user: {},
