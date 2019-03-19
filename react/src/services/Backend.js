@@ -4,8 +4,8 @@ import AuthenticationService from "./AuthenticationService";
 import ServerRequest from "./ServerRequest";
 
 export const Backend = {
-  apiUrl: "https://api.nomitime.com/v1/",
-  imgUrl: "https://api.nomitime.com/",
+  apiUrl: "https://api.nomitime.com/api/v1/",
+  imgUrl: "https://api.nomitime.com/storage/",
   profileUrl: "profile/info",
   user: {},
   selectedCity: "",
