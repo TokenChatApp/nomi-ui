@@ -129,7 +129,7 @@ const ManButtons = props => {
           マイデート
         </MainButton>
         <Divider />
-        <MainButton {...props} onClick={handleRedirect("/m/faq")}>
+        <MainButton {...props} onClick={handleRedirect("/faq")}>
           FAQ
         </MainButton>
         <Divider />
@@ -156,7 +156,7 @@ const ManButtons = props => {
           緊急連絡
         </button>
       </div>
-      <Button style={privacyText} onClick={handleRedirect("/m/privacyPolicy")}>
+      <Button style={privacyText} onClick={handleRedirect("/privacyPolicy")}>
         プライバシーポリシー
       </Button>
     </React.Fragment>
@@ -178,7 +178,7 @@ const WomanButtons = props => {
           場所を変更
         </MainButton>
         <Divider />
-        <MainButton {...props} onClick={handleRedirect("/w/helpCenter")}>
+        <MainButton {...props} onClick={handleRedirect("/faq")}>
           FAQ
         </MainButton>
         <Divider />
@@ -201,7 +201,7 @@ const WomanButtons = props => {
           緊急連絡
         </button>
       </div>
-      <Button style={privacyText} onClick={handleRedirect("/w/privacyPolicy")}>
+      <Button style={privacyText} onClick={handleRedirect("/privacyPolicy")}>
         プライバシーポリシー
       </Button>
     </React.Fragment>

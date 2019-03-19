@@ -12,6 +12,8 @@ import Signup from "./pages/Signup";
 
 import Man from "./pages/Man";
 import Woman from "./pages/Woman";
+import Faq from "./pages/Faq";
+import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 // get pages from pages directory
 const ErrorPage = () => <div>Error 404</div>;
@@ -37,6 +39,8 @@ class App extends Component {
             <AuthRoute exact path="/signup" component={Signup} />
             <Route path="/m" component={Man} />
             <Route path="/w" component={Woman} />
+            <Route path="/faq" component={Faq} />
+            <Route path="/privacyPolicy" component={PrivacyPolicy} />
             <Route component={ErrorPage} />
           </Switch>
         </div>
