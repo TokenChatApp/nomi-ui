@@ -69,9 +69,7 @@ class Confirmed extends React.Component {
         <div className={classes.fixedNav}>
           <Navbar title="" backTo="/m/dates" />
         </div>
-
         <DateDetail />
-
         <img className={classes.img} src={clockImg} alt="clock" />
         <Typography className={classes.remaining} variant="h6">
           飲み会がスタートするまで：

@@ -5,6 +5,7 @@ import Grid from "@material-ui/core/Grid";
 import girlImg from "../../../images/dummyGirl.png";
 import classNames from "classnames";
 import { Backend } from "../../../services/Backend";
+import NomiButton from "../../../components/NomiButton";
 
 var dateFormat = require("dateformat");
 
@@ -40,6 +41,11 @@ const styles = theme => ({
   alignRight: {
     textAlign: "right",
     padding: 10
+  },
+  button: {
+    maxWidth: 260,
+    marginTop: 15,
+    fontSize: "1rem"
   }
 });
 
@@ -109,7 +115,17 @@ class DateDetail extends React.Component {
                     <br />
                     <b>{girl.display_name}</b>
                     <br />
-                    lol chat ユーザー名: {girl.username}
+
+                    <Grid item xs={12}>
+                      <NomiButton
+                        className={classes.button}
+                        gender="M"
+                        type="submit"
+                        href={"http://chat.lolchat.net/" + girl.username}
+                      >
+                        Chat with @{girl.username} on lol chat
+                      </NomiButton>
+                    </Grid>
                     <br />
                     <br />
                     <br />
