@@ -121,7 +121,7 @@ class DateDetail extends React.Component {
                         className={classes.button}
                         gender="M"
                         type="submit"
-                        href={"http://chat.lolchat.net/" + girl.username}
+                        href={"https://chat.lolchat.net/" + girl.username}
                       >
                         Chat with @{girl.username} on lol chat
                       </NomiButton>
