@@ -29,7 +29,11 @@ const styles = theme => ({
     margin: "auto",
     marginTop: 15,
     fontSize: "1rem",
-    fontWeight: 700
+    fontWeight: 700,
+    position: "fixed",
+    bottom: 14,
+    left: "10%",
+    right: "10%"
   },
   img: {
     width: 150
@@ -59,12 +63,31 @@ class SignupComplete extends React.Component {
         </div>
         <img className={classes.img} src={heartImgSrc} alt="heart" />
         <Typography className={classes.title} variant="h6">
-          Get ready for your date!
+          TIPSプラットフームの使い方：
         </Typography>
         <Typography className={classes.title}>
-          Get ready for your date! Get ready for your date! Get ready for your
-          date! Get ready for your date! Get ready for your date! Get ready for
-          your date! Get ready for your date!
+          １．ご希望の時間と場所をご指定ください
+          <br />
+          <br />
+          ２．好みの女性をご指定ください
+          <br />
+          <br />
+          ３．あなたのリクエストを受け取った女性からお返事がございましたら
+          <br />
+          <br />
+          ４．支払いページで料金精算のあと、飲み会をご確認ください
+          <br />
+          <br />
+          ５．”lol chat” から、お約束の女性と連絡を取ります
+          <br />
+          <br />
+          ６．ご予定の時間と場所で有意義な飲み会をお楽しみください
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
+          <br />
         </Typography>
         <div>
           <MainButton

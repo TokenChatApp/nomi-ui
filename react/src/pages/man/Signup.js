@@ -12,6 +12,8 @@ import AuthenticationService from "../../services/AuthenticationService";
 import ServerRequest from "../../services/ServerRequest";
 import { Backend } from "../../services/Backend";
 import { manColor } from "../../Constants";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 const grey = "#585858";
 
@@ -179,7 +181,7 @@ class Signup extends React.Component {
                 InputLabelProps={{ shrink: true, className: classes.label }}
               />
             </Grid>
-            <Grid item xs={4}>
+            <Grid item xs={3}>
               <TextField
                 className={classes.textField}
                 fullWidth
@@ -195,17 +197,14 @@ class Signup extends React.Component {
                 helperText={errors.hasOwnProperty("age") && errors["age"]}
               />
             </Grid>
+            <Grid item xs={1} />
             <Grid item xs={8}>
-              <TextField
-                className={classes.textField}
-                fullWidth
-                label="携帯番号"
-                style={{ margin: 8 }}
+              <PhoneInput
+                style={{ marginTop: 25 }}
                 placeholder="携帯番号"
-                margin="normal"
+                country="JP"
                 value={this.state.mobile_no}
-                name="mobile_no"
-                onChange={this.handleInputChange}
+                onChange={mobile_no => this.setState({ mobile_no })}
                 InputLabelProps={{ shrink: true, className: classes.label }}
                 error={errors.hasOwnProperty("mobile_no")}
                 helperText={

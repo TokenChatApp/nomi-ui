@@ -19,6 +19,8 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Backend } from "../../services/Backend";
 import { womanColor, manColor } from "../../Constants";
+import "react-phone-number-input/style.css";
+import PhoneInput from "react-phone-number-input";
 
 const grey = "#585858";
 
@@ -295,21 +297,17 @@ class Signup extends React.Component {
           />
         </Grid>
         <Grid item xs={12}>
-          <TextField
-            className={classes.textField}
-            fullWidth
-            label="携帯番号"
-            style={{ margin: 8 }}
+          <PhoneInput
+            style={{ marginTop: 10, marginBottom: 10, marginLeft: 10 }}
             placeholder="携帯番号"
-            margin="normal"
+            country="JP"
             value={this.state.mobile_no}
-            onChange={this.handleInputChange}
-            name="mobile_no"
+            onChange={mobile_no => this.setState({ mobile_no })}
+            InputLabelProps={{ shrink: true, className: classes.label }}
             error={errors.hasOwnProperty("mobile_no")}
             helperText={
               errors.hasOwnProperty("mobile_no") && errors["mobile_no"]
             }
-            InputLabelProps={{ shrink: true, className: classes.label }}
           />
         </Grid>
         <Grid item xs={12}>

@@ -451,11 +451,14 @@ class DateDetail extends React.Component {
             className={classes.button}
             gender="M"
             onClick={this.handleConfirm}
+            style={{
+              fontSize: "1rem"
+            }}
           >
             <img
               src={wineImg}
               alt="glass"
-              style={{ width: 15, paddingRight: 10 }}
+              style={{ width: 15, paddingRight: 15 }}
             />
             すぐ検索する！
           </NomiButton>
