@@ -51,14 +51,17 @@ class Confirmed extends React.Component {
     const { classes } = this.props;
     const { redirect } = this.state;
 
-    // let selectedBooking = Backend.bookings.data[Backend.selectedBooking];
-    // var date1 = new Date();
-    // var date2 = Date(
-    //   selectedBooking.request_date + "T" + selectedBooking.request_start_time
-    // );
-    // console.log(date2);
-    // var timeDiff = Math.abs(date2.getTime() - date1.getTime());
-    // var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+    let selectedBooking = Backend.bookings.data[Backend.selectedBooking];
+    var date1 = new Date();
+    var date2 = new Date(
+      selectedBooking.request_date + "T" + selectedBooking.request_start_time
+    );
+    let timeDiff = Math.abs(date2.getTime() - date1.getTime());
+    let timeDiffInMinutes = timeDiff / 60000;
+    let timeDiffInHours = timeDiffInMinutes / 60;
+    let days = Math.floor(timeDiffInHours / 24);
+    let hours = Math.floor(timeDiffInHours - days * 24);
+    let minutes = Math.floor(timeDiffInMinutes - days * 24 * 60 - hours * 60);
 
     return (
       <div className={classes.root}>
@@ -74,8 +77,13 @@ class Confirmed extends React.Component {
           飲み会がスタートするまで：
         </Typography>
         <Typography className={classes.timer} variant="h6">
-          2日、2時、1分
+          {days}日、{hours}時、{minutes}分
         </Typography>
+        <br />
+        <br />
+        <br />
+        <br />
+        <br />
       </div>
     );
   }

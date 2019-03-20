@@ -356,7 +356,9 @@ class Navbar extends React.Component {
         })`;
         break;
       default:
-        backgroundColor = "none";
+        backgroundColor = `linear-gradient(to top, ${manColor[0]} , ${
+          manColor[1]
+        })`;
     }
 
     return (

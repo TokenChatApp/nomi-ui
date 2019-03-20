@@ -38,7 +38,15 @@ class Faq extends React.Component {
   renderContent() {
     if (Backend.user.gender === "M") {
       return (
-        <div style={{ paddingLeft: 20, paddingRight: 20, fontSize: 13 }}>
+        <div
+          style={{
+            paddingLeft: 20,
+            paddingRight: 20,
+            fontSize: 13,
+            textAlign: "left"
+          }}
+        >
+          <br />
           <br />
           <b>How do I use it?</b>
           <br />

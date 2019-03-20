@@ -11,8 +11,10 @@ var dateFormat = require("dateformat");
 const styles = theme => ({
   girlImg: {
     width: 70,
+    height: 70,
     borderRadius: "50%",
-    padding: 5
+    padding: 5,
+    objectFit: "cover"
   },
   imgContainer: {
     paddingTop: 20
@@ -41,26 +43,22 @@ const styles = theme => ({
   }
 });
 
-const allGirls = [girlImg, girlImg, girlImg, girlImg, girlImg];
-
 class DateDetail extends React.Component {
   state = {
-    allGirls,
-    totalPages: parseInt(allGirls.length / 3),
+    girls: [],
     currentGirls: [],
     page: 0
   };
 
   componentDidMount() {
-    this.getCurrentGirl(0);
+    var girls = [];
+    for (var girl of Backend.bookings.data[Backend.selectedBooking].users) {
+      if (girl.is_selected) {
+        girls.push(girl);
+      }
+    }
+    this.setState({ girls });
   }
-
-  handleNext = () => {
-    let { page, totalPages } = this.state;
-    // end of pages
-    if (page === totalPages) return false;
-    this.getCurrentGirl(page + 1);
-  };
 
   handleBack = () => {
     let { page } = this.state;
@@ -68,17 +66,9 @@ class DateDetail extends React.Component {
     this.getCurrentGirl(page - 1);
   };
 
-  getCurrentGirl = page => {
-    let { allGirls } = this.state;
-    let indexes = [page * 3, page * 3 + 1, page * 3 + 2];
-    let tmp = indexes.map(e => allGirls[e]);
-    let girls = tmp.filter(e => e);
-    this.setState({ currentGirls: girls, page });
-  };
-
   render() {
     const { classes } = this.props;
-    const { currentGirls } = this.state;
+    const { girls } = this.state;
     let booking = Backend.bookings.data[Backend.selectedBooking];
     let timeString = `${booking.request_start_time.substring(0, 5)}
       – ${booking.request_end_time.substring(0, 5)}`;
@@ -107,18 +97,25 @@ class DateDetail extends React.Component {
             alignItems="center"
             justify="space-between"
           >
-            <Grid item onClick={this.handleBack}>
-              <span className={classes.arrow}>{"<"}</span>
-            </Grid>
-            <Grid item>
+            <Grid item xs={12}>
               <div>
-                {currentGirls.map(e => (
-                  <img className={classes.girlImg} src={e} alt="girl" />
+                {girls.map(girl => (
+                  <div>
+                    <img
+                      className={classes.girlImg}
+                      src={Backend.imgUrl + girl.avatar}
+                      alt="girl"
+                    />
+                    <br />
+                    <b>{girl.display_name}</b>
+                    <br />
+                    lol chat ユーザー名: {girl.username}
+                    <br />
+                    <br />
+                    <br />
+                  </div>
                 ))}
               </div>
-            </Grid>
-            <Grid item onClick={this.handleNext}>
-              <span className={classes.arrow}>{">"}</span>
             </Grid>
           </Grid>
         </Grid>
