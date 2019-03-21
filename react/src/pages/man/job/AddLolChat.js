@@ -78,12 +78,6 @@ const styles = theme => ({
   }
 });
 
-const nameList = [
-  { name: "Hanako", chatID: "123456" },
-  { name: "Hanako", chatID: "123456" },
-  { name: "Hanako", chatID: "123456" }
-];
-
 const GirlList = withStyles(styles)(props => {
   const { classes, girl } = props;
   return (
