@@ -72,6 +72,8 @@ class BookingSent extends React.Component {
           「マイデート」で飲み会のリクエスト の状態もチェックできます。
         </Typography>
         <div>
+          <br />
+
           <MainButton
             className={classes.button}
             onClick={() => this.setState({ redirect: "/m/dates" })}

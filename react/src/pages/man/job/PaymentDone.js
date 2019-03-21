@@ -85,7 +85,7 @@ class PaymentDone extends React.Component {
           </MainButton>
           <div style={{ marginTop: 30 }}>
             <NavLink to="/m" className={classes.backHome}>
-              {"< Back to home"}
+              {"< ホームページに戻る"}
             </NavLink>
           </div>
         </div>

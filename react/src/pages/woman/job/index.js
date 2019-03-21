@@ -1,16 +1,14 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import { Redirect } from "react-router-dom";
+import { NavLink, Redirect } from "react-router-dom";
 import Navbar from "../../../components/Navbar";
-
 import Tabs from "@material-ui/core/Tabs";
 import Tab from "@material-ui/core/Tab";
-
 import { womanColor } from "../../../Constants";
 import manPicPlaceholder from "./man-profile-placeholder.png";
 import { Backend } from "../../../services/Backend";
-
+import Divider from "@material-ui/core/Divider";
 import JobList from "./JobList";
 
 const styles = theme => ({
@@ -37,6 +35,17 @@ const styles = theme => ({
     marginBottom: 0,
     textAlign: "left",
     paddingLeft: 25
+  },
+  navText: {
+    color: womanColor[1],
+    textDecoration: "none"
+  },
+  navWrapper: {
+    textAlign: "left",
+    paddingTop: "15px",
+    paddingLeft: "5%",
+    paddingRight: "10%",
+    marginBottom: 5
   }
 });
 
@@ -50,7 +59,7 @@ class Job extends React.Component {
     this.setState({ tab: value });
   };
 
-  renderListing() {
+  renderListings(type) {
     var array = [];
     for (var booking of Backend.bookings.data) {
       let timeString =
@@ -64,18 +73,33 @@ class Job extends React.Component {
       }
 
       if (booking.status !== "Pending") {
-        array.push(
-          <JobList
-            image={manImg}
-            jobStatus={booking.status.toUpperCase()}
-            name={booking.requestor.display_name}
-            date={booking.request_date}
-            status={booking.status}
-            pax={2}
-            time={timeString}
-            location={booking.place ? booking.place.place_name : ""}
-          />
-        );
+        if (type === "expired" && booking.status === "Expired") {
+          array.push(
+            <JobList
+              image={manImg}
+              jobStatus={booking.status.toUpperCase()}
+              name={booking.requestor.display_name}
+              date={booking.request_date}
+              status={booking.status}
+              pax={2}
+              time={timeString}
+              location={booking.place ? booking.place.place_name : ""}
+            />
+          );
+        } else if (type !== "expired" && booking.status !== "Expired") {
+          array.push(
+            <JobList
+              image={manImg}
+              jobStatus={booking.status.toUpperCase()}
+              name={booking.requestor.display_name}
+              date={booking.request_date}
+              status={booking.status}
+              pax={2}
+              time={timeString}
+              location={booking.place ? booking.place.place_name : ""}
+            />
+          );
+        }
       }
     }
     if (array.length === 0) {
@@ -92,8 +116,18 @@ class Job extends React.Component {
       <div className={classes.root}>
         {redirect && <Redirect to={redirect} />}
         <Navbar title="マイジョブページ" gender="F" />
-        {this.renderListing()}
-        <div className={classes.tabWrapper}>{this.renderListing()}</div>
+
+        <div className={classes.navWrapper}>
+          <NavLink to="/w" className={classes.navText}>
+            {"< 戻る"}
+          </NavLink>
+        </div>
+        <div className={classes.tabWrapper}>{this.renderListings("")}</div>
+        <Divider />
+        {this.renderListings("expired")}
+        <br />
+        <br />
+        <br />
       </div>
     );
   }

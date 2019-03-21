@@ -430,9 +430,6 @@ class DateDetail extends React.Component {
                   }}
                   className={classes.selectEmpty}
                 >
-                  <MenuItem disabled value="">
-                    <em>None</em>
-                  </MenuItem>
                   {this.renderPlacesMenuItems()}
                 </Select>
               </FormControl>

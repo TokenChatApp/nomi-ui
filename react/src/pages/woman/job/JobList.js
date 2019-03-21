@@ -58,7 +58,7 @@ const statusList = [
   }
 ];
 
-const imgSize = 90;
+const imgSize = 80;
 
 const styles = theme => ({
   root: {
@@ -102,7 +102,7 @@ const styles = theme => ({
     fontWeight: 700
   },
   name: {
-    fontSize: 24,
+    fontSize: 20,
     margin: 0,
     fontWeight: 500
   },

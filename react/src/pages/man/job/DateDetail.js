@@ -43,9 +43,9 @@ const styles = theme => ({
     padding: 10
   },
   button: {
-    maxWidth: 260,
+    maxWidth: "80%",
     marginTop: 15,
-    fontSize: "1rem"
+    fontSize: "0.9rem"
   }
 });
 

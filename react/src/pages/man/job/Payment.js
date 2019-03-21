@@ -296,6 +296,7 @@ class Payment extends React.Component {
               amount={grandTotal} // cents
               currency={"JPY"}
               stripeKey="pk_live_lQoRfxV0m85nmh69Ncd4wLcu"
+              // stripeKey="pk_test_CdF5wQIrKPDYGUBKmq9BBRHQ"
               locale="ja"
               token={token => this.onToken(token)} // submit callback
               reconfigureOnUpdate={false}

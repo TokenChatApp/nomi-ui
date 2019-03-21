@@ -33,9 +33,10 @@ const styles = theme => ({
     paddingRight: "5%"
   },
   button: {
-    height: 56,
+    height: 50,
     borderRadius: 30,
-    maxWidth: 250
+    maxWidth: 210,
+    fontSize: "1.2rem"
   },
   womanImg: {
     width: "90%",
@@ -66,7 +67,7 @@ const styles = theme => ({
   },
   favIcon: {
     color: "white",
-    fontSize: 37,
+    fontSize: "1.5rem",
     marginRight: 10
   },
   disabledText: {

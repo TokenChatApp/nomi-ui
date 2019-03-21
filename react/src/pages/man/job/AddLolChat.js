@@ -119,7 +119,7 @@ class AddLolChat extends React.Component {
             lol chatをダウンロード
           </MainButton>
           <div style={{ marginTop: 30 }}>
-            <NavLink to="/m" className={classes.backHome}>
+            <NavLink to="/m/paymentDone" className={classes.backHome}>
               {"< 戻る"}
             </NavLink>
           </div>
