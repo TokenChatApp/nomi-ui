@@ -295,7 +295,7 @@ class Payment extends React.Component {
               panelLabel="合計：" // prepended to the amount in the bottom pay button
               amount={grandTotal} // cents
               currency={"JPY"}
-              stripeKey="pk_test_CdF5wQIrKPDYGUBKmq9BBRHQ"
+              stripeKey="pk_live_lQoRfxV0m85nmh69Ncd4wLcu"
               locale="ja"
               token={token => this.onToken(token)} // submit callback
               reconfigureOnUpdate={false}

@@ -63,14 +63,13 @@ class BookingSent extends React.Component {
         </div>
         <img className={classes.img} src={heartImgSrc} alt="heart" />
         <Typography className={classes.title} variant="h6">
-          Your booking has been posted!
+          今リクエストが出しました！
         </Typography>
         <Typography className={classes.title}>
-          You will be notified by SMS when the girls response to your booking.
-          Your booking will expire 15min before the starting time
+          女性の受け取りが来たら、 ショートメールにてお知らせします。
         </Typography>
         <Typography className={classes.title}>
-          You may also check the status from "my dates"
+          「マイデート」で飲み会のリクエスト の状態もチェックできます。
         </Typography>
         <div>
           <MainButton

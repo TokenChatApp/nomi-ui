@@ -195,7 +195,7 @@ const ManList = withStyles(styles)(props => {
             className={classes.bubbleLabel}
             style={{ backgroundColor: "#04dec2" }}
           >
-            {isInvited ? "Invited" : "Suggested"}
+            {isInvited ? "誘われた" : "お勧め"}
           </span>
         </h6>
 

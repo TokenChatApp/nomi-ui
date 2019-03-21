@@ -106,8 +106,7 @@ class AddLolChat extends React.Component {
           <Navbar title="" />
         </div>
         <Typography className={classes.title}>
-          Please add the girl's ID into your lol chat app after your
-          installation.
+          この方々のIDをlol chatに追加したらすぐ連絡できます。
         </Typography>
         <Grid container className={classes.wrapper}>
           {nameList.map(e => (
@@ -116,10 +115,7 @@ class AddLolChat extends React.Component {
         </Grid>
 
         <div>
-          <MainButton
-            className={classes.button}
-            href="http://bit.ly/lolchat-android"
-          >
+          <MainButton className={classes.button} href="http://lolchat.app.link">
             lol chatをダウンロード
           </MainButton>
           <div style={{ marginTop: 30 }}>

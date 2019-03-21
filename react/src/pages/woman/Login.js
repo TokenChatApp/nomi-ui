@@ -211,7 +211,7 @@ class Login extends React.Component {
             <NomiButton
               className={classes.button}
               style={{ marginTop: "15px", fontSize: 13 }}
-              href="http://bit.ly/lolchat-ios"
+              href="http://lolchat.app.link"
             >
               lol chatをダウンロードする
             </NomiButton>

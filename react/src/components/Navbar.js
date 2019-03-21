@@ -140,7 +140,7 @@ const ManButtons = props => {
         <MainButton
           {...props}
           style={{ fontSize: 15, textAlign: "center", paddingTop: 9 }}
-          href="http://bit.ly/lolchat-android"
+          href="http://lolchat.app.link"
         >
           lol chatをダウンロード
         </MainButton>
