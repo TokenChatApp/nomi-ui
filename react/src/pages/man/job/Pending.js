@@ -37,13 +37,13 @@ const styles = theme => ({
     maxWidth: 250
   },
   pendingText: {
-    color: manColor[0],
+    color: manColor[1],
     fontSize: 16,
     width: "100%",
     margin: 15
   },
   pendingText2: {
-    color: manColor[0],
+    color: manColor[1],
     fontSize: 16,
     width: "100%",
     margin: 15,

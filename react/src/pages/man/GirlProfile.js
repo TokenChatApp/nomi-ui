@@ -20,7 +20,7 @@ const styles = theme => ({
     height: "100%",
     minHeight: "calc(100vh - 100px)",
     position: "relative",
-    paddingTop: 100,
+    paddingTop: 96,
     background: `#3F9FFB`
   },
   fixedNav: {
@@ -32,11 +32,11 @@ const styles = theme => ({
   button: {
     color: manColor[1],
     width: "100%",
-    maxWidth: 200,
+    maxWidth: 150,
     display: "block",
     margin: "auto",
     marginTop: 15,
-    fontSize: "1rem",
+    fontSize: "0.9rem",
     fontWeight: 500
   },
   remove: {
@@ -160,7 +160,7 @@ class GirlProfile extends React.Component {
             <Navbar title="" backTo="/m/listings" />
           )}
         </div>
-        <div style={{ paddingBottom: 30 }}>
+        <div style={{ paddingBottom: 0 }}>
           {girl.avatar === null || !girl.avatar ? (
             <img style={{ width: "100%" }} src={girlPhoto} alt="girl" />
           ) : (
@@ -172,7 +172,7 @@ class GirlProfile extends React.Component {
           )}
         </div>
         <Grid container alignItems="center" className={classes.container}>
-          <Grid item xs={6} className={classes.detailContainer}>
+          <Grid item xs={12} className={classes.detailContainer}>
             {girl.level === 1 || !girl.level ? (
               <div />
             ) : girl.level === 2 ? (
@@ -184,16 +184,26 @@ class GirlProfile extends React.Component {
             <h2 className={classes.girlName}>{girl.display_name}</h2>
             <GenerateStars rating={3} />
           </Grid>
-          <Grid item xs={6}>
+          <Grid item xs={12}>
             {checked ? (
               <MainButton
+                style={{
+                  margin: "auto auto auto 0",
+                  marginTop: 10,
+                  marginBottom: 25
+                }}
                 className={classNames(classes.button, classes.remove)}
                 onClick={this.handleToggle}
               >
-                Remove
+                削除する
               </MainButton>
             ) : (
               <MainButton
+                style={{
+                  margin: "auto auto auto 0",
+                  marginTop: 10,
+                  marginBottom: 25
+                }}
                 className={classes.button}
                 onClick={this.handleToggle}
               >

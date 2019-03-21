@@ -193,11 +193,22 @@ class ManLanding extends React.Component {
             ) : (
               <div />
             )}
+          </Grid>{" "}
+          <Grid
+            item
+            xs={12}
+            style={{
+              marginTop: 10,
+              marginBottom: 15,
+              lineHeight: 1.6,
+              color: manColor[1],
+              fontSize: "0.9rem"
+            }}
+          >
+            空いてる女性リスト：
+            <br />
+            {Backend.selectedPlace}, {Backend.selectedCity} at {dateString}
           </Grid>
-          <span style={{ marginTop: 15, marginBottom: 15 }}>
-            空いてる女性リスト：{Backend.selectedPlace}, {Backend.selectedCity}{" "}
-            at {dateString}
-          </span>
           {Backend.listings.map(e => (
             <Grid key={e.username} item xs={6}>
               <GirlCard
