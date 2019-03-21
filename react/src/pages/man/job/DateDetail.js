@@ -123,7 +123,7 @@ class DateDetail extends React.Component {
                         type="submit"
                         href={"https://chat.lolchat.net/" + girl.username}
                       >
-                        Chat with @{girl.username} on lol chat
+                        chatで @{girl.username} に連絡する
                       </NomiButton>
                     </Grid>
                     <br />

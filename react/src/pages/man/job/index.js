@@ -58,7 +58,7 @@ class Job extends React.Component {
     this.setState({ tab: value });
   };
 
-  renderBookings() {
+  renderBookings(type) {
     var items = [];
     for (var [i, booking] of Backend.bookings.data.entries()) {
       let timeString = `${booking.request_start_time.substring(0, 5)}
@@ -72,54 +72,27 @@ class Job extends React.Component {
           numberOfAccepted++;
         }
       }
-      if (booking.status === "Expired") {
-        continue;
+      if (
+        (booking.status.toLowerCase() === "expired" && type === "expired") ||
+        (booking.status.toLowerCase() === "confirmed" &&
+          type === "confirmed") ||
+        (booking.status.toLowerCase() === "pending" && type === "pending") ||
+        (booking.status.toLowerCase() === "on going" && type === "ongoing") ||
+        (booking.status.toLowerCase() === "completed" && type === "completed")
+      ) {
+        items.push(
+          <JobList
+            key={booking.request_id}
+            bookingIndex={i}
+            images={avatarArray}
+            jobStatus={booking.status.toUpperCase()}
+            date={dateFormat(booking.request_date, "yyyy年mm月dd日")}
+            time={timeString}
+            location={booking.place ? booking.place.place_name : ""}
+            numberOfAccepted={numberOfAccepted}
+          />
+        );
       }
-      items.push(
-        <JobList
-          key={booking.request_id}
-          bookingIndex={i}
-          images={avatarArray}
-          jobStatus={booking.status.toUpperCase()}
-          date={dateFormat(booking.request_date, "yyyy年mm月dd日")}
-          time={timeString}
-          location={booking.place ? booking.place.place_name : ""}
-          numberOfAccepted={numberOfAccepted}
-        />
-      );
-    }
-    return items;
-  }
-
-  renderExpiredBookings() {
-    var items = [];
-    for (var [i, booking] of Backend.bookings.data.entries()) {
-      let timeString = `${booking.request_start_time.substring(0, 5)}
-      – ${booking.request_end_time.substring(0, 5)}`;
-
-      var avatarArray = [];
-      var numberOfAccepted = 0;
-      for (var user of booking.users) {
-        avatarArray.push(Backend.imgUrl + user.avatar);
-        if (user.is_accepted) {
-          numberOfAccepted++;
-        }
-      }
-      if (booking.status !== "Expired") {
-        continue;
-      }
-      items.push(
-        <JobList
-          key={booking.request_id}
-          bookingIndex={i}
-          images={avatarArray}
-          jobStatus={booking.status.toUpperCase()}
-          date={dateFormat(booking.request_date, "yyyy年mm月dd日")}
-          time={timeString}
-          location={booking.place ? booking.place.place_name : ""}
-          numberOfAccepted={numberOfAccepted}
-        />
-      );
     }
     return items;
   }
@@ -137,9 +110,16 @@ class Job extends React.Component {
             {"< 戻る"}
           </NavLink>
         </div>
-        <div className={classes.tabWrapper}>{this.renderBookings()}</div>
+        <div className={classes.tabWrapper}>
+          {this.renderBookings("ongoing")}
+          {this.renderBookings("pending")}
+          {this.renderBookings("confirmed")}
+        </div>
         <Divider style={{ marginTop: 10, marginBottom: 25 }} />
-        <div className={classes.tabWrapper}>{this.renderExpiredBookings()}</div>
+        <div className={classes.tabWrapper}>
+          {this.renderBookings("completed")}
+          {this.renderBookings("expired")}
+        </div>
       </div>
     );
   }

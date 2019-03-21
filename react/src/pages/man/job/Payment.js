@@ -201,7 +201,9 @@ class Payment extends React.Component {
     let booking = Backend.bookings.data[Backend.selectedBooking];
     var profileIds = [];
     for (var girl of booking.users) {
-      profileIds.push(girl.user_id);
+      if (girl.isSelectedForCheckout) {
+        profileIds.push(girl.user_id);
+      }
     }
     let dict = {
       request_id: booking.request_id,
@@ -213,13 +215,14 @@ class Payment extends React.Component {
 
     let response = ServerRequest.confirmBooking(dict);
     response.then(res => {
-      this.handlePaymentDone();
+      if (res.status) {
+        Backend.successfulBooking = res;
+        this.setState({ redirect: "/m/addLolChat" });
+      } else {
+        alert("お支払いはできませんでした。もう一度試してください。");
+      }
     });
   };
-
-  handlePaymentDone() {
-    this.setState({ redirect: "/m/paymentDone" });
-  }
 
   render() {
     const { classes } = this.props;
@@ -270,7 +273,6 @@ class Payment extends React.Component {
             レート（日本円)
           </Grid>
           {booking.users.map(e => {
-            console.log(booking.users);
             if (e.isSelectedForCheckout) {
               return (
                 <Grid item xs={12}>

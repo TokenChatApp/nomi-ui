@@ -8,6 +8,8 @@ import Navbar from "../../../components/Navbar";
 import { manColor } from "../../../Constants";
 import MainButton from "../../../components/MainButton";
 import dummyGirl from "../../../images/dummyGirl.png";
+import { Backend } from "../../../services/Backend";
+import NomiButton from "../../../components/NomiButton";
 
 const styles = theme => ({
   root: {
@@ -24,12 +26,21 @@ const styles = theme => ({
     right: 0
   },
   button: {
-    maxWidth: 200,
-    color: manColor[0],
+    maxWidth: 250,
+    color: manColor[1],
     display: "block",
     margin: "auto",
     marginTop: 10,
     fontSize: "1rem",
+    fontWeight: 500
+  },
+  buttonChat: {
+    maxWidth: 300,
+    color: manColor[1],
+    display: "block",
+    margin: "auto",
+    marginTop: 10,
+    fontSize: "0.8rem",
     fontWeight: 500
   },
   title: {
@@ -48,7 +59,8 @@ const styles = theme => ({
     padding: 20
   },
   girlImg: {
-    width: 80,
+    width: 70,
+    height: 70,
     borderRadius: "50%"
   },
   girlChatID: {
@@ -73,18 +85,31 @@ const nameList = [
 ];
 
 const GirlList = withStyles(styles)(props => {
-  const { classes, name, chatID } = props;
+  const { classes, girl } = props;
   return (
     <Grid container alignItems="center" justify="center">
       <Grid item>
-        <img src={dummyGirl} className={classes.girlImg} alt="girl" />
+        <img
+          src={Backend.imgUrl + girl.avatar}
+          className={classes.girlImg}
+          alt="girl"
+        />
       </Grid>
       <Grid item>
-        <h4 className={classes.girlName}>{name}</h4>
+        <h4 className={classes.girlName}>{girl.display_name}</h4>
         <h4 className={classes.girlChatID}>
           lol chat ID: <br />
-          {chatID}
+          {girl.username}
         </h4>
+        <br />
+        <MainButton
+          className={classes.buttonChat}
+          gender="M"
+          type="submit"
+          href={"https://chat.lolchat.net/" + girl.username}
+        >
+          chatで @{girl.username} に連絡する
+        </MainButton>
       </Grid>
     </Grid>
   );
@@ -109,9 +134,13 @@ class AddLolChat extends React.Component {
           この方々のIDをlol chatに追加したらすぐ連絡できます。
         </Typography>
         <Grid container className={classes.wrapper}>
-          {nameList.map(e => (
-            <GirlList {...e} />
-          ))}
+          {Backend.successfulBooking.profiles ? (
+            Backend.successfulBooking.profiles.map(e => (
+              <GirlList {...e} girl={e.request_user} />
+            ))
+          ) : (
+            <div />
+          )}
         </Grid>
 
         <div>

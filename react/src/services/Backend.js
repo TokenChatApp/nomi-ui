@@ -19,6 +19,7 @@ export const Backend = {
   firstTimeLoginPassword: "",
   listings: [],
   bookings: [],
+  successfulBooking: {},
   bootstrap: async function() {
     let token = await axios.get(this.apiUrl + "auth/csrf-token", "", {
       withCredentials: true
