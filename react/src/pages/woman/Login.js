@@ -217,6 +217,12 @@ class Login extends React.Component {
             </NomiButton>
           </Grid>
         </Grid>
+        <Button
+          style={{ color: "grey" }}
+          onClick={() => this.setState({ redirect: "/" })}
+        >
+          ホームページに戻る
+        </Button>
         <br />
         <br />
         <br />
@@ -256,6 +262,7 @@ class Login extends React.Component {
         </Grid>
         <div className={classNames(classes.divider, classes.womenBackground)} />
         {this.renderFields()}
+        <br />
       </div>
     );
   }

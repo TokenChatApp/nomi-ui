@@ -245,12 +245,13 @@ class Signup extends React.Component {
     formData.append("avatar", Backend.user.profileImageFile);
     let response = AuthenticationService.signUp(formData);
     response.then(r => {
-      this.setState({ errors: r.errors, noProfilePicError: false });
       if (r.status) {
         ServerRequest.getOwnProfile().then(sub_r => {
           Backend.setProfile(sub_r);
-          this.setState({ redirect: "/w" });
+          this.setState({ redirect: "/w", noProfilePicError: false });
         });
+      } else {
+        this.setState({ errors: r.errors, noProfilePicError: false });
       }
     });
     event.preventDefault();

@@ -10,6 +10,7 @@ import TextField from "@material-ui/core/TextField";
 import classNames from "classnames";
 import Grid from "@material-ui/core/Grid";
 import NomiButton from "../../components/NomiButton";
+import Button from "@material-ui/core/Button";
 import GenderSwitch from "../../components/GenderSwitch";
 import girlImg from "../../images/girl.jpg";
 import manImg from "../../images/new-guy.jpeg";
@@ -197,6 +198,13 @@ class Login extends React.Component {
             </NomiButton>
           </Grid>
         </Grid>
+        <br />
+        <Button
+          style={{ color: "grey" }}
+          onClick={() => this.setState({ redirect: "/" })}
+        >
+          ホームページに戻る
+        </Button>
       </form>
     );
   }
