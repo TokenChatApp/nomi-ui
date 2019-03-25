@@ -41,7 +41,7 @@ const statusList = [
   {
     labelJap: "受け取った",
     label: "ACCEPTED",
-    color: "#e66060",
+    color: "#04dec2",
     redirect: "/m/dates/ended"
   },
   {

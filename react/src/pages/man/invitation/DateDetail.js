@@ -13,12 +13,15 @@ import Select from "@material-ui/core/Select";
 import InputLabel from "@material-ui/core/InputLabel";
 import { Backend } from "../../../services/Backend";
 import ServerRequest from "../../../services/ServerRequest";
+import JobList from "../job/JobList";
 
 import NomiButton from "../../../components/NomiButton";
 
 import { manColor } from "../../../Constants";
 
 import wineImg from "../../../images/male/dashboard/wine_glass.png";
+
+var dateFormat = require("dateformat");
 
 const styles = theme => ({
   root: {
@@ -339,6 +342,59 @@ class DateDetail extends React.Component {
     return items;
   }
 
+  renderTopNotificationBar() {
+    const { classes } = this.props;
+    for (var [i, booking] of Backend.bookings.data.entries()) {
+      let timeString = `${booking.request_start_time.substring(0, 5)}
+      – ${booking.request_end_time.substring(0, 5)}`;
+
+      var avatarArray = [];
+      var numberOfAccepted = 0;
+
+      for (var user of booking.users) {
+        avatarArray.push(Backend.imgUrl + user.avatar);
+        if (user.is_accepted) {
+          numberOfAccepted++;
+        }
+      }
+      if (numberOfAccepted > 0 && booking.status.toLowerCase() === "pending") {
+        return (
+          <div style={{ marginTop: 20, color: manColor[1] }}>
+            {numberOfAccepted} girl(s) have accepted your request! <br />
+            <JobList
+              key={booking.request_id}
+              bookingIndex={i}
+              images={avatarArray}
+              jobStatus={booking.status.toUpperCase()}
+              date={dateFormat(booking.request_date, "yyyy年mm月dd日")}
+              time={timeString}
+              location={booking.place ? booking.place.place_name : ""}
+              numberOfAccepted={numberOfAccepted}
+            />
+            <br />
+            <br />
+            <NomiButton
+              className={classes.button}
+              gender="M"
+              onClick={() => this.setState({ redirect: "/m/dates" })}
+              style={{
+                fontSize: "1rem"
+              }}
+            >
+              <img
+                src={wineImg}
+                alt="glass"
+                style={{ width: 15, paddingRight: 15 }}
+              />
+              View all my dates!
+            </NomiButton>
+          </div>
+        );
+      }
+    }
+    return <div />;
+  }
+
   render() {
     const { classes } = this.props;
     const { redirect } = this.state;
@@ -349,6 +405,7 @@ class DateDetail extends React.Component {
         {redirect && <Redirect to={redirect} />}
         <Navbar title="飲みに行こう！" gender="M" />
         <div className={classes.wrapper}>
+          {this.renderTopNotificationBar()}
           <Typography className={classes.title} align="left">
             場所と時間を選んでください。
           </Typography>
@@ -460,6 +517,9 @@ class DateDetail extends React.Component {
             すぐ検索する！
           </NomiButton>
         </div>
+        <br />
+        <br />
+        <br />
       </div>
     );
   }

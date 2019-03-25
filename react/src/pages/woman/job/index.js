@@ -72,38 +72,32 @@ class Job extends React.Component {
         manImg = manPicPlaceholder;
       }
 
-      if (booking.status !== "Pending") {
-        if (type === "expired" && booking.status === "Expired") {
-          array.push(
-            <JobList
-              image={manImg}
-              jobStatus={booking.status.toUpperCase()}
-              name={booking.requestor.display_name}
-              date={booking.request_date}
-              status={booking.status}
-              pax={2}
-              time={timeString}
-              location={booking.place ? booking.place.place_name : ""}
-            />
-          );
-        } else if (type !== "expired" && booking.status !== "Expired") {
-          array.push(
-            <JobList
-              image={manImg}
-              jobStatus={booking.status.toUpperCase()}
-              name={booking.requestor.display_name}
-              date={booking.request_date}
-              status={booking.status}
-              pax={2}
-              time={timeString}
-              location={booking.place ? booking.place.place_name : ""}
-            />
-          );
-        }
+      if (
+        (booking.status.toLowerCase() === "expired" && type === "expired") ||
+        (booking.status.toLowerCase() === "confirmed" &&
+          type === "confirmed") ||
+        (booking.status.toLowerCase() === "pending" && type === "pending") ||
+        (booking.status.toLowerCase() === "on going" && type === "ongoing") ||
+        (booking.status.toLowerCase() === "completed" &&
+          type === "completed") ||
+        (booking.status.toLowerCase() === "accepted" && type === "accepted") ||
+        (booking.status.toLowerCase() === "cancelled" &&
+          type === "cancelled") ||
+        (booking.status.toLowerCase() === "rejected" && type === "rejected")
+      ) {
+        array.push(
+          <JobList
+            image={manImg}
+            jobStatus={booking.status.toUpperCase()}
+            name={booking.requestor.display_name}
+            date={booking.request_date}
+            status={booking.status}
+            pax={2}
+            time={timeString}
+            location={booking.place ? booking.place.place_name : ""}
+          />
+        );
       }
-    }
-    if (array.length === 0) {
-      return <span>No jobs available at this moment.</span>;
     }
     return array;
   }
@@ -122,8 +116,16 @@ class Job extends React.Component {
             {"< 戻る"}
           </NavLink>
         </div>
-        <div className={classes.tabWrapper}>{this.renderListings("")}</div>
+        <div className={classes.tabWrapper}>
+          {this.renderListings("ongoing")}
+          {this.renderListings("pending")}
+          {this.renderListings("accepted")}
+          {this.renderListings("confirmed")}
+          {this.renderListings("rejected")}
+          {this.renderListings("cancelled")}
+        </div>
         <Divider />
+        {this.renderListings("completed")}
         {this.renderListings("expired")}
         <br />
         <br />
