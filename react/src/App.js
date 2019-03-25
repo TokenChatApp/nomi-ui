@@ -13,6 +13,8 @@ import Signup from "./pages/Signup";
 import Man from "./pages/Man";
 import Woman from "./pages/Woman";
 import Faq from "./pages/Faq";
+import Enquiry from "./pages/Enquiry";
+import EmergencyContact from "./pages/EmergencyContact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
 
 // get pages from pages directory
@@ -40,6 +42,8 @@ class App extends Component {
             <Route path="/m" component={Man} />
             <Route path="/w" component={Woman} />
             <Route path="/faq" component={Faq} />
+            <Route path="/emergencyContact" component={EmergencyContact} />
+            <Route path="/enquiry" component={Enquiry} />
             <Route path="/privacyPolicy" component={PrivacyPolicy} />
             <Route component={ErrorPage} />
           </Switch>

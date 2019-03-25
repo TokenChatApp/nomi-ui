@@ -298,14 +298,14 @@ class WomanLanding extends React.Component {
     if (Backend.bookings === null) {
       return (
         <Grid item xs={12} className={classes.tinyText}>
-          There are no jobs available at this moment.
+          只今飲み会のリクエストがありません。
         </Grid>
       );
     }
     if (Backend.bookings.data.length === 0) {
       return (
         <Grid item xs={12} className={classes.tinyText}>
-          There are no jobs available at this moment.
+          只今飲み会のリクエストがありません。
         </Grid>
       );
     } else {

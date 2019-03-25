@@ -133,7 +133,7 @@ const ManButtons = props => {
           FAQ
         </MainButton>
         <Divider />
-        <MainButton {...props} onClick={handleRedirect("/m")}>
+        <MainButton {...props} onClick={handleRedirect("/enquiry")}>
           問い合わせ
         </MainButton>
         <Divider />
@@ -152,7 +152,11 @@ const ManButtons = props => {
           ログアウト
         </MainButton>
         <Divider />
-        <button {...props} style={helpStyle} onClick={handleRedirect("/m")}>
+        <button
+          {...props}
+          style={helpStyle}
+          onClick={handleRedirect("/emergencyContact")}
+        >
           緊急連絡
         </button>
       </div>
@@ -182,7 +186,7 @@ const WomanButtons = props => {
           FAQ
         </MainButton>
         <Divider />
-        <MainButton {...props} onClick={handleRedirect("/w")}>
+        <MainButton {...props} onClick={handleRedirect("/enquiry")}>
           問い合わせ
         </MainButton>
         <Divider />
@@ -196,7 +200,7 @@ const WomanButtons = props => {
         <button
           {...props}
           style={helpStyle}
-          onClick={handleRedirect("/w/liveHelp")}
+          onClick={handleRedirect("/w/emergencyContact")}
         >
           緊急連絡
         </button>
