@@ -360,7 +360,7 @@ class DateDetail extends React.Component {
       if (numberOfAccepted > 0 && booking.status.toLowerCase() === "pending") {
         return (
           <div style={{ marginTop: 20, color: manColor[1] }}>
-            {numberOfAccepted} girl(s) have accepted your request! <br />
+            {numberOfAccepted} 人がリクエストを受け取った! <br />
             <JobList
               key={booking.request_id}
               bookingIndex={i}
@@ -386,7 +386,7 @@ class DateDetail extends React.Component {
                 alt="glass"
                 style={{ width: 15, paddingRight: 15 }}
               />
-              View all my dates!
+              リクエストを全て見る
             </NomiButton>
           </div>
         );
