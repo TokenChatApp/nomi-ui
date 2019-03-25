@@ -48,39 +48,25 @@ class Faq extends React.Component {
         >
           <br />
           <br />
-          <b>How do I use it?</b>
+          <b>TIPSプラットフームの使い方(男性版)</b>
           <br />
           <br />
-          1. Create account
+          １．ご希望の時間と場所をご指定ください
           <br />
           <br />
-          2. Fill up your personal info
+          ２．好みの女性をご指定ください
           <br />
           <br />
-          3. Choose your desired drinking time and location
+          ３．あなたのリクエストを受け取った女性からお返事がございましたら
           <br />
           <br />
-          4. Girls who are in the area will be shown to you. <br />
-          <br />
-          5. Click on the girl to confirm the booking.
+          ４．支払いページで料金精算のあと、飲み会をご確認ください
           <br />
           <br />
-          6. After making payment, you will see the girl’s lol chat ID
+          ５．”lol chat” から、お約束の女性と連絡を取ります
           <br />
           <br />
-          7. If you do not have lol chat (100% anonymous chat app which doesn’t
-          require phone number to register), please download it and add the
-          girl’s ID to initiate the chat with her
-          <br />
-          <br />
-          8. Arrange the location with the girl
-          <br />
-          <br />
-          9. And meet up
-          <br />
-          <br />
-          10. After the event, you will be asked to rate the girl and give
-          feedback, if any
+          ６．ご予定の時間と場所で有意義な飲み会をお楽しみください
           <br />
           <br />
           <br />
@@ -119,43 +105,36 @@ class Faq extends React.Component {
       );
     } else {
       return (
-        <div style={{ paddingLeft: 20, paddingRight: 20, fontSize: 14 }}>
-          <br />
-          <b>How do I use it?</b>
-          <br />
-          <br />
-          1. You have to have lol chat installed before you can use TIPS
-          platform
-          <br />
-          <br />
-          2. Login with your lol chat username and password
+        <div
+          style={{
+            paddingLeft: 20,
+            paddingRight: 20,
+            fontSize: 13,
+            textAlign: "left"
+          }}
+        >
           <br />
           <br />
-          3. Fill up your info and upload a profile pic
+          <b>TIPSプラットフームの使い方(女性版)</b>
           <br />
           <br />
-          4. Choose your location and you will be shown matches of guys who are
-          looking for people to drink with in the same area
+          １．ご希望の時間と場所をお選びください
           <br />
           <br />
-          5. Confirm the guy you want to drink with
+          ２．男性からのリクエストをお受け取りください。
           <br />
           <br />
-          6. You will be notified after the payment has been made.
+          ３．男性側のお支払い確認の後、あなたのlol chat
+          IDが相手に伝えられます。その際、ご確認のショートメールが届きます。
           <br />
           <br />
-          7. Your lol chat ID will be shown to that guy and he will initiate a
-          chat with you on lol chat to arrange the place for drinking
+          ４．お約束の男性とlol chat でご予定（時間と場所）を確認しましょう。
           <br />
           <br />
-          8. Show up on time
+          ５．お約束の飲み会の時間の少し前（5分前）に着つけば、良い印象のアピールになります。
           <br />
           <br />
-          9. After the session has ended, you will be asked to rate the guy and
-          to give feedback if any
-          <br />
-          <br />
-          10. Repeat this process to make more money!
+          ６．さあ楽しい時間を過ごしましょう！
           <br />
           <br />
         </div>
