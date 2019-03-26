@@ -13,9 +13,11 @@ import Signup from "./pages/Signup";
 import Man from "./pages/Man";
 import Woman from "./pages/Woman";
 import Faq from "./pages/Faq";
+import MyProfile from "./pages/MyProfile";
 import Enquiry from "./pages/Enquiry";
 import EmergencyContact from "./pages/EmergencyContact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ProfilePicUploader from "./pages/woman/ProfilePicUploader";
 
 // get pages from pages directory
 const ErrorPage = () => <div>Error 404</div>;
@@ -42,6 +44,12 @@ class App extends Component {
             <Route path="/m" component={Man} />
             <Route path="/w" component={Woman} />
             <Route path="/faq" component={Faq} />
+            <Route exact path="/profile" component={MyProfile} />
+            <Route
+              exact
+              path="/profile/upload"
+              component={ProfilePicUploader}
+            />
             <Route path="/emergencyContact" component={EmergencyContact} />
             <Route path="/enquiry" component={Enquiry} />
             <Route path="/privacyPolicy" component={PrivacyPolicy} />

@@ -41,7 +41,7 @@ const styles = theme => ({
 class ProfilePicHolder extends React.Component {
   render() {
     const { classes } = this.props;
-
+    console.log(Backend.user.profileImage);
     if (Backend.user.profileImage) {
       return (
         <img

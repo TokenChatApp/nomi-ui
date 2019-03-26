@@ -475,9 +475,7 @@ class DateDetail extends React.Component {
             </Grid>
             <Grid item xs={6} className={classes.endWrapper}>
               <FormControl className={classes.formControl}>
-                <InputLabel htmlFor="place-label-placeholder">
-                  エリア
-                </InputLabel>
+                <InputLabel htmlFor="place-label-placeholder">場所</InputLabel>
                 <Select
                   value={this.state.place}
                   onChange={this.handleInputChange}

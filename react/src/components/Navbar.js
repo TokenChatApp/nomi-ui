@@ -329,6 +329,7 @@ class Navbar extends React.Component {
           alt="man or girl"
           src="https://react.semantic-ui.com/images/avatar/large/matthew.png"
           className={classes.avatar}
+          onClick={() => this.setState({ redirect: "/profile" })}
         />
       );
     } else {
@@ -337,6 +338,7 @@ class Navbar extends React.Component {
           alt="man or girl"
           src={Backend.imgUrl + Backend.user.avatar}
           className={classes.avatar}
+          onClick={() => this.setState({ redirect: "/profile" })}
         />
       );
     }

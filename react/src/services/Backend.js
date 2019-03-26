@@ -20,6 +20,8 @@ export const Backend = {
   listings: [],
   bookings: [],
   successfulBooking: {},
+  editProfile: {},
+  whichImageUploading: 0,
   bootstrap: async function() {
     let token = await axios.get(this.apiUrl + "auth/csrf-token", "", {
       withCredentials: true

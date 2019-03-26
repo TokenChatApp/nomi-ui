@@ -70,7 +70,7 @@ const ServerRequest = {
       );
   },
   uploadAvatar: function(value) {
-    return axios({
+    return instance({
       method: "post",
       url: Backend.apiUrl + "profile/upload_avatar",
       data: value,
@@ -95,6 +95,25 @@ const ServerRequest = {
       },
       res => {
         return res.response;
+      }
+    );
+  },
+  uploadPhotos: function(value) {
+    return instance({
+      method: "post",
+      url: Backend.apiUrl + "profile/update",
+      data: value,
+      headers: { "Content-Type": "multipart/form-data" }
+    }).then(
+      res => {
+        if (res.data.status) {
+          Cookies.set("nomi-token", res.data.session);
+        }
+        return res.data;
+      },
+      res => {
+        Cookies.remove("nomi-token");
+        return res.response.data;
       }
     );
   },

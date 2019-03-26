@@ -454,7 +454,7 @@ class Signup extends React.Component {
         </Grid>
         <Grid item xs={6}>
           <FormControl className={classes.formControl}>
-            <InputLabel shrink="false">エリア</InputLabel>
+            <InputLabel shrink="false">場所</InputLabel>
             <Select
               value={this.state.place}
               onChange={this.handleInputChange}

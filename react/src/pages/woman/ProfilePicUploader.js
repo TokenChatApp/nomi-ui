@@ -11,6 +11,8 @@ import { Backend } from "../../services/Backend";
 import Camera, { FACING_MODES } from "react-html5-camera-photo";
 import "react-html5-camera-photo/build/css/index.css";
 
+const toFile = require("data-uri-to-file");
+
 const styles = theme => ({
   rootMan: {
     height: "100%",
@@ -84,22 +86,67 @@ const textStyle = {
   marginTop: 10
 };
 
+var BASE64_MARKER = ";base64,";
+function convertDataURIToBlob(dataURI) {
+  var base64Index = dataURI.indexOf(BASE64_MARKER) + BASE64_MARKER.length;
+  var base64 = dataURI.substring(base64Index);
+  var raw = window.atob(base64);
+  var rawLength = raw.length;
+  var array = new Uint8Array(new ArrayBuffer(rawLength));
+
+  for (var i = 0; i < rawLength; i++) {
+    array[i] = raw.charCodeAt(i);
+  }
+  let blob = new Blob([array], {
+    type: "image/png"
+  });
+  return blob;
+}
+
 class ProfilePicUploader extends React.Component {
   state = {
     redirect: null,
     cameraIsOn: false
   };
 
-  constructor(props) {
-    super(props);
-    this.handleUploadClicked = this.handleUploadClicked.bind(this);
-  }
-
-  onTakePhoto(dataUri) {
-    Backend.user.profileImage = dataUri;
+  async onTakePhoto(dataUri) {
+    var blob = null;
+    await toFile(dataUri).then(file => {
+      blob = convertDataURIToBlob(dataUri);
+    });
+    if (window.location.href.includes("/profile/upload")) {
+      if (Backend.whichImageUploading == 0) {
+        Backend.editProfile.avatar = dataUri;
+        toFile(dataUri).then(file => {
+          Backend.editProfile.profileImageFile = blob;
+        });
+      } else {
+        if (!Backend.editProfile.photoFiles) {
+          Backend.editProfile.photoFiles = [];
+          Backend.editProfile.photoFiles.push(blob);
+        } else if (
+          Backend.editProfile.photoFiles.length < Backend.whichImageUploading
+        ) {
+          Backend.editProfile.photoFiles.push(blob);
+        } else {
+          Backend.editProfile.photoFiles[
+            Backend.whichImageUploading - 1
+          ] = blob;
+        }
+        console.log(Backend.editProfile.photoFiles);
+        Backend.editProfile.photos[Backend.whichImageUploading - 1] = dataUri;
+      }
+    } else {
+      Backend.user.profileImage = dataUri;
+      toFile(dataUri).then(file => {
+        Backend.user.profileImageFile = convertDataURIToBlob(dataUri);
+      });
+    }
 
     var redirectString = "/w/signup";
-    if (this.props.gender === "M") {
+    if (window.location.href.includes("/profile/upload")) {
+      redirectString = "/profile";
+    } else if (this.props.gender === "M") {
       redirectString = "/m/signup";
     }
     this.setState({ redirect: redirectString });
@@ -119,40 +166,70 @@ class ProfilePicUploader extends React.Component {
     if (event.target.files && event.target.files[0]) {
       let reader = new FileReader();
       reader.onload = e => {
-        this.setState({ image: e.target.result });
-        Backend.user.profileImage = e.target.result;
+        if (window.location.href.includes("/profile/upload")) {
+          if (Backend.whichImageUploading == 0) {
+            Backend.editProfile.avatar = e.target.result;
+            console.log(Backend.editProfile);
+          } else {
+            Backend.editProfile.photos[Backend.whichImageUploading - 1] =
+              e.target.result;
+          }
+        } else {
+          console.log(e.target.result);
+          console.log("??????");
+          Backend.user.profileImage = e.target.result;
+        }
+
+        var redirectString = "/w/signup";
+        if (window.location.href.includes("/profile/upload")) {
+          redirectString = "/profile";
+        } else if (this.props.gender === "M") {
+          redirectString = "/m/signup";
+        }
+        this.setState({ redirect: redirectString });
       };
       reader.readAsDataURL(event.target.files[0]);
-      Backend.user.profileImageFile = event.target.files[0];
+      console.log(event.target.files[0]);
+      if (window.location.href.includes("/profile")) {
+        if (Backend.whichImageUploading == 0) {
+          Backend.editProfile.profileImageFile = event.target.files[0];
+        } else {
+          if (!Backend.editProfile.photoFiles) {
+            Backend.editProfile.photoFiles = [];
+            Backend.editProfile.photoFiles.push(event.target.files[0]);
+          } else if (
+            Backend.editProfile.photoFiles.length < Backend.whichImageUploading
+          ) {
+            Backend.editProfile.photoFiles.push(event.target.files[0]);
+          } else {
+            Backend.editProfile.photoFiles[Backend.whichImageUploading - 1] =
+              event.target.files[0];
+          }
+        }
+      } else {
+        Backend.user.profileImageFile = event.target.files[0];
+      }
     }
-    Backend.user.profileImage = this.state.image;
-
-    var redirectString = "/w/signup";
-    if (this.props.gender === "M") {
-      redirectString = "/m/signup";
-    }
-    this.setState({ redirect: redirectString });
   };
 
   render() {
     const { classes } = this.props;
     var redirectString = "/w/signup";
-    if (this.props.gender === "M") {
+    if (window.location.href.includes("/profile/upload")) {
+      redirectString = "/profile";
+    } else if (this.props.gender === "M") {
       redirectString = "/m/signup";
     }
+
+    var gender = this.props.gender;
+    if (window.location.href.includes("/profile/upload")) {
+      gender = Backend.user.gender;
+    }
     return (
-      <div
-        className={
-          this.props.gender === "M" ? classes.rootMan : classes.rootWoman
-        }
-      >
+      <div className={gender === "M" ? classes.rootMan : classes.rootWoman}>
         {this.state.redirect && <Redirect to={this.state.redirect} />}
         <div className={classes.fixedNav}>
-          <Navbar
-            title="サインアップ"
-            isLoggedIn="false"
-            gender={this.props.gender}
-          />
+          <Navbar title="サインアップ" isLoggedIn="false" gender={gender} />
           <MainButton
             className={classes.button}
             onClick={() => this.setState({ redirect: redirectString })}
@@ -190,7 +267,7 @@ class ProfilePicUploader extends React.Component {
             style={imgStyle}
             src={chooseSrc}
             alt="choose"
-            onClick={this.handleUploadClicked}
+            onClick={() => this.handleUploadClicked()}
           />
           <h6 style={textStyle}>写真をアップする</h6>
           <br />
@@ -203,6 +280,7 @@ class ProfilePicUploader extends React.Component {
           <input
             id="file-input"
             type="file"
+            accept="image/*"
             ref="fileUploader"
             onChange={this.onImageChange}
             style={{ display: "none" }}

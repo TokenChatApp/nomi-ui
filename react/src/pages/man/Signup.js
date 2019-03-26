@@ -112,9 +112,13 @@ class Signup extends React.Component {
       if (r.status) {
         ServerRequest.getOwnProfile().then(sub_r => {
           Backend.setProfile(sub_r);
-          this.setState({
-            redirect:
-              sub_r.gender === "M" ? "/m/signup/complete" : "/w/signup/complete"
+          ServerRequest.getOwnBookings().then(res => {
+            this.setState({
+              redirect:
+                sub_r.gender === "M"
+                  ? "/m/signup/complete"
+                  : "/w/signup/complete"
+            });
           });
         });
       }
