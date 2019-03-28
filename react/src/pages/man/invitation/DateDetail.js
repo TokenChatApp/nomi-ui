@@ -274,12 +274,12 @@ class DateDetail extends React.Component {
     };
     let response = ServerRequest.getListing(dict);
     response.then(r => {
-      Backend.listings = r;
+      Backend.listings = r.exact_girls;
       Backend.selectedCity = this.state.city;
       Backend.selectedPlace = this.state.place;
       Backend.selectedPlaceId = selectedPlaceId;
       Backend.selectedDate = finalDate;
-      if (r.length === 0) {
+      if (r.exact_girls.length === 0) {
         this.setState({ noGirlsFound: true });
       } else {
         this.setState({ redirect: "/m/listings", noGirlsFound: false });

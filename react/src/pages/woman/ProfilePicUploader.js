@@ -129,11 +129,8 @@ class ProfilePicUploader extends React.Component {
         ) {
           Backend.editProfile.photoFiles.push(blob);
         } else {
-          Backend.editProfile.photoFiles[
-            Backend.whichImageUploading - 1
-          ] = blob;
+          Backend.editProfile.photoFiles[Backend.whichImageUploading] = blob;
         }
-        console.log(Backend.editProfile.photoFiles);
         Backend.editProfile.photos[Backend.whichImageUploading - 1] = dataUri;
       }
     } else {
@@ -169,14 +166,11 @@ class ProfilePicUploader extends React.Component {
         if (window.location.href.includes("/profile/upload")) {
           if (Backend.whichImageUploading == 0) {
             Backend.editProfile.avatar = e.target.result;
-            console.log(Backend.editProfile);
           } else {
             Backend.editProfile.photos[Backend.whichImageUploading - 1] =
               e.target.result;
           }
         } else {
-          console.log(e.target.result);
-          console.log("??????");
           Backend.user.profileImage = e.target.result;
         }
 
@@ -189,7 +183,6 @@ class ProfilePicUploader extends React.Component {
         this.setState({ redirect: redirectString });
       };
       reader.readAsDataURL(event.target.files[0]);
-      console.log(event.target.files[0]);
       if (window.location.href.includes("/profile")) {
         if (Backend.whichImageUploading == 0) {
           Backend.editProfile.profileImageFile = event.target.files[0];

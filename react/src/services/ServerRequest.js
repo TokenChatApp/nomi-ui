@@ -83,7 +83,6 @@ const ServerRequest = {
         return res.data;
       },
       res => {
-        Cookies.remove("nomi-token");
         return res.response.data;
       }
     );
@@ -101,7 +100,7 @@ const ServerRequest = {
   uploadPhotos: function(value) {
     return instance({
       method: "post",
-      url: Backend.apiUrl + "profile/update",
+      url: Backend.apiUrl + "profile/upload_photo",
       data: value,
       headers: { "Content-Type": "multipart/form-data" }
     }).then(
@@ -112,7 +111,6 @@ const ServerRequest = {
         return res.data;
       },
       res => {
-        Cookies.remove("nomi-token");
         return res.response.data;
       }
     );

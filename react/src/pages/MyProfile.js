@@ -68,8 +68,9 @@ class MyProfile extends React.Component {
     }
     if (Backend.editProfile.photoFiles) {
       var formDataPhotos = new FormData();
-      formDataPhotos.append("photos", Backend.editProfile.photoFiles[0]);
-      console.log(Backend.editProfile.photoFiles);
+      for (var file of Backend.editProfile.photoFiles) {
+        formDataPhotos.append("photos[]", file);
+      }
       await ServerRequest.uploadPhotos(formDataPhotos);
     }
     window.location.reload();
@@ -104,7 +105,9 @@ class MyProfile extends React.Component {
       } else if (Backend.editProfile.photos[i].length > 300) {
         photosArray.push(Backend.editProfile.photos[i]);
       } else {
-        photosArray.push(Backend.imgUrl + Backend.editProfile.photos[i]);
+        photosArray.push(
+          Backend.imgUrl + Backend.editProfile.photos[i].photo_url
+        );
       }
     }
     var photoLength = 0;
