@@ -88,7 +88,7 @@ const ServerRequest = {
     );
   },
   removeAvatar: function() {
-    return instance.get(Backend.apiUrl + "profile/remove_avatar").then(
+    return instance.delete(Backend.apiUrl + "profile/remove_avatar").then(
       res => {
         return res.data;
       },
@@ -100,7 +100,7 @@ const ServerRequest = {
   uploadPhotos: function(value) {
     return instance({
       method: "post",
-      url: Backend.apiUrl + "profile/upload_photo",
+      url: Backend.apiUrl + "profile/update",
       data: value,
       headers: { "Content-Type": "multipart/form-data" }
     }).then(
@@ -114,6 +114,18 @@ const ServerRequest = {
         return res.response.data;
       }
     );
+  },
+  removePhotos: function(value) {
+    return instance
+      .post(Backend.apiUrl + "profile/remove_photo", qs.stringify(value))
+      .then(
+        res => {
+          return res.data;
+        },
+        res => {
+          return res.response;
+        }
+      );
   },
   updateLocation: function(value) {
     return instance

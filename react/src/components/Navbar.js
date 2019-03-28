@@ -238,6 +238,7 @@ class Navbar extends React.Component {
   handleLogout = () => {
     let that = this;
     AuthenticationService.logout().then(function() {
+      Backend.editProfile = {};
       that.setState({ redirect: "/" });
     });
   };

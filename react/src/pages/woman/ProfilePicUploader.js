@@ -116,21 +116,40 @@ class ProfilePicUploader extends React.Component {
     });
     if (window.location.href.includes("/profile/upload")) {
       if (Backend.whichImageUploading == 0) {
+        // avatar
         Backend.editProfile.avatar = dataUri;
         toFile(dataUri).then(file => {
           Backend.editProfile.profileImageFile = blob;
         });
       } else {
+        // photos 2-6
+
+        if (
+          Backend.user.photos.length >= Backend.whichImageUploading - 1 &&
+          Backend.user.photos.length !== 0
+        ) {
+          // tells server to delete the photo later when user save changes
+          Backend.user.photos[
+            Backend.whichImageUploading - 1
+          ].needsToDelete = true;
+        }
+
         if (!Backend.editProfile.photoFiles) {
+          // initialise 'photoFiles' array and append photo
           Backend.editProfile.photoFiles = [];
           Backend.editProfile.photoFiles.push(blob);
         } else if (
           Backend.editProfile.photoFiles.length < Backend.whichImageUploading
         ) {
+          // append photo to 'photoFiles' array
           Backend.editProfile.photoFiles.push(blob);
         } else {
-          Backend.editProfile.photoFiles[Backend.whichImageUploading] = blob;
+          // replace photo file in 'photoFiles' array
+          Backend.editProfile.photoFiles[
+            Backend.whichImageUploading - 1
+          ] = blob;
         }
+        // replace dataUri in 'photos' array
         Backend.editProfile.photos[Backend.whichImageUploading - 1] = dataUri;
       }
     } else {
@@ -167,6 +186,7 @@ class ProfilePicUploader extends React.Component {
           if (Backend.whichImageUploading == 0) {
             Backend.editProfile.avatar = e.target.result;
           } else {
+            // replace dataUri in 'photos' array
             Backend.editProfile.photos[Backend.whichImageUploading - 1] =
               e.target.result;
           }
@@ -185,16 +205,32 @@ class ProfilePicUploader extends React.Component {
       reader.readAsDataURL(event.target.files[0]);
       if (window.location.href.includes("/profile")) {
         if (Backend.whichImageUploading == 0) {
+          // avatar
           Backend.editProfile.profileImageFile = event.target.files[0];
         } else {
+          // photos 2-6
+
+          if (
+            Backend.user.photos.length >= Backend.whichImageUploading - 1 &&
+            Backend.user.photos.length !== 0
+          ) {
+            // tells server to delete the photo later when user save changes
+            Backend.user.photos[
+              Backend.whichImageUploading - 1
+            ].needsToDelete = true;
+          }
+
           if (!Backend.editProfile.photoFiles) {
+            // initialise 'photoFiles' array and append photo
             Backend.editProfile.photoFiles = [];
             Backend.editProfile.photoFiles.push(event.target.files[0]);
           } else if (
+            // append photo to 'photoFiles' array
             Backend.editProfile.photoFiles.length < Backend.whichImageUploading
           ) {
             Backend.editProfile.photoFiles.push(event.target.files[0]);
           } else {
+            // replace photo file in 'photoFiles' array
             Backend.editProfile.photoFiles[Backend.whichImageUploading - 1] =
               event.target.files[0];
           }

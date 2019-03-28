@@ -61,19 +61,38 @@ class MyProfile extends React.Component {
   }
 
   async handleSaveChanges() {
+    var photoIDsToDelete = [];
+    for (var photo of Backend.user.photos) {
+      if (photo.needsToDelete) {
+        photoIDsToDelete.push(photo.photo_id);
+      }
+    }
+
     if (Backend.user.avatar !== Backend.editProfile.avatar) {
       var formDataAvatar = new FormData();
       formDataAvatar.append("avatar", Backend.editProfile.profileImageFile);
       await ServerRequest.uploadAvatar(formDataAvatar);
     }
-    if (Backend.editProfile.photoFiles) {
+
+    if (photoIDsToDelete.length > 0) {
+      let deleteIDString = photoIDsToDelete.join();
+      await ServerRequest.removePhotos({ photo_ids: deleteIDString });
+    }
+    console.log(Backend.editProfile.photoFiles);
+    if (
+      Backend.editProfile.photoFiles &&
+      Backend.editProfile.photoFiles.length > 0
+    ) {
       var formDataPhotos = new FormData();
-      for (var file of Backend.editProfile.photoFiles) {
-        formDataPhotos.append("photos[]", file);
+      for (var [i, file] of Backend.editProfile.photoFiles.entries()) {
+        let name = i + 1;
+        console.log(name);
+        formDataPhotos.append("photos[]", file, name.toString());
       }
+      console.log(formDataPhotos);
       await ServerRequest.uploadPhotos(formDataPhotos);
     }
-    window.location.reload();
+    // window.location.reload();
   }
 
   handleUploadClicked(value) {
