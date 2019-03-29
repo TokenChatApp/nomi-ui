@@ -124,33 +124,53 @@ class ProfilePicUploader extends React.Component {
       } else {
         // photos 2-6
 
-        if (
-          Backend.user.photos.length >= Backend.whichImageUploading - 1 &&
-          Backend.user.photos.length !== 0
-        ) {
-          // tells server to delete the photo later when user save changes
-          Backend.user.photos[
-            Backend.whichImageUploading - 1
-          ].needsToDelete = true;
-        }
+        Backend.photoPositionsToDelete.push(Backend.whichImageUploading);
 
         if (!Backend.editProfile.photoFiles) {
           // initialise 'photoFiles' array and append photo
           Backend.editProfile.photoFiles = [];
-          Backend.editProfile.photoFiles.push(blob);
+          Backend.editProfile.photoFiles.push({
+            name: Backend.whichImageUploading,
+            file: blob
+          });
         } else if (
           Backend.editProfile.photoFiles.length < Backend.whichImageUploading
         ) {
           // append photo to 'photoFiles' array
-          Backend.editProfile.photoFiles.push(blob);
+          Backend.editProfile.photoFiles.push({
+            name: Backend.whichImageUploading,
+            file: blob
+          });
         } else {
           // replace photo file in 'photoFiles' array
-          Backend.editProfile.photoFiles[
-            Backend.whichImageUploading - 1
-          ] = blob;
+          for (var [i, file] of Backend.editProfile.photoFiles.entries()) {
+            if (file.name === Backend.whichImageUploading) {
+              Backend.editProfile.photoFiles[i] = {
+                name: Backend.whichImageUploading,
+                file: blob
+              };
+            }
+          }
         }
         // replace dataUri in 'photos' array
-        Backend.editProfile.photos[Backend.whichImageUploading - 1] = dataUri;
+        var gotPhoto = false;
+        for (var [i, photo] of Backend.editProfile.photos.entries()) {
+          if (photo.photo_pos === Backend.whichImageUploading) {
+            gotPhoto = true;
+            Backend.editProfile.photos[i] = {
+              type: "uri",
+              photo_url: dataUri,
+              photo_pos: Backend.whichImageUploading
+            };
+          }
+        }
+        if (!gotPhoto) {
+          Backend.editProfile.photos[Backend.whichImageUploading] = {
+            type: "uri",
+            photo_url: dataUri,
+            photo_pos: Backend.whichImageUploading
+          };
+        }
       }
     } else {
       Backend.user.profileImage = dataUri;
@@ -187,8 +207,25 @@ class ProfilePicUploader extends React.Component {
             Backend.editProfile.avatar = e.target.result;
           } else {
             // replace dataUri in 'photos' array
-            Backend.editProfile.photos[Backend.whichImageUploading - 1] =
-              e.target.result;
+
+            var gotPhoto = false;
+            for (var [i, photo] of Backend.editProfile.photos.entries()) {
+              if (photo.photo_pos === Backend.whichImageUploading) {
+                gotPhoto = true;
+                Backend.editProfile.photos[i] = {
+                  type: "uri",
+                  photo_url: e.target.result,
+                  photo_pos: Backend.whichImageUploading
+                };
+              }
+            }
+            if (!gotPhoto) {
+              Backend.editProfile.photos[Backend.whichImageUploading] = {
+                type: "uri",
+                photo_url: e.target.result,
+                photo_pos: Backend.whichImageUploading
+              };
+            }
           }
         } else {
           Backend.user.profileImage = e.target.result;
@@ -210,29 +247,33 @@ class ProfilePicUploader extends React.Component {
         } else {
           // photos 2-6
 
-          if (
-            Backend.user.photos.length >= Backend.whichImageUploading - 1 &&
-            Backend.user.photos.length !== 0
-          ) {
-            // tells server to delete the photo later when user save changes
-            Backend.user.photos[
-              Backend.whichImageUploading - 1
-            ].needsToDelete = true;
-          }
+          Backend.photoPositionsToDelete.push(Backend.whichImageUploading);
 
           if (!Backend.editProfile.photoFiles) {
             // initialise 'photoFiles' array and append photo
             Backend.editProfile.photoFiles = [];
-            Backend.editProfile.photoFiles.push(event.target.files[0]);
+            Backend.editProfile.photoFiles.push({
+              name: Backend.whichImageUploading,
+              file: event.target.files[0]
+            });
           } else if (
             // append photo to 'photoFiles' array
             Backend.editProfile.photoFiles.length < Backend.whichImageUploading
           ) {
-            Backend.editProfile.photoFiles.push(event.target.files[0]);
+            Backend.editProfile.photoFiles.push({
+              name: Backend.whichImageUploading,
+              file: event.target.files[0]
+            });
           } else {
             // replace photo file in 'photoFiles' array
-            Backend.editProfile.photoFiles[Backend.whichImageUploading - 1] =
-              event.target.files[0];
+            for (var [i, file] of Backend.editProfile.photoFiles.entries()) {
+              if (file.name === Backend.whichImageUploading) {
+                Backend.editProfile.photoFiles[i] = {
+                  name: Backend.whichImageUploading,
+                  file: event.target.files[0]
+                };
+              }
+            }
           }
         }
       } else {

@@ -63,8 +63,10 @@ class MyProfile extends React.Component {
   async handleSaveChanges() {
     var photoIDsToDelete = [];
     for (var photo of Backend.user.photos) {
-      if (photo.needsToDelete) {
-        photoIDsToDelete.push(photo.photo_id);
+      for (var photo_pos of new Set(Backend.photoPositionsToDelete)) {
+        if (photo.photo_pos === photo_pos) {
+          photoIDsToDelete.push(photo.photo_id);
+        }
       }
     }
 
@@ -78,16 +80,16 @@ class MyProfile extends React.Component {
       let deleteIDString = photoIDsToDelete.join();
       await ServerRequest.removePhotos({ photo_ids: deleteIDString });
     }
-    console.log(Backend.editProfile.photoFiles);
     if (
       Backend.editProfile.photoFiles &&
       Backend.editProfile.photoFiles.length > 0
     ) {
       var formDataPhotos = new FormData();
-      for (var [i, file] of Backend.editProfile.photoFiles.entries()) {
-        let name = i + 1;
+      for (var fileDict of Backend.editProfile.photoFiles) {
+        console.log(fileDict);
+        let name = fileDict.name + "." + fileDict.file.type.split("/")[1];
         console.log(name);
-        formDataPhotos.append("photos[]", file, name.toString());
+        formDataPhotos.append("photos[]", fileDict.file, name.toString());
       }
       console.log(formDataPhotos);
       await ServerRequest.uploadPhotos(formDataPhotos);
@@ -108,6 +110,15 @@ class MyProfile extends React.Component {
     this.setState({ redirect: "/profile/upload" });
   }
 
+  getPhotoWithPosition(array, position) {
+    for (var item of array) {
+      if (item.photo_pos === position) {
+        return item;
+      }
+    }
+    return null;
+  }
+
   renderPhotos() {
     var photosArray = [];
     for (var i = 0; i < 5; i++) {
@@ -117,16 +128,17 @@ class MyProfile extends React.Component {
         );
         continue;
       }
-      if (!Backend.editProfile.photos[i]) {
+      var photo = this.getPhotoWithPosition(Backend.editProfile.photos, i + 1);
+      if (!photo) {
         photosArray.push(
           "http://www.stleos.uq.edu.au/wp-content/uploads/2016/08/image-placeholder-350x350.png"
         );
-      } else if (Backend.editProfile.photos[i].length > 300) {
-        photosArray.push(Backend.editProfile.photos[i]);
       } else {
-        photosArray.push(
-          Backend.imgUrl + Backend.editProfile.photos[i].photo_url
-        );
+        if (photo.type === "uri") {
+          photosArray.push(photo.photo_url);
+        } else {
+          photosArray.push(Backend.imgUrl + photo.photo_url);
+        }
       }
     }
     var photoLength = 0;
