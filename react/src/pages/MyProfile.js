@@ -121,6 +121,7 @@ class MyProfile extends React.Component {
 
   renderPhotos() {
     var photosArray = [];
+    console.log(Backend.editProfile);
     for (var i = 0; i < 5; i++) {
       if (!Backend.editProfile.photos) {
         photosArray.push(

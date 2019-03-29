@@ -165,11 +165,11 @@ class ProfilePicUploader extends React.Component {
           }
         }
         if (!gotPhoto) {
-          Backend.editProfile.photos[Backend.whichImageUploading] = {
+          Backend.editProfile.photos.push({
             type: "uri",
             photo_url: dataUri,
             photo_pos: Backend.whichImageUploading
-          };
+          });
         }
       }
     } else {
@@ -220,11 +220,11 @@ class ProfilePicUploader extends React.Component {
               }
             }
             if (!gotPhoto) {
-              Backend.editProfile.photos[Backend.whichImageUploading] = {
+              Backend.editProfile.photos.push({
                 type: "uri",
                 photo_url: e.target.result,
                 photo_pos: Backend.whichImageUploading
-              };
+              });
             }
           }
         } else {
@@ -240,7 +240,7 @@ class ProfilePicUploader extends React.Component {
         this.setState({ redirect: redirectString });
       };
       reader.readAsDataURL(event.target.files[0]);
-      if (window.location.href.includes("/profile")) {
+      if (window.location.href.includes("/profile/upload")) {
         if (Backend.whichImageUploading == 0) {
           // avatar
           Backend.editProfile.profileImageFile = event.target.files[0];
