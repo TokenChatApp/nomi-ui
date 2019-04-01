@@ -18,6 +18,7 @@ export const Backend = {
   firstTimeLoginUsername: "",
   firstTimeLoginPassword: "",
   listings: [],
+  isShowingNearbyGirls: false,
   bookings: [],
   successfulBooking: {},
   editProfile: {},

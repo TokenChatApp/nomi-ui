@@ -274,12 +274,21 @@ class DateDetail extends React.Component {
     };
     let response = ServerRequest.getListing(dict);
     response.then(r => {
-      Backend.listings = r.exact_girls;
+      if (r.exact_girls.length !== 0) {
+        Backend.listings = r.exact_girls;
+        Backend.isShowingNearbyGirls = false;
+      } else if (r.nearby_girls.length !== 0) {
+        Backend.listings = r.nearby_girls;
+        Backend.isShowingNearbyGirls = true;
+      } else {
+        Backend.listings = [];
+        Backend.isShowingNearbyGirls = false;
+      }
       Backend.selectedCity = this.state.city;
       Backend.selectedPlace = this.state.place;
       Backend.selectedPlaceId = selectedPlaceId;
       Backend.selectedDate = finalDate;
-      if (r.exact_girls.length === 0) {
+      if (r.exact_girls.length === 0 && r.nearby_girls.length === 0) {
         this.setState({ noGirlsFound: true });
       } else {
         this.setState({ redirect: "/m/listings", noGirlsFound: false });

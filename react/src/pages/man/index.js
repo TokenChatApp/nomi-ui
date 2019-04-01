@@ -205,9 +205,21 @@ class ManLanding extends React.Component {
               fontSize: "0.9rem"
             }}
           >
-            空いてる女性リスト：
-            <br />
-            {Backend.selectedPlace}, {Backend.selectedCity} at {dateString}
+            {Backend.isShowingNearbyGirls ? (
+              <div>
+                No girls found at
+                <br />
+                {Backend.selectedPlace}, {Backend.selectedCity} at {dateString}.{" "}
+                <br />
+                How about nearby girls:
+              </div>
+            ) : (
+              <div>
+                空いてる女性リスト：
+                <br />
+                {Backend.selectedPlace}, {Backend.selectedCity} at {dateString}
+              </div>
+            )}
           </Grid>
           {Backend.listings.map(e => (
             <Grid key={e.username} item xs={6}>
