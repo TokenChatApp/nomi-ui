@@ -25,6 +25,30 @@ instance.interceptors.request.use(
 );
 
 const ServerRequest = {
+  resetPassword: function(value) {
+    return axios
+      .post(Backend.apiUrl + "password/reset", qs.stringify(value))
+      .then(
+        res => {
+          return res.data;
+        },
+        res => {
+          return res.response.data;
+        }
+      );
+  },
+  updatePassword: function(value) {
+    return axios
+      .post(Backend.apiUrl + "password/update", qs.stringify(value))
+      .then(
+        res => {
+          return res.data;
+        },
+        res => {
+          return res.response.data;
+        }
+      );
+  },
   getCities: function() {
     return axios.get(Backend.apiUrl + "cities").then(
       res => {

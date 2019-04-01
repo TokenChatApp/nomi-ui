@@ -6,6 +6,7 @@ import { Route, Switch } from "react-router-dom";
 import "./App.css";
 
 import LoginMan from "./pages/man/Login";
+import ForgotPasswordMan from "./pages/man/ForgotPassword";
 import LoginWoman from "./pages/woman/Login";
 import Landing from "./pages/Landing";
 import Signup from "./pages/Signup";
@@ -17,6 +18,7 @@ import MyProfile from "./pages/MyProfile";
 import Enquiry from "./pages/Enquiry";
 import EmergencyContact from "./pages/EmergencyContact";
 import PrivacyPolicy from "./pages/PrivacyPolicy";
+import ResetPassword from "./pages/ResetPassword";
 import ProfilePicUploader from "./pages/woman/ProfilePicUploader";
 
 // get pages from pages directory
@@ -39,6 +41,12 @@ class App extends Component {
           <Switch>
             <RedirectRoute exact path="/" component={Landing} />
             <AuthRoute exact path="/m/login" component={LoginMan} />
+            <AuthRoute
+              exact
+              path="/m/forgotPassword"
+              component={ForgotPasswordMan}
+            />
+            <AuthRoute path="/login/forgotPassword" component={ResetPassword} />
             <AuthRoute exact path="/w/login" component={LoginWoman} />
             <AuthRoute exact path="/signup" component={Signup} />
             <Route path="/m" component={Man} />

@@ -1,7 +1,7 @@
 import React from "react";
-import AuthenticationService from "../../services/AuthenticationService";
-import ServerRequest from "../../services/ServerRequest";
-import { Backend } from "../../services/Backend";
+import AuthenticationService from "../services/AuthenticationService";
+import ServerRequest from "../services/ServerRequest";
+import { Backend } from "../services/Backend";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
 import { Redirect } from "react-router-dom";
@@ -9,12 +9,12 @@ import Typography from "@material-ui/core/Typography";
 import TextField from "@material-ui/core/TextField";
 import classNames from "classnames";
 import Grid from "@material-ui/core/Grid";
-import NomiButton from "../../components/NomiButton";
+import NomiButton from "../components/NomiButton";
 import Button from "@material-ui/core/Button";
-import GenderSwitch from "../../components/GenderSwitch";
-import girlImg from "../../images/girl.jpg";
-import manImg from "../../images/new-guy.jpeg";
-import { manColor } from "../../Constants";
+import GenderSwitch from "../components/GenderSwitch";
+import girlImg from "../images/girl.jpg";
+import manImg from "../images/new-guy.jpeg";
+import { manColor } from "../Constants";
 
 const styles = theme => ({
   root: {
@@ -81,12 +81,12 @@ const styles = theme => ({
   }
 });
 
-class Login extends React.Component {
+class ResetPassword extends React.Component {
   state = {
     redirect: null,
     gender: "M",
-    username: null,
     password: null,
+    password_confirmation: null,
     errors: {},
     errorMessage: ""
   };
@@ -115,17 +115,20 @@ class Login extends React.Component {
   };
 
   handleFormSubmit = event => {
-    let response = AuthenticationService.login(this.state);
+    let array = window.location.href.split("/");
+    let token = array[array.length - 1];
+    let dict = {
+      password: this.state.password,
+      password_confirmation: this.state.password_confirmation,
+      token: token
+    };
+    console.log(dict);
+    let response = ServerRequest.updatePassword(dict);
     response.then(r => {
       this.setState({ errors: r.errors, errorMessage: r.errorMessage });
       if (r.status) {
-        ServerRequest.getOwnProfile().then(sub_r => {
-          Backend.setProfile(sub_r);
-          ServerRequest.getOwnBookings().then(res2 => {
-            this.setState({
-              redirect: sub_r.gender === "M" ? "/m" : "/w"
-            });
-          });
+        this.setState({
+          redirect: "/m/login"
         });
       }
     });
@@ -142,31 +145,10 @@ class Login extends React.Component {
             <Grid container className={classes.form} alignContent="center">
               <Grid item xs={12}>
                 <TextField
-                  label="ユーザー名"
-                  className={classes.textField}
-                  fullWidth
-                  margin="normal"
-                  InputLabelProps={{
-                    className: classes.label
-                  }}
-                  InputProps={{
-                    className: classes.input
-                  }}
-                  value={this.state.username}
-                  onChange={this.handleInputChange}
-                  name="username"
-                  error={errors.hasOwnProperty("username")}
-                  helperText={
-                    errors.hasOwnProperty("username") && errors["username"]
-                  }
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
                   label="パスワード"
-                  type="password"
                   className={classes.textField}
                   fullWidth
+                  type="password"
                   margin="normal"
                   InputLabelProps={{
                     className: classes.label
@@ -183,6 +165,29 @@ class Login extends React.Component {
                   }
                 />
               </Grid>
+              <Grid item xs={12}>
+                <TextField
+                  label="パスワードを確認"
+                  className={classes.textField}
+                  fullWidth
+                  type="password"
+                  margin="normal"
+                  InputLabelProps={{
+                    className: classes.label
+                  }}
+                  InputProps={{
+                    className: classes.input
+                  }}
+                  value={this.state.password_confirmation}
+                  onChange={this.handleInputChange}
+                  name="password_confirmation"
+                  error={errors.hasOwnProperty("password_confirmation")}
+                  helperText={
+                    errors.hasOwnProperty("password_confirmation") &&
+                    errors["password_confirmation"]
+                  }
+                />
+              </Grid>
             </Grid>
           </Grid>
           {errorMessage}
@@ -194,24 +199,16 @@ class Login extends React.Component {
               gender="M"
               type="submit"
             >
-              ログイン
+              送信
             </NomiButton>
           </Grid>
         </Grid>
         <br />
         <Button
           style={{ color: "grey" }}
-          onClick={() => this.setState({ redirect: "/m/forgotPassword" })}
+          onClick={() => this.setState({ redirect: "/m/login" })}
         >
-          パスワードを忘れた
-        </Button>
-        <br />
-        <br />
-        <Button
-          style={{ color: "grey" }}
-          onClick={() => this.setState({ redirect: "/" })}
-        >
-          ホームページに戻る
+          ログインページに戻る
         </Button>
       </form>
     );
@@ -253,8 +250,8 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
+ResetPassword.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(ResetPassword);

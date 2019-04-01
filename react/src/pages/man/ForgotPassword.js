@@ -81,12 +81,11 @@ const styles = theme => ({
   }
 });
 
-class Login extends React.Component {
+class ForgotPassword extends React.Component {
   state = {
     redirect: null,
     gender: "M",
-    username: null,
-    password: null,
+    email: null,
     errors: {},
     errorMessage: ""
   };
@@ -115,17 +114,13 @@ class Login extends React.Component {
   };
 
   handleFormSubmit = event => {
-    let response = AuthenticationService.login(this.state);
+    let dict = { email: this.state.email };
+    let response = ServerRequest.resetPassword(dict);
     response.then(r => {
       this.setState({ errors: r.errors, errorMessage: r.errorMessage });
       if (r.status) {
-        ServerRequest.getOwnProfile().then(sub_r => {
-          Backend.setProfile(sub_r);
-          ServerRequest.getOwnBookings().then(res2 => {
-            this.setState({
-              redirect: sub_r.gender === "M" ? "/m" : "/w"
-            });
-          });
+        this.setState({
+          redirect: "/m/login"
         });
       }
     });
@@ -142,7 +137,7 @@ class Login extends React.Component {
             <Grid container className={classes.form} alignContent="center">
               <Grid item xs={12}>
                 <TextField
-                  label="ユーザー名"
+                  label="メールアドレス"
                   className={classes.textField}
                   fullWidth
                   margin="normal"
@@ -152,35 +147,11 @@ class Login extends React.Component {
                   InputProps={{
                     className: classes.input
                   }}
-                  value={this.state.username}
+                  value={this.state.email}
                   onChange={this.handleInputChange}
-                  name="username"
-                  error={errors.hasOwnProperty("username")}
-                  helperText={
-                    errors.hasOwnProperty("username") && errors["username"]
-                  }
-                />
-              </Grid>
-              <Grid item xs={12}>
-                <TextField
-                  label="パスワード"
-                  type="password"
-                  className={classes.textField}
-                  fullWidth
-                  margin="normal"
-                  InputLabelProps={{
-                    className: classes.label
-                  }}
-                  InputProps={{
-                    className: classes.input
-                  }}
-                  value={this.state.password}
-                  onChange={this.handleInputChange}
-                  name="password"
-                  error={errors.hasOwnProperty("password")}
-                  helperText={
-                    errors.hasOwnProperty("password") && errors["password"]
-                  }
+                  name="email"
+                  error={errors.hasOwnProperty("email")}
+                  helperText={errors.hasOwnProperty("email") && errors["email"]}
                 />
               </Grid>
             </Grid>
@@ -194,24 +165,16 @@ class Login extends React.Component {
               gender="M"
               type="submit"
             >
-              ログイン
+              送信
             </NomiButton>
           </Grid>
         </Grid>
         <br />
         <Button
           style={{ color: "grey" }}
-          onClick={() => this.setState({ redirect: "/m/forgotPassword" })}
+          onClick={() => this.setState({ redirect: "/m/login" })}
         >
-          パスワードを忘れた
-        </Button>
-        <br />
-        <br />
-        <Button
-          style={{ color: "grey" }}
-          onClick={() => this.setState({ redirect: "/" })}
-        >
-          ホームページに戻る
+          ログインページに戻る
         </Button>
       </form>
     );
@@ -253,8 +216,8 @@ class Login extends React.Component {
   }
 }
 
-Login.propTypes = {
+ForgotPassword.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-export default withStyles(styles)(Login);
+export default withStyles(styles)(ForgotPassword);
