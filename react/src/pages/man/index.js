@@ -207,11 +207,11 @@ class ManLanding extends React.Component {
           >
             {Backend.isShowingNearbyGirls ? (
               <div>
-                No girls found at
+                {Backend.selectedPlace}, {Backend.selectedCity} at {dateString}
                 <br />
-                {Backend.selectedPlace}, {Backend.selectedCity} at {dateString}.{" "}
+                の空いてる女性はいません。
                 <br />
-                How about nearby girls:
+                こちらの女性たちは空いていますよ!
               </div>
             ) : (
               <div>
