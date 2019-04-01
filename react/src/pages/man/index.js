@@ -211,6 +211,7 @@ class ManLanding extends React.Component {
                 <br />
                 の空いてる女性はいません。
                 <br />
+                <br />
                 こちらの女性たちは空いていますよ!
               </div>
             ) : (
