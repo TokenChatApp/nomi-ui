@@ -100,7 +100,7 @@ const GirlList = withStyles(styles)(props => {
           className={classes.buttonChat}
           gender="M"
           type="submit"
-          href={"https://chat.lolchat.net/" + girl.username}
+          href={"https://chat.lolchat.net/c/" + girl.username}
         >
           chatで @{girl.username} に連絡する
         </MainButton>
