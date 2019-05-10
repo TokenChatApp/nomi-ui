@@ -8,6 +8,7 @@ import Grid from "@material-ui/core/Grid";
 import TextField from "@material-ui/core/TextField";
 import login from "../images/login.svg";
 import signup from "../images/sign_up.svg";
+import logo from "../images/logo.png";
 import girlImg from "../images/new-girl.jpeg";
 import manImg from "../images/new-guy.jpeg";
 import partyImg from "../images/party.jpg";
@@ -94,6 +95,7 @@ const styles = theme => ({
     background: `linear-gradient(${womanColor[0]} , ${womanColor[1]})`
   },
   img: { width: "80%" },
+  logo: { height: "80px" },
   buttonImg: {
     width: 25,
     height: 25,
@@ -179,14 +181,7 @@ class Landing extends React.Component {
               />
             </Grid>
             <Grid item xs={12}>
-              <Typography
-                className={classes.title}
-                variant="h1"
-                color="inherit"
-                noWrap
-              >
-                TIPS
-              </Typography>
+              <img src={logo} className={classes.logo} alt="TIPS" />
             </Grid>
           </Grid>
         </div>
